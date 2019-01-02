@@ -15,17 +15,19 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => '',
+    'database'        => 'maisiji',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => '',
+    'password'        => 'root',
     // 端口
-    'hostport'        => '',
+    'hostport'        => '3306',
     // 连接dsn
     'dsn'             => '',
     // 数据库连接参数
-    'params'          => [],
+    'params' => [
+        \PDO::ATTR_PERSISTENT   => true
+    ],
     // 数据库编码默认采用utf8
     'charset'         => 'utf8',
     // 数据库表前缀
@@ -51,5 +53,7 @@ return [
     // 时间字段取出后的默认时间格式
     'datetime_format' => 'Y-m-d H:i:s',
     // 是否需要进行SQL性能分析
-    'sql_explain'     => false,
+    'sql_explain'     => IS_LINUX ? false : true,
+    // 开启断线重连
+    'break_reconnect' => true,
 ];

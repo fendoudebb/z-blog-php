@@ -15,9 +15,9 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => IS_LINUX ? false : true,
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => IS_LINUX ? false : true,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -160,7 +160,7 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '',
+    'exception_handle'       => '\\app\\common\\exception\\Http',
 
     // +----------------------------------------------------------------------
     // | 日志设置
@@ -171,8 +171,14 @@ return [
         'type'  => 'File',
         // 日志保存目录
         'path'  => LOG_PATH,
+        //单个日志文件的大小限制，超过后会自动记录到第二个文件
+        'file_size' => 2097152,
         // 日志记录级别
         'level' => [],
+        // error和sql日志单独记录
+        'apart_level' => ['log','error','sql'],
+        //日志的时间格式，默认是` c `
+        'time_format' =>'Y-m-d H:i:s'
     ],
 
     // +----------------------------------------------------------------------
@@ -189,13 +195,19 @@ return [
 
     'cache'                  => [
         // 驱动方式
-        'type'   => 'File',
+        //'type'   => 'File',
         // 缓存保存目录
-        'path'   => CACHE_PATH,
+        //'path'   => CACHE_PATH,
         // 缓存前缀
-        'prefix' => '',
+        //'prefix' => '',
         // 缓存有效期 0表示永久缓存
-        'expire' => 0,
+        //'expire' => 0,
+        'type'   => 'redis',
+        'host'   => '127.0.0.1',
+        'port'   => '6379',
+        'password' => '',
+        'timeout'=> 3600,
+        'persistent' => true
     ],
 
     // +----------------------------------------------------------------------

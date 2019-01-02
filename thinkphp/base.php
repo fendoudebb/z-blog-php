@@ -33,6 +33,7 @@ defined('ENV_PREFIX') or define('ENV_PREFIX', 'PHP_'); // 环境变量的配置�
 // 环境常量
 define('IS_CLI', PHP_SAPI == 'cli' ? true : false);
 define('IS_WIN', strpos(PHP_OS, 'WIN') !== false);
+define('IS_LINUX', strpos(PHP_OS, 'Linux') !== false);
 
 // 载入Loader类
 require CORE_PATH . 'Loader.php';
