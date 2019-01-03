@@ -3,7 +3,7 @@
 namespace app\common\exception;
 
 
-class UnKnownException extends \RuntimeException {
+class MsjException extends \RuntimeException {
 
     protected $error;
 

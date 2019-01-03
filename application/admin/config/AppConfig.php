@@ -1,6 +1,6 @@
 <?php
 
-namespace app\console\config;
+namespace app\admin\config;
 
 class AppConfig {
 

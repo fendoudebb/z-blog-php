@@ -2,7 +2,7 @@
 
 namespace app\common\exception;
 
-use app\console\config\ResCode;
+use app\admin\config\ResCode;
 use Exception;
 use think\exception\Handle;
 use think\exception\HttpException;
