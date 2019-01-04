@@ -16,12 +16,12 @@ class Http extends Handle {
         // 参数验证错误
         if ($e instanceof ValidateException) {
             Log::info("valid exception -> " . $e->getMessage());
-            return self::fail(ResCode::VALID_FAIL, $e->getMessage());
+            return self::fail(ResCode::UNAUTHORIZED, $e->getMessage());
         }
 
         // 参数验证错误
-        if ($e instanceof UnKnownException) {
-            Log::info("UnKnown exception -> " . $e->getMessage());
+        if ($e instanceof SystemException) {
+            Log::info("system exception -> " . $e->getMessage());
             return self::fail($e->getMessage());
         }
 
@@ -33,7 +33,7 @@ class Http extends Handle {
         //TODO::开发者对异常的操作
         //可以在此交由系统处理
 //        return parent::render($e);
-        return self::fail(ResCode::INTERVAL_EXCEPTION);
+        return self::fail(ResCode::INTERNAL_SEVER_ERROR);
     }
 
     public function fail($code, $msg = '') {

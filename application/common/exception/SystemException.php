@@ -3,7 +3,7 @@
 namespace app\common\exception;
 
 
-class MsjException extends \RuntimeException {
+class SystemException extends \RuntimeException {
 
     protected $error;
 
