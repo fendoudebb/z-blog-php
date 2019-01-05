@@ -1,10 +1,10 @@
 <?php
 
-namespace app\mini\controller;
+namespace app\admin\controller;
 
 
 use app\admin\config\RedisKey;
-use app\admin\config\ResCode;
+use app\common\config\ResCode;
 use app\common\exception\SystemException;
 use app\common\util\Redis;
 use think\Log;
@@ -16,6 +16,7 @@ abstract class BaseAuth extends Base {
     protected $username;
     protected $nickname;
     protected $avatar;
+    protected $roles;
 
     public function _initialize() {
         parent::_initialize();
@@ -31,7 +32,7 @@ abstract class BaseAuth extends Base {
         }
         $this->userId = $userId;
         $hashKey = RedisKey::ADMIN_LOGIN_USER . $this->userId;
-        $userInfo = Redis::init()->hMGet($hashKey,['uid', 'username', 'nickname', 'avatar']);
+        $userInfo = Redis::init()->hMGet($hashKey,['uid', 'username', 'nickname', 'avatar', 'roles']);
         if (!isset($userInfo)) {
             Log::log("base auth, without user info in cache, uid->" . $this->uid);
             throw new SystemException(ResCode::UNAUTHORIZED);
@@ -40,6 +41,7 @@ abstract class BaseAuth extends Base {
         $this->username = $userInfo['username'];
         $this->nickname = $userInfo['nickname'];
         $this->avatar = $userInfo['avatar'];
+        $this->roles = $userInfo['roles'];
         Redis::init()->set(RedisKey::ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
     }
 

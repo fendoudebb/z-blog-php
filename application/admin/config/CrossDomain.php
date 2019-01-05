@@ -1,6 +1,6 @@
 <?php
 
-namespace app\common\config;
+namespace app\admin\config;
 
 
 use think\Log;

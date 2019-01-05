@@ -1,8 +1,8 @@
 <?php
 
-namespace app\mini\controller;
+namespace app\admin\controller;
 
-use app\admin\config\ResCode;
+use app\common\config\ResCode;
 use think\Controller;
 use think\Log;
 use think\Request;
