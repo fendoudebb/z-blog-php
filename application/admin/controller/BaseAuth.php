@@ -22,7 +22,7 @@ abstract class BaseAuth extends Base {
         parent::_initialize();
         $token = $this->request->header('token');
         if (!isset($token)) {
-            Log::log("base auth, lack of request header token!");
+            Log::log("base auth, lack of request header token, ip[$this->ip]");
             throw new SystemException(ResCode::BAD_REQUEST);
         }
         $userId = Redis::init()->get(RedisKey::ADMIN_LOGIN_TOKEN . $token);
@@ -32,16 +32,23 @@ abstract class BaseAuth extends Base {
         }
         $this->userId = $userId;
         $hashKey = RedisKey::ADMIN_LOGIN_USER . $this->userId;
-        $userInfo = Redis::init()->hMGet($hashKey,['uid', 'username', 'nickname', 'avatar', 'roles']);
+        $hashKeys = [
+            RedisKey::ADMIN_LOGIN_USER_INFO_UID,
+            RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
+            RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME,
+            RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR,
+            RedisKey::ADMIN_LOGIN_USER_INFO_ROLES
+        ];
+        $userInfo = Redis::init()->hMGet($hashKey, $hashKeys);
         if (!isset($userInfo)) {
-            Log::log("base auth, without user info in cache, uid->" . $this->uid);
+            Log::log("base auth, without user info in cache, uid[$this->uid]");
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
-        $this->uid = $userInfo['uid'];
-        $this->username = $userInfo['username'];
-        $this->nickname = $userInfo['nickname'];
-        $this->avatar = $userInfo['avatar'];
-        $this->roles = $userInfo['roles'];
+        $this->uid = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_UID];
+        $this->username = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME];
+        $this->nickname = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME];
+        $this->avatar = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR];
+        $this->roles = explode(",", $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ROLES]);
         Redis::init()->set(RedisKey::ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
     }
 

@@ -9,14 +9,16 @@ use think\Request;
 
 abstract class Base extends Controller {
 
+    protected $ip;
+
     public function _initialize() {
         $request = Request::instance();
         $date = date('Y-m-d H:i:s', time());
-        $ip = $request->ip();
+        $this->ip = $request->ip();
         $url = $request->url();
         $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
         $param = $request->param();
-        Log::log("[$date] : ip->[$ip], url->[$url], memory->[$memory_use mb], request param -> ". json_encode($param));
+        Log::log("[$date] : ip->[$this->ip], url->[$url], memory->[$memory_use mb], request param -> ". json_encode($param));
     }
 
     private function base($code, $data = null, $msg = '') {
