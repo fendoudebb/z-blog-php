@@ -36,7 +36,7 @@ class Login extends Base {
                 ->column('r.name as roleName');
             if (empty($roles)) {
                 Log::log("admin login, user's[$username] role is empty");
-                return $this->fail(ResCode::USERNAME_ROLE_INFO_ERROR);
+                return $this->fail(ResCode::USER_ROLE_INFO_ERROR);
             }
             $userId = $sysUser['id'];
             $uid = $sysUser['uid'];

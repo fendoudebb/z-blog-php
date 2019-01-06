@@ -10,12 +10,12 @@ class ResCode {
         self::UNAUTHORIZED => 'unauthorized',
         self::FORBIDDEN => 'forbidden',
         self::INTERNAL_SEVER_ERROR => 'internal_sever_error',
-        self::URL_NOT_EXIST => '链接不存在',
-        self::REQUEST_FAIL => '请求失败',
-        self::REQUEST_SUCCESS => '请求成功',
-        self::USERNAME_OR_PASSWORD_ERROR => '用户名或密码错误',
-        self::USERNAME_OR_PASSWORD_EMPTY => '用户名或密码不能为空',
-        self::USERNAME_ROLE_INFO_ERROR => '用户角色不正确',
+        self::URL_NOT_EXIST => 'url not exist',
+        self::REQUEST_FAIL => 'request fail',
+        self::REQUEST_SUCCESS => 'request success',
+        self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
+        self::USERNAME_OR_PASSWORD_EMPTY => 'username or password is empty',
+        self::USER_ROLE_INFO_ERROR => "user's role info error",
     ];
 
     const BAD_REQUEST = 400;
@@ -29,6 +29,6 @@ class ResCode {
 
     const USERNAME_OR_PASSWORD_ERROR = 100;
     const USERNAME_OR_PASSWORD_EMPTY = 101;
-    const USERNAME_ROLE_INFO_ERROR = 102;
+    const USER_ROLE_INFO_ERROR = 102;
 
 }
