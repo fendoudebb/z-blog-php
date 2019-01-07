@@ -30,8 +30,8 @@ class Login extends Base {
                 return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
             }
             $roles = Db::table('sys_user_role rel')
-                ->join('sys_user u', 'rel.uid = u.id')
-                ->join('sys_role r', 'rel.rid = r.id')
+                ->join('sys_user u', 'rel.user_id = u.id')
+                ->join('sys_role r', 'rel.role_id = r.id')
                 ->where('u.username', $username)
                 ->column('r.name as roleName');
             if (empty($roles)) {
