@@ -16,6 +16,7 @@ class ResCode {
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
         self::USERNAME_OR_PASSWORD_EMPTY => 'username or password is empty',
         self::USER_ROLE_INFO_ERROR => "user's role info error",
+        self::POST_TYPE_IS_EMPTY => "post type is empty",
     ];
 
     const BAD_REQUEST = 400;
@@ -30,5 +31,6 @@ class ResCode {
     const USERNAME_OR_PASSWORD_ERROR = 100;
     const USERNAME_OR_PASSWORD_EMPTY = 101;
     const USER_ROLE_INFO_ERROR = 102;
+    const POST_TYPE_IS_EMPTY = 103;
 
 }
