@@ -16,7 +16,7 @@ class Login extends Base {
         $username = input('post.username');
         $password = input('post.password');
         if (!isset($username) || !isset($password)) {
-            Log::log("admin login, missing params username or password, ip[$this->ip]");
+            Log::log("admin login, missing params username or password. login ip[$this->ip]");
             return $this->fail(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
         }
         try {
@@ -26,7 +26,7 @@ class Login extends Base {
                 ->where('password', $password)
                 ->find();
             if (!isset($sysUser)) {
-                Log::log("admin login, user[$username] isn't not exist");
+                Log::log("admin login, username[$username]-password[$password] doesn't exist. operator[$username]");
                 return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
             }
             $roles = Db::table('sys_user_role rel')
@@ -35,7 +35,7 @@ class Login extends Base {
                 ->where('u.username', $username)
                 ->column('r.name as roleName');
             if (empty($roles)) {
-                Log::log("admin login, user's[$username] role is empty");
+                Log::log("admin login, user's[$username] role is empty. operator[$username]");
                 return $this->fail(ResCode::USER_ROLE_INFO_ERROR);
             }
             $userId = $sysUser['id'];
