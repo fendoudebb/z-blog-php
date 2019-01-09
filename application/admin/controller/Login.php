@@ -50,7 +50,7 @@ class Login extends Base {
             ];
             Redis::init()->hMSet(RedisKey::ADMIN_LOGIN_USER . $userId, $userInfo);
             $token = base64_encode($userId . ' ' . time());
-            Redis::init()->setex(RedisKey::ADMIN_LOGIN_USER . $token, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME, $userId);
+            Redis::init()->setex(RedisKey::ADMIN_LOGIN_TOKEN . $token, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME, $userId);
             return $this->res(['token' => $token, 'roles' => $roles]);
         } catch (Exception $e) {
             Log::log("admin login, username[$username]-password[$password], exception->" . $e->getMessage());
