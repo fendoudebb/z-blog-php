@@ -8,14 +8,21 @@ use think\Db;
 use think\Exception;
 use think\Log;
 
-class PostType extends BaseAuth {
+class Tag extends BaseAuth {
 
-    public function listType() {
+    public function info() {
         $page = input('post.page');
         $size = input('post.size');
+        if (!isset($page)) {
+            $page = 1;
+        }
+        if (!isset($size) || $size >= 20) {
+            $size = 20;
+        }
         try {
-            $postType = Db::table('post_type')
-                ->field('name')
+            $postType = Db::table('tag')
+                ->field('tid, name')
+                ->where('is_parent', 0)
                 ->page($page, $size)
                 ->select();
             if (empty($postType)) {
