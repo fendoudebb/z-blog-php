@@ -54,7 +54,7 @@ class Login extends Base {
             return $this->res(['token' => $token, 'roles' => $roles]);
         } catch (Exception $e) {
             Log::log("admin login, username[$username]-password[$password], exception->" . $e->getMessage());
-            return $this->fail($e->getMessage());
+            return $this->exception();
         }
     }
 }

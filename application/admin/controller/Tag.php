@@ -10,7 +10,7 @@ use think\Log;
 
 class Tag extends BaseAuth {
 
-    public function info() {
+    public function tagInfo() {
         $page = input('post.page');
         $size = input('post.size');
         if (!isset($page)) {
@@ -26,13 +26,13 @@ class Tag extends BaseAuth {
                 ->page($page, $size)
                 ->select();
             if (empty($postType)) {
-                Log::log("list post_type, empty!, username[$this->username]");
-                return $this->fail(ResCode::POST_TYPE_IS_EMPTY);
+                Log::log("tag info, empty!, username[$this->username]");
+                return $this->fail(ResCode::TAG_IS_EMPTY);
             }
             return $this->res($postType);
         } catch (Exception $e) {
-            Log::log("list post_type, exception->" . $e->getMessage());
-            return $this->fail(ResCode::REQUEST_FAIL);
+            Log::log("tag info, exception->" . $e->getMessage());
+            return $this->exception();
         }
     }
 
