@@ -21,7 +21,7 @@ class Tag extends BaseAuth {
         }
         try {
             $postType = Db::table('tag')
-                ->field('tid, name')
+                ->field('id, name')
                 ->where('is_parent', 0)
                 ->page($page, $size)
                 ->select();

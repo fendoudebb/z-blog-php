@@ -17,6 +17,7 @@ class ResCode {
         self::USERNAME_OR_PASSWORD_EMPTY => 'username or password is empty',
         self::USER_ROLE_INFO_ERROR => "user's role info error",
         self::TAG_IS_EMPTY => "tag is empty",
+        self::TAG_TYPE_IS_EMPTY => "tag type is empty",
     ];
 
     const BAD_REQUEST = 400;
@@ -32,5 +33,6 @@ class ResCode {
     const USERNAME_OR_PASSWORD_EMPTY = 1001;
     const USER_ROLE_INFO_ERROR = 1002;
     const TAG_IS_EMPTY = 1003;
+    const TAG_TYPE_IS_EMPTY = 1004;
 
 }

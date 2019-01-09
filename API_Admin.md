@@ -27,7 +27,13 @@ msg | string | status description
 }
 ```
 
-## 1. Login
+## 1. Login登录
+### 1.1 login登录
+#### request url
+```text
+/admin/login
+```
+
 #### request params
 Params | Type | Require | Desc
 :---: | :---: | :---: | :---:
@@ -62,7 +68,13 @@ Code | Msg|
 }
 ```
 
-## 2. Tag Info标签信息
+## 2. Tag标签
+### 2.1 Tag info 标签信息
+#### request url
+```text
+/admin/tag
+```
+
 #### request params
 Params | Type | Require | Desc
 :---: | :---: | :---: | :---:
@@ -72,7 +84,7 @@ size | number | N | default: 20, max:20
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
-tid | string(32) | sign unique id
+id | number | sign unique id
 name | string | sign name
 
 #### error code
@@ -87,12 +99,47 @@ Code | Msg|
     "msg": "request success",
     "data": [
         {
-            "tid": "4724268cca8fcc955785df24c4ad1db9",
+            "id": 1,
             "name": "SpringBoot"
         },
         {
-            "tid": "01f4c24e3b3df5714b549c94e6dda083",
+            "id": 2,
             "name": "SpringCloud"
+        }
+    ]
+}
+```
+
+### 2.2 Tag type 标签类别
+#### request url
+```text
+/admin/type
+```
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+id | number | sign unique id
+name | string | sign name
+
+#### error code
+Code | Msg|
+:---: | :---: 
+1004 | tag type is empty
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success",
+    "data": [
+        {
+            "id": 1,
+            "name": "前端"
+        },
+        {
+            "id": 2,
+            "name": "后端"
         }
     ]
 }
