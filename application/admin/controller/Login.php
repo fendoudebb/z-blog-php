@@ -16,8 +16,8 @@ class Login extends Base {
         $username = input('post.username');
         $password = input('post.password');
         if (!isset($username) || !isset($password)) {
-            Log::log("admin login, username or password field is null, ip[$this->ip]");
-            return $this->fail(ResCode::USERNAME_OR_PASSWORD_EMPTY);
+            Log::log("admin login, missing params username or password, ip[$this->ip]");
+            return $this->fail(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
         }
         try {
             $sysUser = Db::table('sys_user')

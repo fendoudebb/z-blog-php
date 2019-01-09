@@ -49,9 +49,9 @@ roles | array | user's role
 #### error code
 Code | Msg|
 :---: | :---: 
+2000 | missing params: username or password
 1000 | username or password error
-1001 | username or password is empty 
-1002 | user's role info error
+1001 | user's role info error
 
 #### example
 ```json
@@ -90,7 +90,7 @@ name | string | sign name
 #### error code
 Code | Msg|
 :---: | :---: 
-1003 | tag is empty
+1002 | tag is empty
 
 #### example
 ```json
@@ -125,7 +125,7 @@ name | string | sign name
 #### error code
 Code | Msg|
 :---: | :---: 
-1004 | tag type is empty
+1003 | tag type is empty
 
 #### example
 ```json
