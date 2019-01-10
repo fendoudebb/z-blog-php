@@ -6,8 +6,11 @@ Route::get('/id', 'index/Index/index');
 
 Route::post('/admin/login', 'admin/Login/login');
 
-Route::post('/admin/tag', 'admin/Tag/tagInfo');
-Route::post('/admin/tag/type', 'admin/TagType/tagType');
+
+//---Topic api start---
+Route::post('/admin/topic', 'admin/Topic/topicInfo');
+Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
+//---Topic api end---
 
 return [
 
