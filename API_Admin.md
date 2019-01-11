@@ -130,7 +130,7 @@ Code | Msg|
 2001 | missing params: topic name
 2002 | missing params: topic type
 3000 | illegal argument: topic type
-1004 | topic name exists already
+1002 | topic name exists already
 4000 | table insert fail
 
 #### example
@@ -138,5 +138,67 @@ Code | Msg|
 {
     "code": 200,
     "msg": "request success"
+}
+```
+
+## 3. Post 文章
+### 2.1 Post info 文章信息
+#### request url
+```text
+/admin/post
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+page | number | N | default: 1
+size | number | N | default: 20, max:20
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+nickname | string | author nickname
+postId | number | post unique id
+postTime | string | post publish time
+status | string | post status
+title | string | post title
+keywords | string | post keywords
+description | string | post description
+isCommentClose | number | post comment status: open or close
+isPrivate | number | post property: open or private
+isCopy | number | post property: original or copy
+originalLink | string | original link which reprints
+isTop | number | post property: top of the post list or not
+pv | number | post property: page view
+commentCount | number | post property: comment count
+likeCount | number | post property: like count
+
+#### error code
+NULL
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success",
+    "data": [
+        {
+            "nickname": "fendoudebb",
+            "postId": 19,
+            "postTime": "2018-09-22 14:28:09",
+            "status": 1,
+            "title": "上传文件出现413错误(Request Entity Too Large)",
+            "keywords": "Nginx,上传文件限制",
+            "description": "Nginx上传文件限制大小",
+            "isCommentClose": 0,
+            "isPrivate": 0,
+            "isCopy": 0,
+            "originalLink": "",
+            "isTop": 0,
+            "pv": 0,
+            "commentCount": 0,
+            "likeCount": 0
+        }
+    ]
 }
 ```

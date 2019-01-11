@@ -10,16 +10,16 @@ use think\Log;
 
 class Topic extends BaseRoleAdmin {
 
-    public function topicInfo() {
+    public function topicList() {
         $topicType = input('post.topicType');
         $page = input('post.page');
         $size = input('post.size');
         if (!isset($topicType)) {
-            Log::log("topic info, missing params: topic type. operator[$this->username]");
+            Log::log("topic list, missing params: topic type. operator[$this->username]");
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_TYPE);
         }
         if (!is_numeric($topicType) || ($topicType != 0 && $topicType != 1)) {
-            Log::log("topic info, illegal argument: topic type. operator[$this->username]");
+            Log::log("topic list, illegal argument: topic type. operator[$this->username]");
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_TYPE);
         }
         if (!isset($page)) {
@@ -36,7 +36,7 @@ class Topic extends BaseRoleAdmin {
                 ->select();
             return $this->res($topic);
         } catch (Exception $e) {
-            Log::log("topic info, exception->" . $e->getMessage());
+            Log::log("topic list, operator[$this->username]. exception->" . $e->getMessage());
             return $this->exception();
         }
     }
