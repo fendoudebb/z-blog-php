@@ -1,5 +1,5 @@
-## 0. Common
-### 0.1 Headers  
+## 0. Common 通用
+### 0.1 Headers  请求头
 #### Http Method
 POST
 #### Content-Type
@@ -7,9 +7,9 @@ POST
 Content-Type:application/json;charset=utf‐8
 ```
 
-#### token(Except Login API)
+#### token(Except Login API / 除了login接口外都需要在请求头中加入token)
 ```http request
-token:[$token]
+token:$token
 ```
 
 ### 0.2 common response
