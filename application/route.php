@@ -2,7 +2,6 @@
 
 use think\Route;
 
-Route::get('/id', 'index/Index/index');
 Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert',['method'=>'get|post']);
 
 Route::post('/admin/login', 'admin/Login/login');
@@ -17,6 +16,8 @@ Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
 //---Post api end---
+
+Route::get('/', 'index/Index/index');
 
 return [
 

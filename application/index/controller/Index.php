@@ -2,19 +2,10 @@
 
 namespace app\index\controller;
 
-use app\common\util\IdUtil;
-use think\Log;
+use think\Controller;
 
-class Index {
+class Index extends Controller {
     public function index() {
-        $tag = input('get.tag');
-        if (empty($tag)) {
-            $tag = time();
-        }
-        for ($i = 0; $i < 30; $i++) {
-            Log::log(IdUtil::generateId($tag));
-            usleep(1000);
-        }
-        return 'ok';
+        return $this->fetch('index',['name'=>'ccc']);
     }
 }
