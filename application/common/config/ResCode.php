@@ -15,13 +15,22 @@ class ResCode {
         self::REQUEST_SUCCESS => 'request success',
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
         self::USER_ROLE_INFO_ERROR => "user's role info error",
-        self::TAG_IS_EMPTY => "tag is empty",
-        self::TAG_TYPE_IS_EMPTY => "tag type is empty",
+        self::TOPIC_NAME_EXISTS => "topic name exists already",
 
 
 
         self::MISSING_PARAMS_USERNAME_OR_PASSWORD => "missing params: username or password",
-        self::MISSING_PARAMS_TAG_NAME => "missing params: tag name",
+        self::MISSING_PARAMS_TOPIC_NAME => "missing params: topic name",
+        self::MISSING_PARAMS_TOPIC_TYPE => "missing params: topic type",
+
+
+
+        self::ILLEGAL_ARGUMENT_TOPIC_TYPE => "illegal argument: topic type",
+
+
+
+        self::TABLE_INSERT_FAIL => "table insert fail",
+        self::TABLE_UPDATE_FAIL => "table update fail",
     ];
 
     const BAD_REQUEST = 400;
@@ -33,12 +42,25 @@ class ResCode {
     const REQUEST_FAIL = -1;
     const REQUEST_SUCCESS = 200;
 
+    //---error code const start---
     const USERNAME_OR_PASSWORD_ERROR = 1000;
     const USER_ROLE_INFO_ERROR = 1001;
-    const TAG_IS_EMPTY = 1002;
-    const TAG_TYPE_IS_EMPTY = 1003;
+    const TOPIC_NAME_EXISTS = 1002;
+    //---error code const end---
 
+    //---missing params const start---
     const MISSING_PARAMS_USERNAME_OR_PASSWORD = 2000;
-    const MISSING_PARAMS_TAG_NAME = 2001;
+    const MISSING_PARAMS_TOPIC_NAME = 2001;
+    const MISSING_PARAMS_TOPIC_TYPE = 2002;
+    //---missing params const end---
+
+
+    //---illegal argument const start---
+    const ILLEGAL_ARGUMENT_TOPIC_TYPE = 3000;
+    //---illegal argument const end---
+
+
+    const TABLE_INSERT_FAIL = 4000;
+    const TABLE_UPDATE_FAIL = 4001;
 
 }

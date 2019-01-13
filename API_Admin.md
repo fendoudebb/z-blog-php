@@ -68,16 +68,17 @@ Code | Msg|
 }
 ```
 
-## 2. Tag标签
-### 2.1 Tag info 标签信息
+## 2. Topic 主题
+### 2.1 Topic info 标签信息
 #### request url
 ```text
-/admin/tag
+/admin/topic
 ```
 
 #### request params
 Params | Type | Require | Desc
 :---: | :---: | :---: | :---:
+topicType | number | Y | 0 or 1
 page | number | N | default: 1
 size | number | N | default: 20, max:20
 
@@ -90,7 +91,8 @@ name | string | sign name
 #### error code
 Code | Msg|
 :---: | :---: 
-1002 | tag is empty
+2002 | missing params: topic type
+3000 | illegal argument: topic type
 
 #### example
 ```json
@@ -110,22 +112,69 @@ Code | Msg|
 }
 ```
 
-### 2.2 Tag type 标签类别
+### 2.2 Add Topic 添加主题
 #### request url
 ```text
-/admin/type
+/admin/topic/add
 ```
 
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
-id | number | sign unique id
-name | string | sign name
+topicName | string(16) | topic name
+topicType | number | 0 or 1
 
 #### error code
 Code | Msg|
 :---: | :---: 
-1003 | tag type is empty
+2001 | missing params: topic name
+2002 | missing params: topic type
+3000 | illegal argument: topic type
+1002 | topic name exists already
+4000 | table insert fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+## 3. Post 文章
+### 2.1 Post info 文章信息
+#### request url
+```text
+/admin/post
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+page | number | N | default: 1
+size | number | N | default: 20, max:20
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+nickname | string | author nickname
+postId | number | post unique id
+postTime | string | post publish time
+status | string | post status
+title | string | post title
+keywords | string | post keywords
+description | string | post description
+isCommentClose | number | post comment status: open or close
+isPrivate | number | post property: open or private
+isCopy | number | post property: original or copy
+originalLink | string | original link which reprints
+isTop | number | post property: top of the post list or not
+pv | number | post property: page view
+commentCount | number | post property: comment count
+likeCount | number | post property: like count
+
+#### error code
+NULL
 
 #### example
 ```json
@@ -134,12 +183,21 @@ Code | Msg|
     "msg": "request success",
     "data": [
         {
-            "id": 1,
-            "name": "前端"
-        },
-        {
-            "id": 2,
-            "name": "后端"
+            "nickname": "fendoudebb",
+            "postId": 19,
+            "postTime": "2018-09-22 14:28:09",
+            "status": 1,
+            "title": "上传文件出现413错误(Request Entity Too Large)",
+            "keywords": "Nginx,上传文件限制",
+            "description": "Nginx上传文件限制大小",
+            "isCommentClose": 0,
+            "isPrivate": 0,
+            "isCopy": 0,
+            "originalLink": "",
+            "isTop": 0,
+            "pv": 0,
+            "commentCount": 0,
+            "likeCount": 0
         }
     ]
 }

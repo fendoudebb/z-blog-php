@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript控制HTML页面</title>
+    <style type="text/css">
+        /*禁止选中文字*/
+        body{
+            -moz-user-select: none; /*火狐*/
+            -webkit-user-select: none; /*webkit浏览器*/
+            -ms-user-select: none; /*IE10*/
+            -khtml-user-select: none; /*早期浏览器*/
+            user-select: none;
+        }
+    </style>
+    <script type='text/javascript'>
+        alert("top.window.outerHeight: " + top.window.outerHeight + ", top.window.innerHeight: " + top.window.innerHeight);
+        alert("top.window.outerWidth: " + top.window.outerWidth + ", top.window.innerWidth: " + top.window.innerWidth);
+        if (top.window.outerHeight - top.window.innerHeight > 100) {
+            alert("top.window.outerHeight: " + top.window.outerHeight + ", top.window.innerHeight: " + top.window.innerHeight);
+        }
+        if (top.window.outerWidth - top.window.innerWidth > 100) {
+            alert("bbbbb");
+        }
+        //如果用户在工具栏调起开发者工具，那么判断浏览器的可视高度和可视宽度是否有改变，如有改变则关闭本页面
+        var h = window.innerHeight,w=window.innerWidth;
+        window.onresize = function () {
+            if (h !== window.innerHeight || w !== window.innerWidth) {
+                window.close();
+                window.location = "about:blank";
+            }
+        };
+        document.body.oncopy = function () {
+            return false;
+        };
+        //禁用右键（防止右键查看源代码）
+        window.oncontextmenu = function () {
+            return false;
+        };
+        window.onkeydown = window.onkeyup = window.onkeypress = function (event) {
+            if (event.key === 'F1') {
+                event.preventDefault(); // 阻止F1帮助
+                window.event.returnValue = false;
+            }
+            if (event.key === 'F12') {
+                event.preventDefault(); // 阻止F12调试
+                window.event.returnValue = false;
+            }
+            if (event.ctrlKey && event.shiftKey && event.key === 'i') {
+                event.preventDefault(); // 阻止ctrl+shift+i打开chrome调试
+                window.event.returnValue = false;
+            }
+            if (event.ctrlKey && event.key === 's') {
+                event.preventDefault(); // 阻止ctrl+s保存
+                window.event.returnValue = false;
+            }
+        };
+        //改变原来网页的高度和宽度, 只要修改页面元素就重新加载一次数据（不支持IE9以下浏览器）
+        if(window.addEventListener){
+            window.addEventListener("DOMCharacterDataModified", function(){window.location.reload();}, true);
+            window.addEventListener("DOMAttributeNameChanged", function(){window.location.reload();}, true);
+            window.addEventListener("DOMCharacterDataModified", function(){window.location.reload();}, true);
+            window.addEventListener("DOMElementNameChanged", function(){window.location.reload();}, true);
+            window.addEventListener("DOMNodeInserted", function(){window.location.reload();}, true);
+            window.addEventListener("DOMNodeInsertedIntoDocument", function(){window.location.reload();}, true);
+            window.addEventListener("DOMNodeRemoved", function(){window.location.reload();}, true);
+            window.addEventListener("DOMNodeRemovedFromDocument", function(){window.location.reload();}, true);
+            window.addEventListener("DOMSubtreeModified", function(){window.location.reload();}, true);
+        }
+    </script>
+
+
+</head>
+<body onselectstart="return false">
+aaaa
+</body>
+</html>
