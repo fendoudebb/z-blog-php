@@ -22,6 +22,7 @@ class ResCode {
         self::MISSING_PARAMS_USERNAME_OR_PASSWORD => "missing params: username or password",
         self::MISSING_PARAMS_TOPIC_NAME => "missing params: topic name",
         self::MISSING_PARAMS_TOPIC_TYPE => "missing params: topic type",
+        self::MISSING_PARAMS_POST_ID => "missing params: post id",
 
 
 
@@ -52,6 +53,7 @@ class ResCode {
     const MISSING_PARAMS_USERNAME_OR_PASSWORD = 2000;
     const MISSING_PARAMS_TOPIC_NAME = 2001;
     const MISSING_PARAMS_TOPIC_TYPE = 2002;
+    const MISSING_PARAMS_POST_ID = 2003;
     //---missing params const end---
 
 
