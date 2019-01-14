@@ -202,3 +202,41 @@ NULL
     ]
 }
 ```
+
+### 2.2 Post topic 文章主题
+#### request url
+```text
+/admin/post/topic
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+postId | number | Y | post id
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+topicName | string | topic name
+isDelete | number | topic is delete
+
+#### error code
+NULL
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success",
+    "data": [
+        {
+            "topicName": "前端",
+            "isDelete": 0
+        },
+        {
+            "topicName": "后端",
+            "isDelete": 1
+        }
+    ]
+}
+```
