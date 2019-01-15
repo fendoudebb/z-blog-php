@@ -21,12 +21,13 @@ class ResCode {
 
         self::MISSING_PARAMS_USERNAME_OR_PASSWORD => "missing params: username or password",
         self::MISSING_PARAMS_TOPIC_NAME => "missing params: topic name",
-        self::MISSING_PARAMS_TOPIC_TYPE => "missing params: topic type",
+        self::MISSING_PARAMS_TOPIC_PARENT_ID => "missing params: topic parent id",
         self::MISSING_PARAMS_POST_ID => "missing params: post id",
 
 
 
-        self::ILLEGAL_ARGUMENT_TOPIC_TYPE => "illegal argument: topic type",
+        self::ILLEGAL_ARGUMENT_POST_ID => "illegal argument: post id",
+        self::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID => "illegal argument: topic parent id",
 
 
 
@@ -52,13 +53,14 @@ class ResCode {
     //---missing params const start---
     const MISSING_PARAMS_USERNAME_OR_PASSWORD = 2000;
     const MISSING_PARAMS_TOPIC_NAME = 2001;
-    const MISSING_PARAMS_TOPIC_TYPE = 2002;
+    const MISSING_PARAMS_TOPIC_PARENT_ID = 2002;
     const MISSING_PARAMS_POST_ID = 2003;
     //---missing params const end---
 
 
     //---illegal argument const start---
-    const ILLEGAL_ARGUMENT_TOPIC_TYPE = 3000;
+    const ILLEGAL_ARGUMENT_POST_ID = 3000;
+    const ILLEGAL_ARGUMENT_TOPIC_PARENT_ID = 3001;
     //---illegal argument const end---
 
 

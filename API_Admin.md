@@ -1,3 +1,5 @@
+[TOC]
+
 ## 0. Common 通用
 ### 0.1 Headers  请求头
 #### Http Method
@@ -78,7 +80,7 @@ Code | Msg|
 #### request params
 Params | Type | Require | Desc
 :---: | :---: | :---: | :---:
-topicType | number | Y | 0 or 1
+topicParentId | number | Y | topic parent id
 page | number | N | default: 1
 size | number | N | default: 20, max:20
 
@@ -91,8 +93,8 @@ name | string | sign name
 #### error code
 Code | Msg|
 :---: | :---: 
-2002 | missing params: topic type
-3000 | illegal argument: topic type
+2002 | missing params: topic parent id
+3001 | illegal argument: topic parent id
 
 #### example
 ```json
@@ -122,14 +124,14 @@ Code | Msg|
 Params | Type | Desc
 :---: | :---: | :---:
 topicName | string(16) | topic name
-topicType | number | 0 or 1
+topicParentId | number | topic parent id
 
 #### error code
 Code | Msg|
 :---: | :---: 
 2001 | missing params: topic name
-2002 | missing params: topic type
-3000 | illegal argument: topic type
+2002 | missing params: topic parent id
+3001 | illegal argument: topic parent id
 1002 | topic name exists already
 4000 | table insert fail
 
@@ -221,7 +223,10 @@ topicName | string | topic name
 isDelete | number | topic is delete
 
 #### error code
-NULL
+Code | Msg|
+:---: | :---: 
+2003 | missing params: post id
+3000 | illegal argument: post id
 
 #### example
 ```json

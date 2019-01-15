@@ -11,16 +11,16 @@ use think\Log;
 class Topic extends BaseRoleAdmin {
 
     public function topicList() {
-        $topicType = input('post.topicType');
+        $topicParentId = input('post.topicParent');
         $page = input('post.page');
         $size = input('post.size');
-        if (!isset($topicType)) {
-            Log::log("topic list, missing params: topic type. operator[$this->username]");
-            return $this->fail(ResCode::MISSING_PARAMS_TOPIC_TYPE);
+        if (!isset($topicParentId)) {
+            Log::log("topic list, missing params: topic parent id. operator[$this->username]");
+            return $this->fail(ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
         }
-        if (!is_numeric($topicType) || ($topicType != 0 && $topicType != 1)) {
-            Log::log("topic list, illegal argument: topic type. operator[$this->username]");
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_TYPE);
+        if (!is_numeric($topicParentId)) {
+            Log::log("topic list, illegal argument: topic parent id. operator[$this->username]");
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
         }
         if (!isset($page)) {
             $page = 1;
@@ -31,7 +31,7 @@ class Topic extends BaseRoleAdmin {
         try {
             $topic = Db::table('topic')
                 ->field('id, name')
-                ->where('is_parent', $topicType)
+                ->where('parent_id', $topicParentId)
                 ->page($page, $size)
                 ->select();
             return $this->res($topic);

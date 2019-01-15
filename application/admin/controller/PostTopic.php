@@ -16,6 +16,10 @@ class PostTopic extends BaseRoleAdmin {
             Log::log("post topic, missing params: post id. operator[$this->username]");
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
+        if (!is_numeric($postId)) {
+            Log::log("post topic, illegal argument: post id. operator[$this->username]");
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+        }
         try {
             $postTopic = Db::table('post_topic pt')
                 ->field('t.name as topicName, pt.is_delete as isDelete')
