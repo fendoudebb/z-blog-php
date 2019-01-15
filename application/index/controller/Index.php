@@ -2,10 +2,10 @@
 
 namespace app\index\controller;
 
-use think\Controller;
+class Index extends Base {
 
-class Index extends Controller {
     public function index() {
-        return $this->fetch('index',['name'=>'ccc']);
+        return $this->fetch('index', ['name' => 'ccc']);
     }
+
 }
