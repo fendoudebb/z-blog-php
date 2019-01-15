@@ -16,9 +16,14 @@ abstract class Base extends Controller {
         $date = date('Y-m-d H:i:s', time());
         $this->ip = $request->ip();
         $url = $request->url();
+        $userAgent = $this->request->header('user-agent');
+        $referer = $this->request->header('referer');
+        if (!isset($referer)) {
+            $referer = '';
+        }
         $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
         $param = $request->param();
-        Log::log("[$date] : ip->[$this->ip], url->[$url], memory->[$memory_use mb], request param -> ". json_encode($param));
+        Log::log("[$date] : ip[$this->ip], url[$url], referer[$referer], user-agent[$userAgent], memory[$memory_use mb], request param -> ". json_encode($param));
     }
 
     private function base($code, $data = null, $msg = '') {
