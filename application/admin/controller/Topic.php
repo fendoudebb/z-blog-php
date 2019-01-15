@@ -11,7 +11,7 @@ use think\Log;
 class Topic extends BaseRoleAdmin {
 
     public function topicList() {
-        $topicParentId = input('post.topicParent');
+        $topicParentId = input('post.topicParentId');
         $page = input('post.page');
         $size = input('post.size');
         if (!isset($topicParentId)) {
@@ -32,6 +32,7 @@ class Topic extends BaseRoleAdmin {
             $topic = Db::table('topic')
                 ->field('id, name')
                 ->where('parent_id', $topicParentId)
+                ->order('sort')
                 ->page($page, $size)
                 ->select();
             return $this->res($topic);

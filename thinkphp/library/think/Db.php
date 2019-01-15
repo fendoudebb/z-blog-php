@@ -46,6 +46,7 @@ use think\db\Query;
  * @method boolean batchQuery(array $sqlArray) static 批处理执行SQL语句
  * @method string quote(string $str) static SQL指令安全过滤
  * @method string getLastInsID($sequence = null) static 获取最近插入的ID
+ * @method static raw(string $string)
  */
 class Db
 {

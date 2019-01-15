@@ -31,15 +31,22 @@ class TopicAdd extends BaseRoleAdmin {
             Log::log("add topic, topic name[$topicName] exists already. operator[$this->username]");
             return $this->fail(ResCode::TOPIC_NAME_EXISTS);
         }
+        Db::startTrans();
+        $sort = Db::table('topic')
+            ->where('parent_id', $topicParentId)
+            ->max('sort');
         $insertResult = Db::table('topic')
             ->insert([
                 'name' => $topicName,
-                'parent_id' => $topicParentId
+                'parent_id' => $topicParentId,
+                'sort' => $sort + 1
             ]);
         if (!$insertResult) {
+            Db::rollback();
             Log::log("add topic, insert [$topicName] into table topic fail. operator[$this->username]");
             return $this->fail(ResCode::TABLE_INSERT_FAIL);
         }
+        Db::commit();
         return $this->res();
     }
 
