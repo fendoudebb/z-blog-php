@@ -16,6 +16,7 @@ Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
 Route::post('/admin/post/topic', 'admin/PostTopic/postTopic');
+Route::post('/admin/post/topic/modify', 'admin/PostTopicModify/modifyPostTopic');
 //---Post api end---
 
 Route::get('/', 'index/Index/index');
