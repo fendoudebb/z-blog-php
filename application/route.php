@@ -21,6 +21,7 @@ Route::post('/admin/post/topic/modify', 'admin/PostTopicModify/modifyPostTopic')
 //---Post api end---
 
 Route::get('/', 'index/Index/index');
+Route::get('/example/js_control', 'index/Example/jsControl');
 
 return [
 
