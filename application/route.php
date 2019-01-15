@@ -10,6 +10,7 @@ Route::post('/admin/login', 'admin/Login/login');
 //---Topic api start---
 Route::post('/admin/topic', 'admin/Topic/topicList');
 Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
+Route::post('/admin/topic/modify/sort', 'admin/TopicModifySort/modifyTopicSort');
 //---Topic api end---
 
 

@@ -114,7 +114,7 @@ Code | Msg|
 }
 ```
 
-### 2.2 Add Topic 添加主题
+### 2.2 Add topic 添加主题
 #### request url
 ```text
 /admin/topic/add
@@ -134,6 +134,34 @@ Code | Msg|
 3001 | illegal argument: topic parent id
 1002 | topic name exists already
 4000 | table insert fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+### 2.3 Modify topic sort添加主题
+#### request url
+```text
+/admin/topic/modify/sort
+```
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+topicId | number | topic id
+
+#### error code
+Code | Msg|
+:---: | :---: 
+2004 | missing params: topic id
+2005 | missing params: topic sort
+3002 | illegal argument: topic id
+3003 | illegal argument: topic sort
+4001 | table update fail
 
 #### example
 ```json
