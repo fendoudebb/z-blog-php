@@ -143,7 +143,7 @@ Code | Msg|
 }
 ```
 
-### 2.3 Modify topic sort添加主题
+### 2.3 Modify topic sort 修改主题排序
 #### request url
 ```text
 /admin/topic/modify/sort
@@ -153,6 +153,7 @@ Code | Msg|
 Params | Type | Desc
 :---: | :---: | :---:
 topicId | number | topic id
+topicSort | number | topic sort
 
 #### error code
 Code | Msg|
@@ -161,6 +162,65 @@ Code | Msg|
 2005 | missing params: topic sort
 3002 | illegal argument: topic id
 3003 | illegal argument: topic sort
+4001 | table update fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+### 2.4 Modify topic name 修改主题名称
+#### request url
+```text
+/admin/topic/modify/name
+```
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+topicId | number | topic id
+topicName | string | topic name
+
+#### error code
+Code | Msg|
+:---: | :---: 
+2004 | missing params: topic id
+2001 | missing params: topic name
+3002 | illegal argument: topic id
+1002 | topic name exists already
+4001 | table update fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+### 2.4 Modify topic parent 修改主题父类
+#### request url
+```text
+/admin/topic/modify/parent
+```
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+topicId | number | topic id
+topicParentId | string | topic parent id
+
+#### error code
+Code | Msg|
+:---: | :---: 
+2004 | missing params: topic id
+2002 | missing params: topic parent id
+3002 | illegal argument: topic id
+3001 | illegal argument: topic parent id
+1003 | topic parent id not exist
 4001 | table update fail
 
 #### example
