@@ -4,7 +4,7 @@
 - [Common通用](#Common通用)
     - [Headers请求头](#Headers请求头)
     - [Response返回信息](#Response返回信息)
-- [Login&Logout登录与退出](#Login&Logout登录与退出)
+- [Login/Logout登录与退出](#Login/Logout登录与退出)
     - [Login登录](#Login登录)
 - [Topic主题](#Topic主题)
     - [TopicInfo标签信息](#TopicInfo标签信息)
@@ -45,7 +45,7 @@ msg | string | status description
 }
 ```
 
-## Login&Logout登录与退出
+## Login/Logout登录与退出
 ### Login登录
 #### request url
 ```text
