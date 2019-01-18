@@ -2,22 +2,22 @@
 
 ## Table of Contents 目录
 - [Common通用](#Common通用)
-    - [headers请求头](#0.1 headers请求头)
-    - [response返回信息](#0.2 response返回信息)
-- [Login登录](#1.Login登录)
-    - [login登录](#1.1 login登录)
-- [Topic主题](#2.Topic主题)
-    - [topic info标签信息](#2.1 topic info标签信息)
-    - [add topic 添加主题](#2.2 add topic添加主题)
-    - [modify topic sort修改主题排序](#2.3 modify topic sort修改主题排序)
-    - [modify topic name修改主题名称](#2.4 modify topic name修改主题名称)
-    - [modify topic parent修改主题父类](#2.5 modify topic parent修改主题父类)
-- [Post文章](#3.Post文章)
-    - [post info文章信息](#3.1 post info文章信息)
-    - [post topic文章主题](#3.2 post topic文章主题)
+    - [headers请求头](#headers请求头)
+    - [response返回信息](#response返回信息)
+- [Login登录](#Login登录)
+    - [login登录](#login登录)
+- [Topic主题](#Topic主题)
+    - [topic info标签信息](#topic info标签信息)
+    - [add topic 添加主题](#add topic添加主题)
+    - [modify topic sort修改主题排序](#modify topic sort修改主题排序)
+    - [modify topic name修改主题名称](#modify topic name修改主题名称)
+    - [modify topic parent修改主题父类](#modify topic parent修改主题父类)
+- [Post文章](#Post文章)
+    - [post info文章信息](#post info文章信息)
+    - [post topic文章主题](#post topic文章主题)
 
 ## Common通用
-### 0.1 headers请求头
+### headers请求头
 #### Http Method
 POST
 #### Content-Type
@@ -30,7 +30,7 @@ Content-Type:application/json;charset=utf‐8
 token:$token
 ```
 
-### 0.2 response返回信息
+### response返回信息
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
@@ -45,8 +45,8 @@ msg | string | status description
 }
 ```
 
-## 1.Login登录
-### 1.1 login登录
+## Login登录
+### login登录
 #### request url
 ```text
 /admin/login
@@ -86,8 +86,8 @@ Code | Msg|
 }
 ```
 
-## 2.Topic主题
-### 2.1 topic info标签信息
+## Topic主题
+### topic info标签信息
 #### request url
 ```text
 /admin/topic
@@ -130,7 +130,7 @@ Code | Msg|
 }
 ```
 
-### 2.2 add topic添加主题
+### add topic添加主题
 #### request url
 ```text
 /admin/topic/add
@@ -159,7 +159,7 @@ Code | Msg|
 }
 ```
 
-### 2.3 modify topic sort修改主题排序
+### modify topic sort修改主题排序
 #### request url
 ```text
 /admin/topic/modify/sort
@@ -188,7 +188,7 @@ Code | Msg|
 }
 ```
 
-### 2.4 modify topic name修改主题名称
+### modify topic name修改主题名称
 #### request url
 ```text
 /admin/topic/modify/name
@@ -217,7 +217,7 @@ Code | Msg|
 }
 ```
 
-### 2.5 modify topic parent修改主题父类
+### modify topic parent修改主题父类
 #### request url
 ```text
 /admin/topic/modify/parent
@@ -247,8 +247,8 @@ Code | Msg|
 }
 ```
 
-## 3.Post文章
-### 3.1 post info文章信息
+## Post文章
+### post info文章信息
 #### request url
 ```text
 /admin/post
@@ -309,7 +309,7 @@ NULL
 }
 ```
 
-### 3.2 post topic文章主题
+### post topic文章主题
 #### request url
 ```text
 /admin/post/topic
