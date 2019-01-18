@@ -1,7 +1,7 @@
 [TOC]
 
-# Table of Contents 目录
-- [Common通用](#0.Common通用)
+## Table of Contents 目录
+- [Common通用](#Common通用)
     - [headers请求头](#0.1 headers请求头)
     - [response返回信息](#0.2 response返回信息)
 - [Login登录](#1.Login登录)
@@ -16,7 +16,7 @@
     - [post info文章信息](#3.1 post info文章信息)
     - [post topic文章主题](#3.2 post topic文章主题)
 
-## 0.Common通用
+## Common通用
 ### 0.1 headers请求头
 #### Http Method
 POST
