@@ -11,6 +11,8 @@ Route::post('/admin/login', 'admin/Login/login');
 Route::post('/admin/topic', 'admin/Topic/topicList');
 Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
 Route::post('/admin/topic/modify/sort', 'admin/TopicModifySort/modifyTopicSort');
+Route::post('/admin/topic/modify/name', 'admin/TopicModifyName/modifyTopicName');
+Route::post('/admin/topic/modify/parent', 'admin/TopicModifyParent/modifyTopicParent');
 //---Topic api end---
 
 
