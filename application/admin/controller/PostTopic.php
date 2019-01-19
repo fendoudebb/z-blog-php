@@ -22,7 +22,7 @@ class PostTopic extends BaseRoleAdmin {
         }
         try {
             $postTopic = Db::table('post_topic pt')
-                ->field('t.name as topicName, pt.is_delete as isDelete')
+                ->field('t.id as topicId, t.name as topicName, pt.is_delete as isDelete')
                 ->join('post p', 'pt.post_id = p.id')
                 ->join('topic t', 'pt.topic_id = t.id')
                 ->where('post_id', $postId)

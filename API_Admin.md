@@ -323,6 +323,7 @@ postId | number | Y | post id
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
+topicId | number | topic id
 topicName | string | topic name
 isDelete | number | topic is delete
 
@@ -339,10 +340,12 @@ Code | Msg|
     "msg": "request success",
     "data": [
         {
+            "topicId": 1,
             "topicName": "前端",
             "isDelete": 0
         },
         {
+            "topicId": 2,
             "topicName": "后端",
             "isDelete": 1
         }
