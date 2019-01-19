@@ -3,7 +3,7 @@
 namespace app\admin\controller;
 
 
-class PostTopicModify extends BaseRoleAdmin {
+class PostModifyTopic extends BaseRoleAdmin {
 
     public function modifyPostTopic() {
 
