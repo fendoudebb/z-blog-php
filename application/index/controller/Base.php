@@ -2,6 +2,8 @@
 
 namespace app\index\controller;
 
+use app\common\util\Redis;
+use app\index\config\RedisKey;
 use think\Controller;
 use think\Db;
 use think\Log;
@@ -31,6 +33,13 @@ abstract class Base extends Controller {
                 'user_agent' => $userAgent,
                 'referer' => $referer
             ]);
+        $addIpPool = Redis::init()->pfAdd(RedisKey::VIEW_IP_POOL, [$this->ip]);
+        if ($addIpPool) {
+            Db::table('ip_pool')
+                ->insert([
+                    'ip' => $this->ip
+                ]);
+        }
     }
 
 
