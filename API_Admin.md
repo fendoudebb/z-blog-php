@@ -15,6 +15,7 @@
 - [Post文章](#Post文章)
     - [PostInfo文章信息](#PostInfo文章信息)
     - [PostTopic文章主题](#PostTopic文章主题)
+    - [PostTopicDelete删除文章主题](#PostTopicDelete删除文章主题)
 
 ## Common通用
 ### Headers请求头
@@ -136,7 +137,7 @@ Code | Msg|
 /admin/topic/add
 ```
 
-#### response params
+#### request params
 Params | Type | Desc
 :---: | :---: | :---:
 topicName | string(16) | topic name
@@ -148,7 +149,7 @@ Code | Msg|
 2001 | missing params: topic name
 2002 | missing params: topic parent id
 3001 | illegal argument: topic parent id
-1002 | topic name exists already
+1002 | topic name already exists
 4000 | table insert fail
 
 #### example
@@ -165,7 +166,7 @@ Code | Msg|
 /admin/topic/modify/sort
 ```
 
-#### response params
+#### request params
 Params | Type | Desc
 :---: | :---: | :---:
 topicId | number | topic id
@@ -194,7 +195,7 @@ Code | Msg|
 /admin/topic/modify/name
 ```
 
-#### response params
+#### request params
 Params | Type | Desc
 :---: | :---: | :---:
 topicId | number | topic id
@@ -206,7 +207,7 @@ Code | Msg|
 2004 | missing params: topic id
 2001 | missing params: topic name
 3002 | illegal argument: topic id
-1002 | topic name exists already
+1002 | topic name already exists
 4001 | table update fail
 
 #### example
@@ -223,7 +224,7 @@ Code | Msg|
 /admin/topic/modify/parent
 ```
 
-#### response params
+#### request params
 Params | Type | Desc
 :---: | :---: | :---:
 topicId | number | topic id
@@ -236,7 +237,7 @@ Code | Msg|
 2002 | missing params: topic parent id
 3002 | illegal argument: topic id
 3001 | illegal argument: topic parent id
-1003 | topic parent id not exist
+1003 | topic parent id does not exist
 4001 | table update fail
 
 #### example
@@ -325,7 +326,7 @@ Params | Type | Desc
 :---: | :---: | :---:
 topicId | number | topic id
 topicName | string | topic name
-isDelete | number | topic is delete
+isDelete | number | whether topic was deleted
 
 #### error code
 Code | Msg|
@@ -350,5 +351,31 @@ Code | Msg|
             "isDelete": 1
         }
     ]
+}
+```
+
+### PostTopicDelete删除文章主题
+#### request url
+```text
+/admin/post/topic/delete
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+postId | number | Y | post id
+topicId | number | Y | topic id
+
+#### error code
+Code | Msg|
+:---: | :---: 
+2003 | missing params: post id
+3000 | illegal argument: post id
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
 }
 ```
