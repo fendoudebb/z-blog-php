@@ -15,11 +15,11 @@ class Topic extends BaseRoleAdmin {
         $page = input('post.page');
         $size = input('post.size');
         if (!isset($topicParentId)) {
-            Log::log("topic list, missing params: topic parent id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
         }
         if (!is_numeric($topicParentId)) {
-            Log::log("topic list, illegal argument: topic parent id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
         }
         if (!isset($page)) {
@@ -37,7 +37,7 @@ class Topic extends BaseRoleAdmin {
                 ->select();
             return $this->res($topic);
         } catch (Exception $e) {
-            Log::log("topic list, operator[$this->username]. exception->" . $e->getMessage());
+            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
             return $this->exception();
         }
     }

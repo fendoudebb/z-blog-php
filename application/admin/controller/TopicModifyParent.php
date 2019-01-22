@@ -14,19 +14,19 @@ class TopicModifyParent extends BaseRoleAdmin {
         $topicId = input('post.topicId');
         $topicParentId = input('post.topicParentId');
         if (!isset($topicId)) {
-            Log::log("modify topic parent id, missing params: topic id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
         }
         if (!isset($topicParentId)) {
-            Log::log("modify topic parent id, missing params: topic parent id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
         }
         if (!is_numeric($topicId)) {
-            Log::log("modify topic parent id, illegal argument: topic id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
         }
         if (!is_numeric($topicParentId)) {
-            Log::log("modify topic parent id, illegal argument: topic parent id. operator[$this->username]");
+            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
         }
         try {
@@ -35,8 +35,8 @@ class TopicModifyParent extends BaseRoleAdmin {
                 ->where('parent_id', $topicParentId)
                 ->value('id');
             if (!isset($existId)) {
-                Log::log("modify topic parent id, topic parent id not exists. operator[$this->username]");
-                return $this->fail(ResCode::TOPIC_PARENT_ID_NOT_EXISTS);
+                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TOPIC_PARENT_ID_DOES_NOT_EXIST);
+                return $this->fail(ResCode::TOPIC_PARENT_ID_DOES_NOT_EXIST);
             }
             $updateParentIdResult = Db::table('topic')
                 ->where('id', $topicId)
@@ -45,14 +45,14 @@ class TopicModifyParent extends BaseRoleAdmin {
                 ]);
             if (!$updateParentIdResult) {
                 Db::rollback();
-                Log::log("modify topic parent id, update table fail. operator[$this->username]");
+                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_UPDATE_FAIL);
                 return $this->fail(ResCode::TABLE_UPDATE_FAIL);
             }
             Db::commit();
             return $this->res();
         } catch (Exception $e) {
             Db::rollback();
-            Log::log("modify topic parent id, operator[$this->username], exception->" . $e->getMessage());
+            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
             return $this->exception();
         }
     }

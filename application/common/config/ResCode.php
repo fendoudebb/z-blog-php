@@ -15,8 +15,10 @@ class ResCode {
         self::REQUEST_SUCCESS => 'request success',
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
         self::USER_ROLE_INFO_ERROR => "user's role info error",
-        self::TOPIC_NAME_EXISTS => "topic name exists already",
-        self::TOPIC_PARENT_ID_NOT_EXISTS => "topic parent id not exist",
+        self::TOPIC_NAME_ALREADY_EXISTS => "topic name already exists",
+        self::TOPIC_PARENT_ID_DOES_NOT_EXIST => "topic parent id does not exist",
+        self::POST_TOPIC_DOES_NOT_EXIST => "post topic does not exist",
+        self::POST_TOPIC_HAS_BEEN_DELETED => "post topic has been deleted",
 
 
 
@@ -52,8 +54,10 @@ class ResCode {
     //---error code const start---
     const USERNAME_OR_PASSWORD_ERROR = 1000;
     const USER_ROLE_INFO_ERROR = 1001;
-    const TOPIC_NAME_EXISTS = 1002;
-    const TOPIC_PARENT_ID_NOT_EXISTS = 1003;
+    const TOPIC_NAME_ALREADY_EXISTS = 1002;
+    const TOPIC_PARENT_ID_DOES_NOT_EXIST = 1003;
+    const POST_TOPIC_DOES_NOT_EXIST = 1004;
+    const POST_TOPIC_HAS_BEEN_DELETED = 1005;
     //---error code const end---
 
     //---missing params const start---
