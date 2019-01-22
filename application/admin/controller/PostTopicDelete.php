@@ -8,7 +8,7 @@ use think\Db;
 use think\Exception;
 use think\Log;
 
-class PostDeleteTopic extends BaseRoleAdmin {
+class PostTopicDelete extends BaseRoleAdmin {
 
     public function deletePostTopic() {
         $postId = input('post.postId');

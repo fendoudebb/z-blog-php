@@ -8,7 +8,7 @@ use think\Db;
 use think\Exception;
 use think\Log;
 
-class PostAddTopic extends BaseRoleAdmin {
+class PostTopicAdd extends BaseRoleAdmin {
 
     public function addPostTopic() {
         $postId = input('post.postId');

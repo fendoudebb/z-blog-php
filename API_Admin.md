@@ -15,8 +15,8 @@
 - [Post文章](#Post文章)
     - [PostInfo文章信息](#PostInfo文章信息)
     - [PostTopic文章主题](#PostTopic文章主题)
-    - [PostAddTopic删除文章主题](#PostAddTopic添加文章主题)
-    - [PostDeleteTopic删除文章主题](#PostDeleteTopic删除文章主题)
+    - [PostTopicAdd删除文章主题](#PostTopicAdd添加文章主题)
+    - [PostTopicDelete删除文章主题](#PostTopicDelete删除文章主题)
 
 ## Common通用
 ### Headers请求头
@@ -354,7 +354,7 @@ Code | Msg
     ]
 }
 ```
-### PostAddTopic添加文章主题
+### PostTopicAdd添加文章主题
 #### request url
 ```text
 /admin/post/topic/add
@@ -387,7 +387,7 @@ Code | Msg
 }
 ```
 
-### PostDeleteTopic删除文章主题
+### PostTopicDelete删除文章主题
 #### request url
 ```text
 /admin/post/topic/delete
