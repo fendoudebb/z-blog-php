@@ -15,7 +15,8 @@
 - [Post文章](#Post文章)
     - [PostInfo文章信息](#PostInfo文章信息)
     - [PostTopic文章主题](#PostTopic文章主题)
-    - [PostTopicDelete删除文章主题](#PostTopicDelete删除文章主题)
+    - [PostAddTopic删除文章主题](#PostAddTopic添加文章主题)
+    - [PostDeleteTopic删除文章主题](#PostDeleteTopic删除文章主题)
 
 ## Common通用
 ### Headers请求头
@@ -66,7 +67,7 @@ token | string | auth token
 roles | array | user's role
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2000 | missing params: username or password
 1000 | username or password error
@@ -108,7 +109,7 @@ id | number | sign unique id
 name | string | sign name
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2002 | missing params: topic parent id
 3001 | illegal argument: topic parent id
@@ -144,7 +145,7 @@ topicName | string(16) | topic name
 topicParentId | number | topic parent id
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2001 | missing params: topic name
 2002 | missing params: topic parent id
@@ -173,7 +174,7 @@ topicId | number | topic id
 topicSort | number | topic sort
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2004 | missing params: topic id
 2005 | missing params: topic sort
@@ -202,7 +203,7 @@ topicId | number | topic id
 topicName | string | topic name
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2004 | missing params: topic id
 2001 | missing params: topic name
@@ -231,7 +232,7 @@ topicId | number | topic id
 topicParentId | string | topic parent id
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2004 | missing params: topic id
 2002 | missing params: topic parent id
@@ -329,7 +330,7 @@ topicName | string | topic name
 isDelete | number | whether topic was deleted
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2003 | missing params: post id
 3000 | illegal argument: post id
@@ -353,8 +354,40 @@ Code | Msg|
     ]
 }
 ```
+### PostAddTopic添加文章主题
+#### request url
+```text
+/admin/post/topic/add
+```
 
-### PostTopicDelete删除文章主题
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+postId | number | Y | post id
+topicId | number | Y | topic id
+
+#### error code
+Code | Msg
+:---: | :---: 
+2003 | missing params: post id
+2004 | missing params: topic id
+3000 | illegal argument: post id
+3002 | illegal argument: topic id
+1006 | post topic already exists
+1007 | topic id does not exist
+1008 | post id does not exist
+4000 | table insert fail
+4001 | table update fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+### PostDeleteTopic删除文章主题
 #### request url
 ```text
 /admin/post/topic/delete
@@ -367,10 +400,15 @@ postId | number | Y | post id
 topicId | number | Y | topic id
 
 #### error code
-Code | Msg|
+Code | Msg
 :---: | :---: 
 2003 | missing params: post id
+2004 | missing params: topic id
 3000 | illegal argument: post id
+3002 | illegal argument: topic id
+1004 | post topic does not exist
+1005 | post topic has been deleted
+4001 | table update fail
 
 #### example
 ```json
