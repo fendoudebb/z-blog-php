@@ -17,6 +17,7 @@
     - [PostTopic文章主题](#PostTopic文章主题)
     - [PostTopicAdd删除文章主题](#PostTopicAdd添加文章主题)
     - [PostTopicDelete删除文章主题](#PostTopicDelete删除文章主题)
+    - [PostCommentSwitch切换文章评论状态](#PostCommentSwitch切换文章评论状态)
 
 ## Common通用
 ### Headers请求头
@@ -408,6 +409,33 @@ Code | Msg
 3002 | illegal argument: topic id
 1004 | post topic does not exist
 1005 | post topic has been deleted
+4001 | table update fail
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success"
+}
+```
+
+### PostCommentSwitch切换文章评论状态
+#### request url
+```text
+/admin/post/comment/switch
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+postId | number | Y | post id
+
+#### error code
+Code | Msg
+:---: | :---: 
+2003 | missing params: post id
+3000 | illegal argument: post id
+1008 | post id does not exist
 4001 | table update fail
 
 #### example
