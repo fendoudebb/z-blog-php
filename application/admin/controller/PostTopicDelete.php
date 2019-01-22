@@ -6,7 +6,6 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use think\Db;
 use think\Exception;
-use think\Log;
 
 class PostTopicDelete extends BaseRoleAdmin {
 
@@ -14,19 +13,19 @@ class PostTopicDelete extends BaseRoleAdmin {
         $postId = input('post.postId');
         $topicId = input('post.topicId');
         if (!isset($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_POST_ID);
+            $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
         if (!is_numeric($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
         }
         if (!isset($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_ID);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
         }
         if (!is_numeric($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
         }
 
@@ -39,7 +38,7 @@ class PostTopicDelete extends BaseRoleAdmin {
                 ->find();
             if (!isset($postTopic)) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::POST_TOPIC_DOES_NOT_EXIST);
+                $this->log(ResCode::POST_TOPIC_DOES_NOT_EXIST);
                 return $this->fail(ResCode::POST_TOPIC_DOES_NOT_EXIST);
             }
 
@@ -47,7 +46,7 @@ class PostTopicDelete extends BaseRoleAdmin {
             $isDelete = $postTopic['is_delete'];
             if ($isDelete) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::POST_TOPIC_HAS_BEEN_DELETED);
+                $this->log(ResCode::POST_TOPIC_HAS_BEEN_DELETED);
                 return $this->fail(ResCode::POST_TOPIC_HAS_BEEN_DELETED);
             }
             $updateResult = Db::table('post_topic')
@@ -57,14 +56,14 @@ class PostTopicDelete extends BaseRoleAdmin {
                 ]);
             if (!$updateResult) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_UPDATE_FAIL);
+                $this->log(ResCode::TABLE_UPDATE_FAIL);
                 return $this->fail(ResCode::TABLE_UPDATE_FAIL);
             }
             Db::commit();
             return $this->res();
         } catch (Exception $e) {
             Db::rollback();
-            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
+            $this->log($e->getMessage(), true);
             return $this->exception();
         }
 

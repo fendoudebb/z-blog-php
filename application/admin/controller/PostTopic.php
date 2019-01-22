@@ -6,18 +6,17 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use think\Db;
 use think\Exception;
-use think\Log;
 
 class PostTopic extends BaseRoleAdmin {
 
     public function postTopic() {
         $postId = input('post.postId');
         if (!isset($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_POST_ID);
+            $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
         if (!is_numeric($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
         }
         try {
@@ -29,7 +28,7 @@ class PostTopic extends BaseRoleAdmin {
                 ->select();
             return $this->res($postTopic);
         } catch (Exception $e) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
+            $this->log($e->getMessage(), true);
             return $this->exception();
         }
     }

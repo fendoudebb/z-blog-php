@@ -8,7 +8,6 @@ use app\common\config\ResCode;
 use app\common\util\Redis;
 use think\Db;
 use think\Exception;
-use think\Log;
 
 class Login extends Base {
 
@@ -16,7 +15,7 @@ class Login extends Base {
         $username = input('post.username');
         $password = input('post.password');
         if (!isset($username) || !isset($password)) {
-            Log::log(__FUNCTION__ . "-operator[$this->ip]: " . ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
+            $this->log(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
             return $this->fail(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
         }
         try {
@@ -26,7 +25,7 @@ class Login extends Base {
                 ->where('password', $password)
                 ->find();
             if (!isset($sysUser)) {
-                Log::log(__FUNCTION__ . "-operator[$this->ip]: " . ResCode::USERNAME_OR_PASSWORD_ERROR);
+                $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
                 return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
             }
             $roles = Db::table('sys_user_role rel')
@@ -35,7 +34,7 @@ class Login extends Base {
                 ->where('u.username', $username)
                 ->column('r.name as roleName');
             if (empty($roles)) {
-                Log::log(__FUNCTION__ . "-operator[$username]: " . ResCode::USER_ROLE_INFO_ERROR);
+                $this->log(ResCode::USER_ROLE_INFO_ERROR);
                 return $this->fail(ResCode::USER_ROLE_INFO_ERROR);
             }
             $userId = $sysUser['id'];
@@ -54,7 +53,7 @@ class Login extends Base {
             Redis::init()->setex(RedisKey::ADMIN_LOGIN_TOKEN . $token, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME, $userId);
             return $this->res(['token' => $token, 'roles' => $roles]);
         } catch (Exception $e) {
-            Log::log(__FUNCTION__ . "-operator[$this->ip]: exception-> " . $e->getMessage());
+            $this->log($e->getMessage(), true);
             return $this->exception();
         }
     }

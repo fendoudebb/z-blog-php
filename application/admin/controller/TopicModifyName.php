@@ -6,7 +6,6 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use think\Db;
 use think\Exception;
-use think\Log;
 
 class TopicModifyName extends BaseRoleAdmin {
 
@@ -14,15 +13,15 @@ class TopicModifyName extends BaseRoleAdmin {
         $topicId = input('post.topicId');
         $topicName = input('post.topicName');
         if (!isset($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_ID);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
         }
         if (!isset($topicName)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_NAME);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_NAME);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_NAME);
         }
         if (!is_numeric($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
         }
         try {
@@ -32,7 +31,7 @@ class TopicModifyName extends BaseRoleAdmin {
                 ->value('id');
             if (isset($existId)) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TOPIC_NAME_ALREADY_EXISTS);
+                $this->log(ResCode::TOPIC_NAME_ALREADY_EXISTS);
                 return $this->fail(ResCode::TOPIC_NAME_ALREADY_EXISTS);
             }
             $updateNameResult = Db::table('topic')
@@ -42,14 +41,14 @@ class TopicModifyName extends BaseRoleAdmin {
                 ]);
             if (!$updateNameResult) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_UPDATE_FAIL);
+                $this->log(ResCode::TABLE_UPDATE_FAIL);
                 return $this->fail(ResCode::TABLE_UPDATE_FAIL);
             }
             Db::commit();
             return $this->res();
         } catch (Exception $e) {
             Db::rollback();
-            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
+            $this->log($e->getMessage(), true);
             return $this->exception();
         }
     }

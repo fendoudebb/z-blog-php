@@ -6,7 +6,6 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use think\Db;
 use think\Exception;
-use think\Log;
 
 class PostTopicAdd extends BaseRoleAdmin {
 
@@ -14,19 +13,19 @@ class PostTopicAdd extends BaseRoleAdmin {
         $postId = input('post.postId');
         $topicId = input('post.topicId');
         if (!isset($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_POST_ID);
+            $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
         if (!is_numeric($postId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
         }
         if (!isset($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_ID);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
         }
         if (!is_numeric($topicId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
         }
         try {
@@ -37,7 +36,7 @@ class PostTopicAdd extends BaseRoleAdmin {
                 ->find();
             if (!$isPostExists) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::POST_ID_DOES_NOT_EXIST);
+                $this->log(ResCode::POST_ID_DOES_NOT_EXIST);
                 return $this->fail(ResCode::POST_ID_DOES_NOT_EXIST);
             }
             $isTopicExists = Db::table('topic')
@@ -46,7 +45,7 @@ class PostTopicAdd extends BaseRoleAdmin {
                 ->find();
             if (!$isTopicExists) {
                 Db::rollback();
-                Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TOPIC_ID_DOES_NOT_EXIST);
+                $this->log(ResCode::TOPIC_ID_DOES_NOT_EXIST);
                 return $this->fail(ResCode::TOPIC_ID_DOES_NOT_EXIST);
             }
             $postTopic = Db::table('post_topic')
@@ -59,7 +58,7 @@ class PostTopicAdd extends BaseRoleAdmin {
                 $isDelete = $postTopic['is_delete'];
                 if ($isDelete === 0) {
                     Db::rollback();
-                    Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::POST_TOPIC_ALREADY_EXIST);
+                    $this->log(ResCode::POST_TOPIC_ALREADY_EXIST);
                     return $this->fail(ResCode::POST_TOPIC_ALREADY_EXIST);
                 }
                 $updateResult = Db::table('post_topic')
@@ -69,7 +68,7 @@ class PostTopicAdd extends BaseRoleAdmin {
                     ]);
                 if (!$updateResult) {
                     Db::rollback();
-                    Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_UPDATE_FAIL);
+                    $this->log(ResCode::TABLE_UPDATE_FAIL);
                     return $this->fail(ResCode::TABLE_UPDATE_FAIL);
                 }
                 Db::commit();
@@ -82,7 +81,7 @@ class PostTopicAdd extends BaseRoleAdmin {
                     ]);
                 if (!$insertResult) {
                     Db::rollback();
-                    Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_INSERT_FAIL);
+                    $this->log(ResCode::TABLE_INSERT_FAIL);
                     return $this->fail(ResCode::TABLE_INSERT_FAIL);
                 }
                 Db::commit();
@@ -90,7 +89,7 @@ class PostTopicAdd extends BaseRoleAdmin {
             }
         } catch (Exception $e) {
             Db::rollback();
-            Log::log(__FUNCTION__ . "-operator[$this->username]: exception-> " . $e->getMessage());
+            $this->log($e->getMessage(), true);
             return $this->exception();
         }
 

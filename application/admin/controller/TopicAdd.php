@@ -5,7 +5,6 @@ namespace app\admin\controller;
 
 use app\common\config\ResCode;
 use think\Db;
-use think\Log;
 
 class TopicAdd extends BaseRoleAdmin {
 
@@ -13,22 +12,22 @@ class TopicAdd extends BaseRoleAdmin {
         $topicName = input('post.topicName');
         $topicParentId = input('post.topicParentId');
         if (!isset($topicName)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_NAME);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_NAME);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_NAME);
         }
         if (!isset($topicParentId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
+            $this->log(ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC_PARENT_ID);
         }
         if (!is_numeric($topicParentId)) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
         }
         $isExist = Db::table('topic')
             ->where('name', $topicName)
             ->value('id');
         if ($isExist) {
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TOPIC_NAME_ALREADY_EXISTS);
+            $this->log(ResCode::TOPIC_NAME_ALREADY_EXISTS);
             return $this->fail(ResCode::TOPIC_NAME_ALREADY_EXISTS);
         }
         Db::startTrans();
@@ -43,7 +42,7 @@ class TopicAdd extends BaseRoleAdmin {
             ]);
         if (!$insertResult) {
             Db::rollback();
-            Log::log(__FUNCTION__ . "-operator[$this->username]: " . ResCode::TABLE_INSERT_FAIL);
+            $this->log(ResCode::TABLE_INSERT_FAIL);
             return $this->fail(ResCode::TABLE_INSERT_FAIL);
         }
         Db::commit();
