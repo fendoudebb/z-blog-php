@@ -19,7 +19,7 @@ Route::post('/admin/topic/modify/parent', 'admin/TopicModifyParent/modifyTopicPa
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
 Route::post('/admin/post/topic', 'admin/PostTopic/postTopic');
-Route::post('/admin/post/topic/add', 'admin/PostDeleteTopic/deletePostTopic');
+Route::post('/admin/post/topic/add', 'admin/PostAddTopic/addPostTopic');
 Route::post('/admin/post/topic/delete', 'admin/PostDeleteTopic/deletePostTopic');
 //---Post api end---
 

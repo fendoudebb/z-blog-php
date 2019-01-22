@@ -19,6 +19,9 @@ class ResCode {
         self::TOPIC_PARENT_ID_DOES_NOT_EXIST => "topic parent id does not exist",
         self::POST_TOPIC_DOES_NOT_EXIST => "post topic does not exist",
         self::POST_TOPIC_HAS_BEEN_DELETED => "post topic has been deleted",
+        self::POST_TOPIC_ALREADY_EXIST => "post topic already exists",
+        self::TOPIC_ID_DOES_NOT_EXIST => "topic id does not exist",
+        self::POST_ID_DOES_NOT_EXIST => "post id does not exist",
 
 
 
@@ -58,6 +61,9 @@ class ResCode {
     const TOPIC_PARENT_ID_DOES_NOT_EXIST = 1003;
     const POST_TOPIC_DOES_NOT_EXIST = 1004;
     const POST_TOPIC_HAS_BEEN_DELETED = 1005;
+    const POST_TOPIC_ALREADY_EXIST = 1006;
+    const TOPIC_ID_DOES_NOT_EXIST = 1007;
+    const POST_ID_DOES_NOT_EXIST = 1008;
     //---error code const end---
 
     //---missing params const start---
