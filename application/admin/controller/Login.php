@@ -48,9 +48,11 @@ class Login extends Base {
                 RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR => $avatar,
                 RedisKey::ADMIN_LOGIN_USER_INFO_ROLES => implode(",", $roles),
             ];
-            Redis::init()->hMSet(RedisKey::ADMIN_LOGIN_USER . $userId, $userInfo);
             $token = base64_encode($userId . ' ' . time());
-            Redis::init()->setex(RedisKey::ADMIN_LOGIN_TOKEN . $token, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME, $userId);
+            $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+            $pipeline->hMSet(RedisKey::ADMIN_LOGIN_USER . $userId, $userInfo);
+            $pipeline->setex(RedisKey::ADMIN_LOGIN_TOKEN . $token, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME, $userId);
+            $pipeline->exec();
             return $this->res(['token' => $token, 'roles' => $roles]);
         } catch (Exception $e) {
             $this->log($e->getMessage(), true);
