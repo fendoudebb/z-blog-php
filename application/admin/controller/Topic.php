@@ -21,20 +21,31 @@ class Topic extends BaseRoleAdmin {
             $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID);
         }
-        if (!isset($page)) {
+        if (!isset($page) || !is_numeric($page) || $page < 1) {
             $page = 1;
         }
-        if (!isset($size) || $size >= 20) {
+        if (!isset($size) || !is_numeric($size) || $size < 1 || $size > 20) {
             $size = 20;
         }
         try {
+            $response = [
+                'currentPage' => $page,
+                'pageSize' => $size,
+            ];
+            $count = Db::table('topic')
+                ->where('parent_id', $topicParentId)
+                ->count();
+            $offset = ($page - 1) * $size;
             $topic = Db::table('topic')
                 ->field('id, name')
                 ->where('parent_id', $topicParentId)
                 ->order('sort')
-                ->page($page, $size)
+                ->limit($offset, $size)
                 ->select();
-            return $this->res($topic);
+            $response['totalCount'] = $count;
+            $response['totalPage'] = ceil($count / $size);
+            $response['topic'] = $topic;
+            return $this->res($response);
         } catch (Exception $e) {
             $this->log($e->getMessage(), true);
             return $this->exception();

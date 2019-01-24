@@ -107,6 +107,10 @@ size | number | N | default: 20, max:20
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
+currentPage | number | current page
+pageSize | number | page size
+totalCount | number | topic total count
+totalPage | number | topic total page
 id | number | sign unique id
 name | string | sign name
 
@@ -121,16 +125,18 @@ Code | Msg
 {
     "code": 200,
     "msg": "request success",
-    "data": [
-        {
-            "id": 1,
-            "name": "SpringBoot"
-        },
-        {
-            "id": 2,
-            "name": "SpringCloud"
-        }
-    ]
+    "data": {
+        "currentPage": 1,
+        "pageSize": "20",
+        "totalCount": 3,
+        "totalPage": 1,
+        "topic": [
+            {
+                "id": 1,
+                "name": "SpringBoot"
+            }
+        ]
+    }
 }
 ```
 
