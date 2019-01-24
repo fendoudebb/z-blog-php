@@ -27,6 +27,7 @@ Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostCom
 
 Route::get('/', 'index/Index/index');
 Route::get('/example/js_control', 'index/Example/jsControl');
+Route::get('/tool/json/format', 'index/Tool/formatJson');
 
 return [
 

@@ -1,14 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    {include file="public/base" title="$title" keywords="$keywords" description="$description" /}
+    <style>
+        p {
+            margin: 10px 0;
+        }
+
+        ul, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .index-article-item {
+            padding: 18px 24px;
+            border-bottom: 1px solid #f4f4f4;
+        }
+
+        .index-article-item:hover {
+            background-color: #FAFAFA;
+        }
+
+        .index-article-item a {
+            word-wrap: break-word;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
+
+        .index-article-item a:hover {
+            color: #5BC0DE;
+        }
+
+        .index-article-item a:active {
+            color: #999;
+        }
+
+        .index-article-title {
+            font-size: 20px;
+        }
+
+        .index-article-desc {
+            margin: 0;
+            color: #8a8a8a;
+        }
+
+        ul.pagination {
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.pagination li {
+            display: inline;
+        }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        ul.pagination li a.active {
+            background-color: #5BC0DE;
+            color: white;
+            border-radius: 5px;
+        }
+
+        ul.pagination li a:hover:not(.active) {
+            background-color: #ddd;
+        }
+
+        .disabled {
+            cursor: not-allowed;
+
+        }
+    </style>
 </head>
 <body>
 {include file="public/header" /}
 aaa
-{$name}
-{$Request.ip}
+{$ip}
+{$ip}
+{$ip}
 {include file="public/footer" /}
 </body>
 </html>
