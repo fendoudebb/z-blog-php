@@ -17,6 +17,7 @@
     - [PostTopic文章主题](#PostTopic文章主题)
     - [PostTopicAdd删除文章主题](#PostTopicAdd添加文章主题)
     - [PostTopicDelete删除文章主题](#PostTopicDelete删除文章主题)
+    - [PostComment文章评论](#PostComment文章评论)
     - [PostCommentSwitch切换文章评论状态](#PostCommentSwitch切换文章评论状态)
 
 ## Common通用
@@ -416,6 +417,69 @@ Code | Msg
 {
     "code": 200,
     "msg": "request success"
+}
+```
+
+### PostComment文章评论
+#### request url
+```text
+/admin/post/comment
+```
+
+#### request params
+Params | Type | Require | Desc
+:---: | :---: | :---: | :---:
+postId | number | Y | post id
+page | number | N | default: 1
+size | number | N | default: 20, max:20
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+currentPage | number | current page
+pageSize | number | page size
+totalCount | number | comment total count
+totalPage | number | comment total page
+commentId | number | comment id
+isDelete | number | whether comment was deleted
+parentId | number | comment parent id
+postDate | string | comment post date
+likeCount | number | comment like count
+author | string | comment author
+authorEmail | string | comment author email
+authorIp | string | comment author ip
+authorUserAgent | string | comment author user agent
+
+#### error code
+Code | Msg
+:---: | :---: 
+2003 | missing params: post id
+3000 | illegal argument: post id
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success",
+    "data": {
+        "currentPage": 1,
+        "pageSize": "20",
+        "totalCount": 1003,
+        "totalPage": 51,
+        "comment": [
+            {
+                "commentId": 98005,
+                "isDelete": 0,
+                "parentId": 0,
+                "postDate": "2019-01-23 14:54:43",
+                "likeCount": 0,
+                "author": "张三8001",
+                "authorEmail": "",
+                "authorIp": "",
+                "authorUserAgent": ""
+            }
+        ]
+    }
 }
 ```
 
