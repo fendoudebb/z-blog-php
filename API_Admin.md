@@ -273,6 +273,10 @@ size | number | N | default: 20, max:20
 #### response params
 Params | Type | Desc
 :---: | :---: | :---:
+currentPage | number | current page
+pageSize | number | page size
+totalCount | number | post total count
+totalPage | number | post total page
 nickname | string | author nickname
 postId | number | post unique id
 postTime | string | post publish time
@@ -297,25 +301,31 @@ NULL
 {
     "code": 200,
     "msg": "request success",
-    "data": [
-        {
-            "nickname": "fendoudebb",
-            "postId": 19,
-            "postTime": "2018-09-22 14:28:09",
-            "status": 1,
-            "title": "上传文件出现413错误(Request Entity Too Large)",
-            "keywords": "Nginx,上传文件限制",
-            "description": "Nginx上传文件限制大小",
-            "isCommentClose": 0,
-            "isPrivate": 0,
-            "isCopy": 0,
-            "originalLink": "",
-            "isTop": 0,
-            "pv": 0,
-            "commentCount": 0,
-            "likeCount": 0
-        }
-    ]
+    "data": {
+        "currentPage": 1,
+        "pageSize": "20",
+        "totalCount": 4460022,
+        "totalPage": 223002,
+        "post": [
+            {
+                "nickname": "fendoudebb",
+                "postId": 19,
+                "postTime": "2018-09-22 14:28:09",
+                "status": 1,
+                "title": "上传文件出现413错误(Request Entity Too Large)",
+                "keywords": "Nginx,上传文件限制",
+                "description": "Nginx上传文件限制大小",
+                "isCommentClose": 0,
+                "isPrivate": 0,
+                "isCopy": 0,
+                "originalLink": "",
+                "isTop": 0,
+                "pv": 0,
+                "commentCount": 0,
+                "likeCount": 0
+            }
+        ]
+    }
 }
 ```
 
