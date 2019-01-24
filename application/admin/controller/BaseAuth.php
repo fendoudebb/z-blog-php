@@ -25,13 +25,13 @@ abstract class BaseAuth extends Base {
             Log::log("base auth, lack of request header token, ip[$this->ip]");
             throw new SystemException(ResCode::BAD_REQUEST);
         }
-        $userId = Redis::init()->get(RedisKey::ADMIN_LOGIN_TOKEN . $token);
+        $userId = Redis::init()->get(RedisKey::STR_ADMIN_LOGIN_TOKEN . $token);
         if (!$userId) {
             Log::log("base auth, token isn't exist:token[$token]");
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
         $this->userId = $userId;
-        $hashKey = RedisKey::ADMIN_LOGIN_USER . $this->userId;
+        $hashKey = RedisKey::HASH_ADMIN_LOGIN_USER . $this->userId;
         $hashKeys = [
             RedisKey::ADMIN_LOGIN_USER_INFO_UID,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
@@ -49,7 +49,7 @@ abstract class BaseAuth extends Base {
         $this->nickname = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME];
         $this->avatar = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR];
         $this->roles = explode(",", $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ROLES]);
-        Redis::init()->set(RedisKey::ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
+        Redis::init()->set(RedisKey::STR_ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
     }
 
     public function log($code, $exception = false) {
