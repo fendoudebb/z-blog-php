@@ -394,6 +394,7 @@ Code | Msg
 1006 | post topic already exists
 1007 | topic id does not exist
 1008 | post id does not exist
+1009 | over post topic count
 4000 | table insert fail
 4001 | table update fail
 

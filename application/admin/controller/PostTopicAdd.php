@@ -48,6 +48,16 @@ class PostTopicAdd extends BaseRoleAdmin {
                 $this->log(ResCode::TOPIC_ID_DOES_NOT_EXIST);
                 return $this->fail(ResCode::TOPIC_ID_DOES_NOT_EXIST);
             }
+            $postTopicCount = Db::table('post_topic')
+                ->where('post_id', $postId)
+                ->where('topic_id', $topicId)
+                ->where('is_delete', 0)
+                ->count();
+            if ($postTopicCount >= 3) {
+                Db::rollback();
+                $this->log(ResCode::OVER_POST_TOPIC_COUNT);
+                return $this->fail(ResCode::OVER_POST_TOPIC_COUNT);
+            }
             $postTopic = Db::table('post_topic')
                 ->field('id, is_delete')
                 ->where('post_id', $postId)
