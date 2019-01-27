@@ -149,30 +149,7 @@
 <div class="footer">
     {include file="public/footer" /}
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<!--<![endif]-->
-<!--[if lt IE 9]>
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        }
-        else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
-<script src="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.min.js"></script>
-<script src="https://cdn.bootcss.com/toastr.js/latest/toastr.min.js"></script>
-<script src="https://cdn.bootcss.com/clipboard.js/2.0.1/clipboard.min.js"></script>
+{include file="public/base_js" /}
 <script>
     $(function () {
         toastr.options = {
