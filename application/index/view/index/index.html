@@ -3,7 +3,7 @@
 <head>
     {include file="public/base" title="$title" keywords="$keywords" description="$description" /}
     <style>
-        p {
+        .content p {
             margin: 10px 0;
         }
 
@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+
         .index-article-item {
             padding: 18px 24px;
             border-bottom: 1px solid #f4f4f4;
@@ -80,11 +81,68 @@
     </style>
 </head>
 <body>
-{include file="public/header" /}
-aaa
-{$ip}
-{$ip}
-{$ip}
-{include file="public/footer" /}
+<div class="wrap">
+    <div class="main">
+        {include file="public/header" /}
+        {empty name="post"}
+        post为空
+        {else /}
+        <ul class="content">
+            {foreach $post as $p}
+            <li class="shadow index-article-item" >
+                <a href="/" class="index-article-title" title="{$p.title}">{$p.title}</a>
+                <p>
+                    <span class="article-tag">
+                    {if condition="$p.isCopy eq 0"}
+                        原创
+                    {else /}
+                        转载
+                    {/if}
+                    </span>
+                    <span>{$p.nickname}</span>
+                    <span class="article-dot">·</span>
+                    <span>Java</span>
+                    <span class="article-dot">·</span>
+                    <span>{$p.postTime}</span>
+                </p>
+                <p class="index-article-desc" >{$p.description}</p>
+            </li>
+            {/foreach}
+        </ul>
+        <div style="text-align: center;margin-top: 20px">
+            <ul class="pagination">
+                <li>
+                    {if condition="$currentPage == 1"}
+                    <a class="disabled" href="javascript:void(0);">上一页</a>
+                    {else /}
+                    <a href="/?page={$currentPage-1}&size={$pageSize}">上一页</a>
+                    {/if}
+                </li>
+                {for start="1" end="$totalPage"}
+                <li>
+                    {if condition="$i == $currentPage"}
+                    <a class="active" href="javascript:void(0);">{$i}</a>
+                    {else /}
+                    <a href="/?page={$i}&size={$pageSize}">
+                        {$i}
+                    </a>
+                    {/if}
+                </li>
+                {/for}
+                <li>
+                    {if condition="$currentPage < $totalPage"}
+                    <a href="/?page={$currentPage+1}&size={$pageSize}">下一页</a>
+                    {else /}
+                    <a class="disabled" href="javascript:void(0);">下一页</a>
+                    {/if}
+                </li>
+            </ul>
+        </div>
+        {/empty}
+    </div>
+</div>
+<div class="footer">
+    {include file="public/footer" /}
+</div>
 </body>
 </html>
