@@ -6,6 +6,8 @@
     - [Response返回信息](#Response返回信息)
 - [LoginAndLogout登录与退出](#LoginAndLogout登录与退出)
     - [Login登录](#Login登录)
+- [Statistics统计信息](#Statistics统计信息)
+    - [Statistics统计信息](#Statistics统计信息)
 - [Topic主题](#Topic主题)
     - [TopicInfo标签信息](#TopicInfo标签信息)
     - [AddTopic添加主题](#AddTopic添加主题)
@@ -87,6 +89,35 @@ Code | Msg
             "ROLE_DBA"
         ]
     }
+}
+```
+
+## Statistics统计信息
+### Statistics统计信息
+#### request url
+```text
+/admin/statistics
+```
+
+#### response params
+Params | Type | Desc
+:---: | :---: | :---:
+name | string | statistics item name
+count | number | statistics item total amount
+update_time | string | statistics item last update time
+
+#### example
+```json
+{
+    "code": 200,
+    "msg": "request success",
+    "data": [
+        {
+            "name": "post",
+            "count": 4460022,
+            "update_time": "2019-01-24 17:57:09"
+        }
+    ]
 }
 ```
 

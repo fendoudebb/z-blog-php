@@ -6,6 +6,7 @@ Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert',['method'=>'ge
 
 Route::post('/admin/login', 'admin/Login/login');
 
+Route::post('/admin/statistics', 'admin/Statistics/statistics');
 
 //---Topic api start---
 Route::post('/admin/topic', 'admin/Topic/topicList');
