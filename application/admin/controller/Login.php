@@ -55,7 +55,7 @@ class Login extends Base {
             $pipeline->exec();
             return $this->res(['token' => $token, 'roles' => $roles]);
         } catch (Exception $e) {
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
     }

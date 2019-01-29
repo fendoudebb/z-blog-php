@@ -28,7 +28,7 @@ class PostTopic extends BaseRoleAdmin {
                 ->select();
             return $this->res($postTopic);
         } catch (Exception $e) {
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
     }

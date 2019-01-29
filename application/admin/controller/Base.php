@@ -54,12 +54,12 @@ abstract class Base extends Controller {
         return json(self::base(ResCode::INTERNAL_SEVER_ERROR));
     }
 
-    public function log($code, $exception = false) {
-        $errorMsg = '';
-        if ($exception) {
-            $errorMsg = 'exception:';
-        }
-        Log::log("[$this->url]-[$this->ip]->$errorMsg " . ResCode::$res_code[$code]);
+    public function log($code) {
+        Log::log("[$this->url]-[$this->ip]-> " . ResCode::$res_code[$code]);
+    }
+
+    public function logException($errorMsg) {
+        Log::log("[$this->url]-[$this->ip]-> $errorMsg");
     }
 
 }

@@ -99,7 +99,7 @@ class PostTopicAdd extends BaseRoleAdmin {
             }
         } catch (Exception $e) {
             Db::rollback();
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
 

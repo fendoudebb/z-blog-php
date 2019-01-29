@@ -52,12 +52,12 @@ abstract class BaseAuth extends Base {
         Redis::init()->set(RedisKey::STR_ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
     }
 
-    public function log($code, $exception = false) {
-        $errorMsg = '';
-        if ($exception) {
-            $errorMsg = 'exception';
-        }
-        Log::log("[$this->url]-[$this->username]->$errorMsg " . ResCode::$res_code[$code]);
+    public function log($code) {
+        Log::log("[$this->url]-[$this->username]-> " . ResCode::$res_code[$code]);
+    }
+
+    public function logException($errorMsg) {
+        Log::log("[$this->url]-[$this->username]-> $errorMsg");
     }
 
 }

@@ -49,7 +49,7 @@ class PostComment extends BaseRoleAdmin {
             $response['comment'] = $comment;
             return $this->res($response);
         } catch (Exception $e) {
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
 

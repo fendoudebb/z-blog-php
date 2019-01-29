@@ -47,7 +47,7 @@ class Topic extends BaseRoleAdmin {
             $response['topic'] = $topic;
             return $this->res($response);
         } catch (Exception $e) {
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
     }

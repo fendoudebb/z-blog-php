@@ -48,7 +48,7 @@ class TopicModifyName extends BaseRoleAdmin {
             return $this->res();
         } catch (Exception $e) {
             Db::rollback();
-            $this->log($e->getMessage(), true);
+            $this->logException($e->getMessage());
             return $this->exception();
         }
     }

@@ -15,20 +15,16 @@ class BatchInsert extends BaseRoleAdmin {
             $dataSet = [];
             for ($j = 0; $j < 10000; $j++) {
                 $data = [
-                    'user_id' => $a++,
-                    'status' => $a % 4,
-                    'title' => '测试title' . $a,
-                    'keywords' => '测试keywords' . $a,
-                    'description' => '测试description' . $a,
-                    'is_private' => $a % 2,
-
+                    'post_id' => $j % 100,
+                    'content' => 'aaa测试' . $j,
+                    'author' => '张三' . $j,
                 ];
                 /*$data = [
                     'username' => 'test'.$a++
                 ];*/
                 $dataSet[] = $data;
             }
-            Db::table('post')
+            Db::table('comment')
                 ->insertAll($dataSet);
             Db::commit();
         }
