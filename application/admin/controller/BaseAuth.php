@@ -25,13 +25,12 @@ abstract class BaseAuth extends Base {
             Log::log("base auth, lack of request header token, ip[$this->ip]");
             throw new SystemException(ResCode::BAD_REQUEST);
         }
-        $userId = Redis::init()->get(RedisKey::STR_ADMIN_LOGIN_TOKEN . $token);
-        if (!$userId) {
+        $loginUserKey = RedisKey::HASH_ADMIN_LOGIN_USER . $token;
+        $isLogin = Redis::init()->exists($loginUserKey);
+        if (!$isLogin) {
             Log::log("base auth, token isn't exist:token[$token]");
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
-        $this->userId = $userId;
-        $hashKey = RedisKey::HASH_ADMIN_LOGIN_USER . $this->userId;
         $hashKeys = [
             RedisKey::ADMIN_LOGIN_USER_INFO_UID,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
@@ -39,17 +38,18 @@ abstract class BaseAuth extends Base {
             RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR,
             RedisKey::ADMIN_LOGIN_USER_INFO_ROLES
         ];
-        $userInfo = Redis::init()->hMGet($hashKey, $hashKeys);
+        $userInfo = Redis::init()->hMGet($loginUserKey, $hashKeys);
         if (!isset($userInfo)) {
             Log::log("base auth, without user info in cache, uid[$this->uid]");
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
+        $this->userId = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ID];
         $this->uid = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_UID];
         $this->username = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME];
         $this->nickname = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME];
         $this->avatar = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR];
         $this->roles = explode(",", $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ROLES]);
-        Redis::init()->set(RedisKey::STR_ADMIN_LOGIN_TOKEN . $token, $this->userId, RedisKey::ADMIN_LOGIN_TOKEN_EXPIRE_TIME);
+        Redis::init()->expire($loginUserKey, RedisKey::ADMIN_LOGIN_USER_EXPIRE_TIME);
     }
 
     public function log($code) {

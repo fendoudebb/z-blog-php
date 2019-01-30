@@ -4,8 +4,7 @@ namespace app\admin\config;
 
 
 class RedisKey {
-    const STR_ADMIN_LOGIN_TOKEN = 'msj_str_admin_login_token:';
-    const ADMIN_LOGIN_TOKEN_EXPIRE_TIME = 604800;//7天
+    const ADMIN_LOGIN_USER_EXPIRE_TIME = 604800;//7天
 
     const HASH_ADMIN_LOGIN_USER = 'msj_hash_admin_login_user:';
     const ADMIN_LOGIN_USER_INFO_ID = 'id';
