@@ -12,12 +12,13 @@ use think\Request;
 abstract class Base extends Controller {
 
     protected $ip;
+    protected $url;
 
     public function _initialize() {
         $request = Request::instance();
         $date = date('Y-m-d H:i:s', time());
         $this->ip = $request->ip();
-        $url = $request->url();
+        $this->url = $request->url();
         $userAgent = $this->request->header('user-agent');
         $referer = $this->request->header('referer');
         if (!isset($referer)) {
@@ -25,10 +26,10 @@ abstract class Base extends Controller {
         }
         $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
         $param = $request->param();
-        Log::log("[$date] : ip[$this->ip], url[$url], referer[$referer], user-agent[$userAgent], memory[$memory_use mb], request param -> ". json_encode($param));
+        Log::log("[$date] : ip[$this->ip], url[$this->url], referer[$referer], user-agent[$userAgent], memory[$memory_use mb], request param -> ". json_encode($param));
         Db::table('page_view_record')
             ->insert([
-                'url' => $url,
+                'url' => $this->url,
                 'ip' => $this->ip,
                 'user_agent' => $userAgent,
                 'referer' => $referer
@@ -42,7 +43,13 @@ abstract class Base extends Controller {
         }
     }
 
+    public function log($msg) {
+        Log::log("[$this->url]-[$this->ip]-> " . $msg);
+    }
 
+    public function logException($errorMsg) {
+        Log::log("[$this->url]-[$this->ip]-> $errorMsg");
+    }
 
 }
 

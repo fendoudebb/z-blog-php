@@ -1,16 +1,81 @@
 <meta charset="UTF-8">
 <title>[title]</title>
+<link rel="shortcut icon" href="https://s.maisiji.cn/pic/ico/favicon.ico">
+<!--可以在收藏夹中显示出你的图标-->
+<link rel="Bookmark" href="https://s.maisiji.cn/pic/ico/favicon.ico">
 <meta name="keywords" content="[keywords]"/>
 <meta name="description" content="[description]"/>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 <meta name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
 <meta name="copyright" content="www.maisiji.cn"/>
+<!-- 定义网页作者 author -->
+<meta name="author" content="msj,15317832520@163.com">
+<!--
+    定义网页搜索引擎索引方式，robotterms 是一组使用英文逗号「,」分割的值
+    通常有如下几种取值
+　　all：文件将被检索，且页面上的链接可以被查询；
+　　none：文件将不被检索，且页面上的链接不可以被查询；
+　　index：文件将被检索；
+　　follow：页面上的链接可以被查询；
+　　noindex：文件将不被检索；
+　　nofollow：页面上的链接不可以被查询。
+<meta name="robots" content="index,follow">
+　　-->
+<meta name="robots" content="all">
 <meta name="google-site-verification" content="fmc_T5F0D4mqFYid4LrpOiVOEA4p8l_R5xjQCveieDE"/>
 <meta name="baidu-site-verification" content="ntadyLojR3"/>
 
-<link rel="shortcut icon" href="https://s.maisiji.cn/pic/ico/favicon.ico">
+<!--Google Chrome-->
+<!-- 优先使用最新的chrome版本 -->
+<!-- 禁止自动翻译 -->
+<meta name="google" value="notranslate">
+
+<!--360浏览器-->
+<!--选择使用的浏览器解析内核 -->
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+
+<!--百度会自动对网页进行转码，这个标签是禁止百度的自动转码-->
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!--UC手机浏览器-->
+<!-- 将屏幕锁定在特定的方向 -->
+<meta name="screen-orientation" content="landscape/portrait">
+<!-- 全屏显示页面 -->
+<meta name="full-screen" content="yes">
+<!-- 强制图片显示，即使是"text mode" -->
+<meta name="imagemode" content="force">
+<!-- 应用模式，默认将全屏，禁止长按菜单，禁止手势，标准排版，强制图片显示。 -->
+<meta name="browsermode" content="application">
+<!-- 禁止夜间模式显示 -->
+<meta name="nightmode" content="disable">
+<!-- 使用适屏模式显示 -->
+<meta name="layoutmode" content="fitscreen">
+<!-- 当页面有太多文字时禁止缩放 -->
+<meta name="wap-font-scale" content="no">
+
+<!--QQ手机浏览器-->
+<!-- 锁定屏幕在特定方向 -->
+<meta name="x5-orientation" content="landscape/portrait">
+<!-- 全屏显示 -->
+<meta name="x5-fullscreen" content="true">
+<!-- 页面将以应用模式显示 -->
+<meta name="x5-page-mode" content="app">
+
+<!--Apple iOS-->
+<!-- Add to Home Screen添加到主屏 -->
+<!-- 是否启用 WebApp 全屏模式 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- 设置状态栏的背景颜色,只有在 “apple-mobile-web-app-capable” content=”yes” 时生效 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- 添加到主屏后的标题 -->
+<meta name="apple-mobile-web-app-title" content="麦司机网">
+
+<!--Google Android-->
+<meta name="theme-color" content="#E64545">
+<!-- 添加到主屏 -->
+<meta name="mobile-web-app-capable" content="yes">
 
 <style>
     * {
@@ -109,7 +174,7 @@
         background-color: white;
     }
 
-    .toolbar {
+    .header {
         background-color: white;
         height: 48px;
         min-height: 48px;
@@ -117,7 +182,7 @@
         line-height: 48px;
     }
 
-    .toolbar a {
+    .header a {
         text-decoration: none;
     }
 
@@ -168,6 +233,22 @@
         text-decoration: none;
         display: inline-block;
         cursor: pointer;
+    }
+
+    .go-top {
+        fill: #ffffff;
+        border-radius: 5px;
+        cursor: pointer;
+        display: none;
+        width: 40px;
+        height: 40px;
+        line-height: 42px;
+        position: fixed;
+        right: 50px;
+        bottom: 50px;
+        /*background:url(../../images/favicon.ico) no-repeat -70px 0px;*/
+        background-color: #4CAF50;
+        text-align: center;
     }
 </style>
 

@@ -2,35 +2,35 @@
 
 namespace app\index\controller;
 
+use think\Db;
+
 class Index extends Base {
 
     public function index() {
+        $page = input('get.page');
+        $size = input('get.size');
+        if (!isset($page) || !is_numeric($page) || $page < 1) {
+            $page = 1;
+        }
+        if (!isset($size) || !is_numeric($size) || $size < 1 || $size > 20) {
+            $size = 20;
+        }
+        $offset = ($page - 1) * $size;
+
+        $post = Db::query("SELECT p.id AS postId, DATE_FORMAT(p.post_time, '%Y-%m-%d') AS postTime, p.status, p.title, p.description, p.is_comment_close AS isCommentClose, p.is_private AS isPrivate, 
+p.is_copy AS isCopy, p.original_link AS originalLink, p.is_top AS isTop, p.pv, p.comment_count AS commentCount, p.like_count AS likeCount 
+                                FROM `post` p INNER JOIN 
+                                (SELECT id FROM `post` WHERE STATUS = 1 and is_private = 0 ORDER BY `post_time` DESC LIMIT $offset, $size) b USING (id)");
         $arr = [
             'title' => '麦司机的个人博客',
             'keywords' => 'Java，PHP，Android，Vue.js，MySQL，Redis，Linux，移动互联网，技术博客，麦司机',
             'description' => 'Java，PHP，Android，Vue.js，Linux，Nginx，MySQL，Redis，NoSQL，Git，JavaScript，HTML，CSS，Markdown，Python，Mac等各类互联网技术博客',
             'now' => time(),
             'ip' => $this->ip,
-            'currentPage' => 4,
-            'pageSize' => 20,
+            'currentPage' => $page,
+            'pageSize' => $size,
             'totalPage' => 10,
-            'post' => [
-                [
-                    "nickname" => "fendoudebb",
-                    "postId" => 19,
-                    "postTime" => "2018-09-22 14:28:09",
-                    "title" => "上传文件出现413错误(Request Entity Too Large)",
-                    "keywords" => "Nginx,上传文件限制",
-                    "description" => "Nginx上传文件限制大小",
-                    "isCommentClose" => 0,
-                    "isCopy" => 0,
-                    "originalLink" => "",
-                    "isTop" => 0,
-                    "pv" => 0,
-                    "commentCount" => 0,
-                    "likeCount" => 0
-                ]
-            ]
+            'post' => $post
         ];
         return compressHtml($this->fetch('index', $arr));
     }

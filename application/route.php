@@ -2,7 +2,7 @@
 
 use think\Route;
 
-Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert',['method'=>'get|post']);
+Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert', ['method' => 'get|post']);
 
 Route::post('/admin/login', 'admin/Login/login');
 
@@ -27,8 +27,9 @@ Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostCom
 //---Post api end---
 
 Route::get('/', 'index/Index/index');
-Route::get('/example/js_control', 'index/Example/jsControl');
-Route::get('/tool/json/format', 'index/Tool/formatJson');
+Route::get('/post/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
+Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
+Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 
 return [
 
