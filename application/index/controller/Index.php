@@ -29,10 +29,11 @@ p.is_copy AS isCopy, p.original_link AS originalLink, p.is_top AS isTop, p.pv, p
             'ip' => $this->ip,
             'currentPage' => $page,
             'pageSize' => $size,
-            'totalPage' => 10,
+            'totalPage' => 30,
             'post' => $post
         ];
-        return compressHtml($this->fetch('index', $arr));
+        $compressHtml = compressHtml($this->fetch('index', $arr));
+        return $compressHtml;
     }
 
 }

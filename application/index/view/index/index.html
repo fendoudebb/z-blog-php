@@ -89,7 +89,7 @@
         {else /}
         <ul class="content">
             {foreach $post as $p}
-            <li class="shadow index-article-item" >
+            <li class="shadow index-article-item">
                 <a href="post/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
                 <p>
                     <span class="article-tag">
@@ -104,7 +104,7 @@
                     <span class="article-dot">·</span>
                     <span>{$p.postTime}</span>
                 </p>
-                <p class="index-article-desc" >{$p.description}</p>
+                <p class="index-article-desc">{$p.description}</p>
             </li>
             {/foreach}
         </ul>
@@ -112,29 +112,35 @@
             <ul class="pagination">
                 <li>
                     {if condition="$currentPage == 1"}
-                    <a class="disabled" href="javascript:void(0);">上一页</a>
+                        <a class="disabled" href="javascript:void(0);">上一页</a>
                     {else /}
-                    <a href="?page={$currentPage-1}&size={$pageSize}">上一页</a>
+                        <a href="/">首页</a>
+                        <a href="?page={$currentPage-1}&size={$pageSize}">上一页</a>
                     {/if}
                 </li>
-                {for start="1" end="$totalPage"}
+                {for start="1" end="$totalPage + 1"}
                 <li>
-                    {if condition="$i == $currentPage"}
-                    <a class="active" href="javascript:void(0);">{$i}</a>
+                    <!--{if condition="$i > $currentPage - 5 && $i < $currentPage + 5"}
                     {else /}
-                    <a href="?page={$i}&size={$pageSize}">
-                        {$i}
-                    </a>
+                    {/if}-->
+                    {if condition="$i > $currentPage - 4 && $i < $currentPage + 4"}
+                        {if condition="$i == $currentPage"}
+                            <a class="active disabled" href="javascript:void(0);">{$i}</a>
+                        {else /}
+                            <a href="?page={$i}&size={$pageSize}">{$i}</a>
+                        {/if}
                     {/if}
                 </li>
                 {/for}
                 <li>
                     {if condition="$currentPage < $totalPage"}
-                    <a href="?page={$currentPage+1}&size={$pageSize}">下一页</a>
+                        <a href="?page={$currentPage+1}&size={$pageSize}">下一页</a>
+                        <a href="?page={$totalPage}&size={$pageSize}">尾页</a>
                     {else /}
-                    <a class="disabled" href="javascript:void(0);">下一页</a>
+                        <a class="disabled" href="javascript:void(0);">下一页</a>
                     {/if}
                 </li>
+
             </ul>
         </div>
         {/empty}

@@ -2,17 +2,131 @@
 <html lang="zh">
 <head>
     {include file="public/base" title="$title" keywords="$keywords" description="$description" /}
+    <style>
+        pre {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        pre code {
+            border-radius: 3px;
+            white-space: pre;
+            padding: 14px !important;
+            line-height: 20px;
+        }
+
+        /*code ol {
+            margin: 0;
+        }
+
+        code ol li {
+            padding-left: 8px;
+        }*/
+
+        pre {
+            position: relative
+        }
+
+        pre:hover .hljs-button {
+            display: block
+        }
+
+        blockquote {
+            margin: 14px 0;
+            padding: 14px;
+            font-size: 14px;
+            border-left: 5px solid #4CAF50;
+            background-color: #F6F6F6;
+            color: #999;
+        }
+
+        blockquote p {
+            line-height: 1.6;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        h1 {
+            margin: 15px 0;
+        }
+
+        .article-content {
+            padding: 16px 24px;
+        }
+
+        .hljs-button {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            font-size: 12px;
+            color: white;
+            padding: 2px 8px;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        .article-column {
+            background-color: white;
+            margin-bottom: 20px;
+        }
+
+        .article-tag {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
 <div class="wrap">
     <div class="main">
         {include file="public/header" /}
-
+        <div>
+            <div class="shadow content article-content">
+                <h1 class="article-title">{$title}</h1>
+                <hr>
+                <p>
+                    {if condition="$isCopy eq 0"}
+                    <span class="article-tag">原创</span>
+                    {/if}
+                    <span>{$postTime}</span>
+                </p>
+                <div style="margin-top: 15px">{$content}</div>
+            </div>
+        </div>
     </div>
 </div>
 <div class="footer">
     {include file="public/footer" /}
 </div>
 {include file="public/base_js" /}
+<script>
+    hljs.initHighlightingOnLoad();
+
+    $("pre").each(function (index, element) {
+        let preTag = $(this);
+        preTag.append("<div class='hljs-button' title='Copy to Clipboard'>Copy</div>");
+        let id = "code" + index;
+        preTag.children("code").attr("id", id);
+        preTag.children(".hljs-button").attr("data-clipboard-target", "#" + id);
+    });
+    let clipboard = new ClipboardJS('.hljs-button');
+    clipboard.on('success', function (e) {
+        e.clearSelection();
+        let copyBtn = $(e.trigger);
+        copyBtn.html("Copy Success");
+        setTimeout(function () {
+            copyBtn.html("Copy");
+        }, 1000);
+
+    });
+    clipboard.on('error', function (e) {
+        let copyBtn = $(e.trigger);
+        copyBtn.html("Copy Fail");
+        setTimeout(function () {
+            copyBtn.html("Copy");
+        }, 1000);
+    });
+</script>
 </body>
 </html>

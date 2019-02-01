@@ -2,7 +2,7 @@
 <title>[title]</title>
 <link rel="shortcut icon" href="https://s.maisiji.cn/pic/ico/favicon.ico">
 <!--可以在收藏夹中显示出你的图标-->
-<link rel="Bookmark" href="https://s.maisiji.cn/pic/ico/favicon.ico">
+<link rel="bookmark" href="https://s.maisiji.cn/pic/ico/favicon.ico">
 <meta name="keywords" content="[keywords]"/>
 <meta name="description" content="[description]"/>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
@@ -77,8 +77,23 @@
 <!-- 添加到主屏 -->
 <meta name="mobile-web-app-capable" content="yes">
 
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/ocean.min.css" media="none"
+      onload="if(media!='all')media='all'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/ocean.min.css">
+</noscript>
+<link rel="stylesheet" href="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.min.css" media="none"
+      onload="if(media!='all')media='all'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.min.css">
+</noscript>
+<link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css" media="none"
+      onload="if(media!='all')media='all'">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+</noscript>
 <style>
-    * {
+    html,body {
         margin: 0;
         padding: 0;
     }
@@ -90,16 +105,22 @@
         min-height: 100%;
     }
     .main {
-        padding-bottom: 60px;
+        padding-bottom: 100px;
     }
     .footer {
-        margin-top: -60px;
+        margin-top: -100px;
         height: 60px;
         text-align: center;
     }
 
     .footer footer {
         line-height: 30px;
+        padding: 20px;
+    }
+
+    .footer p {
+        margin: 0;
+        padding: 0;
     }
 
     ::-webkit-scrollbar {
@@ -252,24 +273,37 @@
     }
 </style>
 
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({
         google_ad_client: "ca-pub-4671741323231057",
         enable_page_level_ads: true
     });
+</script>-->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
 </script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117165778-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-
     function gtag() {
         dataLayer.push(arguments);
     }
-
     gtag('js', new Date());
-
     gtag('config', 'UA-117165778-1');
 </script>
 <script defer="defer">
