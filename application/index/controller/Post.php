@@ -18,7 +18,7 @@ class Post extends Base {
                 ->find();
             if (!isset($post)) {
                 $this->log('post不存在');
-                return compressHtml($this->fetch('public/404'));
+                return redirect('/404.html');
             }
             $parser = new Parser;
             $html = $parser->makeHtml($post['content']);
@@ -26,7 +26,7 @@ class Post extends Base {
             return compressHtml($this->fetch('post', $post));
         } catch (Exception $e) {
             $this->logException($e->getMessage());
-            return compressHtml($this->fetch('public/404'));
+            return redirect('/404.html');
         }
     }
 

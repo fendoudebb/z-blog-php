@@ -12,7 +12,7 @@ class Http extends Handle {
 
     public function render(Exception $e) {
 
-        // 参数验证错误
+        // 手动抛出异常
         if ($e instanceof SystemException) {
             Log::info("system exception -> " . $e->getMessage());
             return self::fail($e->getMessage());
@@ -21,7 +21,8 @@ class Http extends Handle {
         if ($e instanceof RouteNotFoundException) {
             Log::info("RouteNotFoundException -> " . $e->getMessage());
 //            return self::fail(ResCode::URL_NOT_EXIST);
-            return parent::render($e);
+//            return view('index@public/404');//跨模块调用
+            return redirect('/404.html');//重定向到404页面
         }
 
         //TODO::开发者对异常的操作
