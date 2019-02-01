@@ -37,7 +37,7 @@
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 
 <!--百度会自动对网页进行转码，这个标签是禁止百度的自动转码-->
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
 
 <!--UC手机浏览器-->
 <!-- 将屏幕锁定在特定的方向 -->
@@ -93,27 +93,31 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </noscript>
 <style>
-    html,body {
+    html, body {
         margin: 0;
         padding: 0;
     }
+
     body {
-         height: 100vh;
+        height: 100vh;
     }
+
     .wrap {
         height: auto;
         min-height: 100%;
     }
+
     .main {
         padding-bottom: 100px;
     }
+
     .footer {
         margin-top: -100px;
         height: 60px;
         text-align: center;
     }
 
-    .footer footer {
+    .footer {
         line-height: 30px;
         padding: 20px;
     }
@@ -171,19 +175,20 @@
         border-top: 1px solid #F0F0F0;
     }
 
-    /*CSS实现内容超过长度后以省略号显示*/
-    p, .ellipsis {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis
-    }
-
     a:hover {
         color: #5BC0DE;
     }
 
     a:active {
         color: #999;
+    }
+
+    header {
+        background-color: white;
+        height: 48px;
+        min-height: 48px;
+        max-height: 48px;
+        line-height: 48px;
     }
 
     .shadow {
@@ -195,14 +200,6 @@
         background-color: white;
     }
 
-    .header {
-        background-color: white;
-        height: 48px;
-        min-height: 48px;
-        max-height: 48px;
-        line-height: 48px;
-    }
-
     .header a {
         text-decoration: none;
     }
@@ -212,9 +209,11 @@
         text-decoration: none;
     }
 
-    .flex-vertical {
-        display: flex;
-        align-items: center
+    /*CSS实现内容超过长度后以省略号显示*/
+    .ellipsis, header > a, header > p, footer > a, footer > p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
     }
 
     @media only screen and (max-width: 767px) {
@@ -300,9 +299,11 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117165778-1"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
+
     function gtag() {
         dataLayer.push(arguments);
     }
+
     gtag('js', new Date());
     gtag('config', 'UA-117165778-1');
 </script>
