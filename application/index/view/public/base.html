@@ -216,16 +216,8 @@
         text-overflow: ellipsis
     }
 
-    @media only screen and (max-width: 767px) {
-        .content {
-            width: auto !important;
-            float: none;
-            display: block;
-        }
-    }
-
     .content {
-        width: 765px;
+        width: 50vw;
         margin: auto;
     }
 
@@ -269,6 +261,13 @@
         /*background:url(../../images/favicon.ico) no-repeat -70px 0px;*/
         background-color: #4CAF50;
         text-align: center;
+    }
+
+    @media (max-width:900px) {
+        .content {
+            width: 100vw;
+            margin: auto;
+        }
     }
 </style>
 
