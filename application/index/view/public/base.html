@@ -173,6 +173,7 @@
         height: 1px;
         border: none;
         border-top: 1px solid #F0F0F0;
+        margin: 0 0 20px 0;
     }
 
     a:hover {
@@ -183,12 +184,31 @@
         color: #999;
     }
 
-    header {
+    .header {
+        height: auto;
         background-color: white;
-        height: 48px;
         min-height: 48px;
-        max-height: 48px;
         line-height: 48px;
+        text-align: center;
+    }
+
+    .header ul, .header li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header ul {
+        display: inline-block;
+    }
+
+    .header li {
+        display: inline;
+    }
+
+    .header ul li a {
+        text-decoration: none;
+        padding: 0 16px;
     }
 
     .shadow {
@@ -198,10 +218,6 @@
         -moz-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
         background-color: white;
-    }
-
-    .header a {
-        text-decoration: none;
     }
 
     .footer a {
@@ -263,7 +279,7 @@
         text-align: center;
     }
 
-    @media (max-width:900px) {
+    @media (max-width:750px) {
         .content {
             width: 100vw;
             margin: auto;
