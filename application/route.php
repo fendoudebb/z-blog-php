@@ -28,8 +28,6 @@ Route::post('/admin/post/comment', 'admin/PostComment/postComment');
 Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostComment');
 //---Post api end---
 
-Route::post('/event/tracing', 'index/EventTracing/traceEvent');
-
 Route::get('/', 'index/Index/index');
 Route::get('/post/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
