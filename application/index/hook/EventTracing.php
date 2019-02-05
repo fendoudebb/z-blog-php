@@ -40,12 +40,12 @@ class EventTracing {
         $param = $request->param();
         Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> ". json_encode($param));
 
-        if (strpos($url, '/admin') === 0) {
+        if (strpos($url, '/admin/') === 0) {
             Log::log("admin url");
             return;
         }
 
-        if (strpos($url, '/post') === 0) {
+        if (strpos($url, '/p/') === 0) {
             $postId = $request->route('postId');
             if (!isset($postId)) {
                 Log::log('event tracing post id is empty');

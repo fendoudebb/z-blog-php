@@ -29,7 +29,7 @@ Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostCom
 //---Post api end---
 
 Route::get('/', 'index/Index/index');
-Route::get('/post/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
+Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
 Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 

@@ -90,7 +90,7 @@
         <ul class="content">
             {foreach $post as $p}
             <li class="shadow index-article-item">
-                <a href="post/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
+                <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
                 <p>
                     <span class="article-tag">
                     {if condition="$p.isCopy eq 0"}
