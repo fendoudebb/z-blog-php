@@ -9,9 +9,11 @@ class RedisKey {
 
     const HASH_STATISTICS = 'msj_hash_statistics';
 
+
+    const STR_404_HTML = 'msj_404_html';
     const SET_NONEXISTENT_POST = 'msj_nonexistent_post';
 
-    const HASH_POST_HTML = 'msj_hash_post_html';
+    const HASH_POST_LIST_HTML = 'msj_hash_post_list_html';
     const HASH_POST_DETAIL = 'msj_hash_post_detail:';
 
     const POST_TITLE = 'title';

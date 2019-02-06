@@ -90,21 +90,18 @@
         <ul class="content">
             {foreach $post as $p}
             <li class="shadow index-article-item">
-                <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
-                <p>
-                    <span class="article-tag">
+                <span class="article-tag">
                     {if condition="$p.isCopy eq 0"}
                         原创
                     {else /}
                         转载
                     {/if}
                     </span>
-                    <span class="article-dot">·</span>
-                    <span>Java</span>
-                    <span class="article-dot">·</span>
-                    <span>{$p.postTime}</span>
-                </p>
+                <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
                 <p class="index-article-desc">{$p.description}</p>
+                <p>
+                    <span style="color: #8a8a8a">{:timeFormat($p.postTime)} · 阅读（{$p.pv}）· 评论（{$p.commentCount}）· 点赞（{$p.likeCount}）</span>
+                </p>
             </li>
             {/foreach}
         </ul>

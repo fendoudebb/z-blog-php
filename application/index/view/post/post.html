@@ -70,6 +70,7 @@
             margin-left: 5px;
             margin-right: 5px;
         }
+
     </style>
 </head>
 <body>
@@ -80,7 +81,7 @@
             <div class="shadow content article-content">
                 <h1 class="article-title">{$title}</h1>
                 <p>
-                    <span>posted @ {$postTime} 阅读（{$pv}）点赞（{$likeCount}）评论（{$commentCount}）</span>
+                    <span style="color: #8a8a8a">posted @ {:timeFormat($postTime)} · 阅读（{$pv}）· 评论（{$commentCount}）· 点赞（{$likeCount}）</span>
                 </p>
                 <hr>
                 <div style="margin-top: 15px">{$content}</div>
