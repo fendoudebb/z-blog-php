@@ -8,6 +8,8 @@ class RedisKey {
     const HYPER_IP = 'msj_hyper_ip';
 
     const HASH_STATISTICS = 'msj_hash_statistics';
+    const STATISTICS_POST_BACKEND = 'post_backend';
+    const STATISTICS_POST_FRONTEND = 'post_frontend';
 
 
     const STR_404_HTML = 'msj_404_html';
