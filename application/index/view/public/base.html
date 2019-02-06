@@ -1,7 +1,7 @@
 <meta charset="UTF-8">
 <title>[title]</title>
 <link rel="shortcut icon" href="https://s.maisiji.cn/pic/ico/favicon.ico">
-<!--可以在收藏夹中显示出你的图标-->
+<link rel="canonical" href=https://{$Think.server.http_host}{$Think.server.request_uri}">
 <link rel="bookmark" href="https://s.maisiji.cn/pic/ico/favicon.ico">
 <meta name="keywords" content="[keywords]"/>
 <meta name="description" content="[description]"/>
@@ -9,6 +9,7 @@
 <meta name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+<meta name="referrer" content="always">
 <meta name="copyright" content="www.maisiji.cn"/>
 <!-- 定义网页作者 author -->
 <meta name="author" content="msj,15317832520@163.com">
@@ -35,6 +36,7 @@
 <!--360浏览器-->
 <!--选择使用的浏览器解析内核 -->
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta name="force-rendering" content="webkit">
 
 <!--百度会自动对网页进行转码，这个标签是禁止百度的自动转码-->
 <meta http-equiv="Cache-Control" content="no-siteapp"/>
@@ -245,22 +247,8 @@
         border-radius: 2px;
         color: white;
         background-color: #4CAF50;
-    }
-
-    .article-dot {
-        margin: 0 5px
-    }
-
-    .button {
-        background-color: #4CAF50; /* Green */
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        margin: 5px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        cursor: pointer;
+        position: relative;
+        bottom: 2px;
     }
 
     .go-top {
@@ -287,6 +275,7 @@
     }
 </style>
 
+{if condition="$Think.config.app_debug neq 1"}
 <!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({
@@ -294,21 +283,6 @@
         enable_page_level_ads: true
     });
 </script>-->
-
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        }
-        else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117165778-1"></script>
@@ -331,3 +305,18 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+{/if}
