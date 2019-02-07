@@ -104,31 +104,6 @@
         height: 100vh;
     }
 
-    .wrap {
-        height: auto;
-        min-height: 100%;
-    }
-
-    .main {
-        padding-bottom: 100px;
-    }
-
-    .footer {
-        margin-top: -100px;
-        height: 60px;
-        text-align: center;
-    }
-
-    .footer {
-        line-height: 30px;
-        padding: 20px;
-    }
-
-    .footer p {
-        margin: 0;
-        padding: 0;
-    }
-
     ::-webkit-scrollbar {
         width: .5rem;
         height: .5rem;
@@ -213,6 +188,23 @@
         padding: 0 16px;
     }
 
+    .footer {
+        text-align: center;
+        height: 60px;
+        line-height: 30px;
+        padding: 20px;
+    }
+
+    .footer p {
+        margin: 0;
+        padding: 0;
+    }
+
+    .footer a {
+        color: #999;
+        text-decoration: none;
+    }
+
     .shadow {
         /*border: 1px solid #ebeef5;*/
         border-radius: 2px;
@@ -222,21 +214,11 @@
         background-color: white;
     }
 
-    .footer a {
-        color: #999;
-        text-decoration: none;
-    }
-
     /*CSS实现内容超过长度后以省略号显示*/
     .ellipsis, header > a, header > p, footer > a, footer > p {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis
-    }
-
-    .content {
-        width: 50vw;
-        margin: auto;
     }
 
     .article-tag {
@@ -257,22 +239,17 @@
         cursor: pointer;
         display: none;
         width: 40px;
-        height: 40px;
-        line-height: 42px;
+        height: 20px;
         position: fixed;
         right: 50px;
         bottom: 50px;
         /*background:url(../../images/favicon.ico) no-repeat -70px 0px;*/
         background-color: #4CAF50;
         text-align: center;
+        padding: 10px 0;
     }
 
-    @media (max-width:750px) {
-        .content {
-            width: 100vw;
-            margin: auto;
-        }
-    }
+
 </style>
 
 {if condition="$Think.config.app_debug neq 1"}

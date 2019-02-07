@@ -3,6 +3,11 @@
 <head>
     {include file="public/base" title="$title" keywords="$keywords" description="$description" /}
     <style>
+
+        .main {
+            margin: 0 5%;
+        }
+
         pre {
             overflow-y: auto;
             overflow-x: hidden;
@@ -51,6 +56,8 @@
         }
 
         .article-content {
+            width: 60%;
+            display: inline-block;
             padding: 16px 24px;
         }
 
@@ -71,27 +78,80 @@
             margin-right: 5px;
         }
 
+        .side-bar {
+            display: inline-block;
+            padding: 16px 24px;
+            vertical-align: top;
+        }
+
+        .side-bar h3 {
+            font-size: 14px;
+            font-weight: bold;
+            margin:  0;
+        }
+
+        .side-bar h3::before {
+            display: inline-block;
+            margin-right: 8px;
+            content: '';
+            width: 4px;
+            height: 22px;
+            vertical-align: -6px;
+            background-color: #4CAF50;
+        }
+
+        .side-bar ul, .side-bar li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .side-bar li {
+            margin-top: 8px;
+        }
+
+        .side-bar li a {
+            display: block;
+            color: #333333;
+            text-decoration: none;
+            line-height: 22px;
+            max-height: 44px;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .side-bar li span {
+            font-size: 12px;
+            color: #8a8a8a;
+        }
+
     </style>
 </head>
 <body>
-<div class="wrap">
-    <div class="main">
-        {include file="public/header" /}
-        <div>
-            <div class="shadow content article-content">
-                <h1 class="article-title">{$title}</h1>
-                <p>
-                    <span style="color: #8a8a8a">posted @ {:timeFormat($postTime)} · 阅读（{$pv}）· 评论（{$commentCount}）· 点赞（{$likeCount}）</span>
-                </p>
-                <hr>
-                <div style="margin-top: 15px">{$content}</div>
-            </div>
-        </div>
+{include file="public/header" /}
+<div class="main">
+    <div class="shadow article-content">
+        <h1 class="article-title">{$title}</h1>
+        <p>
+            <span style="color: #8a8a8a">posted @ {:timeFormat($postTime)} · 阅读（{$pv}）· 评论（{$commentCount}）· 点赞（{$likeCount}）</span>
+        </p>
+        <hr>
+        <div style="margin-top: 15px">{$content}</div>
+    </div>
+    <div class="shadow side-bar">
+        <h3>阅读排行榜</h3>
+        <ul>
+            {foreach $pvRank as $pvPost}
+            <li>
+            <a href="/p/{$pvPost[0]}.html">{$pvPost[1]}</a>
+            <span>阅读数：{$pvPost[2]}</span>
+            </li>
+            {/foreach}
+        </ul>
+
     </div>
 </div>
-<div class="footer">
-    {include file="public/footer" /}
-</div>
+{include file="public/footer" /}
 {include file="public/base_js" /}
 <script>
     hljs.initHighlightingOnLoad();

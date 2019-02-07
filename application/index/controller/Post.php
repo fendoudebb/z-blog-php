@@ -15,14 +15,12 @@ class Post extends Base {
         try {
             $postKey = RedisKey::HASH_POST_DETAIL . $postId;
             $pipeline = Redis::init()->multi(\Redis::PIPELINE);
-            $pipeline->sIsMember(RedisKey::SET_NONEXISTENT_POST, $postId);
+            $pipeline->sIsMember(RedisKey::SET_VISIBLE_POST, $postId);
             $pipeline->hMGet($postKey, [
                 RedisKey::POST_TITLE,
                 RedisKey::POST_KEYWORDS,
                 RedisKey::POST_DESC,
-                RedisKey::POST_STATUS,
                 RedisKey::POST_TIME,
-                RedisKey::POST_IS_PRIVATE,
                 RedisKey::POST_IS_COMMENT_CLOSE,
                 RedisKey::POST_IS_COPY,
                 RedisKey::POST_ORIGINAL_LINK,
@@ -31,22 +29,23 @@ class Post extends Base {
                 RedisKey::POST_LIKE_COUNT,
                 RedisKey::POST_HTML,
             ]);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
             $result = $pipeline->exec();
-            if ($result[0] === true) {
+            if ($result[0] === false) {
                 $this->log('post不存在 防缓存击穿');
                 return redirect('/404.html');
             }
+            $result[1]['pvRank'] = array_chunk($result[2],3);
+            $result[1]['commentRank'] = array_chunk($result[3],3);
+            $result[1]['likeRank'] = array_chunk($result[4],3);
             if ($result[1][RedisKey::POST_TITLE] !== false) {
-                if ($result[1][RedisKey::POST_STATUS] != 1 || $result[1][RedisKey::POST_IS_PRIVATE] == 1) {
-                    Redis::init()->sAdd(RedisKey::SET_NONEXISTENT_POST, $postId);
-                    $this->log("post status isn't online, or is private");
-                    return redirect('/404.html');
-                }
                 $this->log("post[$postId], redis缓存");
                 return compressHtml($this->fetch('post', $result[1]));
             }
             $post = Db::table('post p')
-                ->field("DATE_FORMAT(p.post_time, '%Y-%m-%d') AS postTime, p.title, p.keywords, p.description, 
+                ->field("p.post_time AS postTime, p.title, p.keywords, p.description, 
                 p.status, p.is_private as isPrivate, p.is_comment_close as isCommentClose, 
                 p.is_copy as isCopy, p.original_link as originalLink, 
                 p.pv, p.comment_count as commentCount, p.like_count as likeCount, 
@@ -55,8 +54,7 @@ class Post extends Base {
                 ->where('p.id', $postId)
                 ->find();
             if (!isset($post)) {
-                Redis::init()->sAdd(RedisKey::SET_NONEXISTENT_POST, $postId);
-                $this->log('post不存在，存入不存在列表');
+                $this->log('post不存在');
                 return redirect('/404.html');
             }
             $parser = new Parser;
@@ -78,13 +76,13 @@ class Post extends Base {
                 RedisKey::POST_LIKE_COUNT => $post['likeCount'],
                 RedisKey::POST_HTML => $html,
             ];
-            $compressHtml = compressHtml($this->fetch('post', $p));
             Redis::init()->hMSet($postKey, $p);
             if ($postStatus != 1 || $postIsPrivate == 1) {
-                Redis::init()->sAdd(RedisKey::SET_NONEXISTENT_POST, $postId);
+                Redis::init()->sRem(RedisKey::SET_VISIBLE_POST, $postId);
                 $this->log("post status[$postStatus], is private[$postIsPrivate]");
                 return redirect('/404.html');
             }
+            $compressHtml = compressHtml($this->fetch('post', $p));
             return $compressHtml;
         } catch (Exception $e) {
             $this->logException($e->getMessage());

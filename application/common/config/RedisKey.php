@@ -12,8 +12,8 @@ class RedisKey {
     const STATISTICS_POST_FRONTEND = 'post_frontend';
 
 
-    const STR_404_HTML = 'msj_404_html';
-    const SET_NONEXISTENT_POST = 'msj_nonexistent_post';
+    const STR_404_HTML = 'msj_str_404_html';
+    const SET_VISIBLE_POST = 'msj_set_visible_post';
 
     const HASH_POST_LIST_HTML = 'msj_hash_post_list_html';
     const HASH_POST_DETAIL = 'msj_hash_post_detail:';
@@ -31,5 +31,6 @@ class RedisKey {
     const POST_COMMENT_COUNT = 'commentCount';
     const POST_LIKE_COUNT = 'likeCount';
     const POST_HTML = 'content';
+    const POST_TOPIC = 'topic';
 
 }
