@@ -9,6 +9,7 @@ use app\common\util\Redis;
 class RouterNotFound extends Base {
 
     public function routerNotFound() {
+        $this->log("error !!!");
         $compressHtml = Redis::init()->get(RedisKey::STR_404_HTML);
         if ($compressHtml === false) {
             $arr = [
@@ -19,7 +20,6 @@ class RouterNotFound extends Base {
             $compressHtml = compressHtml($this->fetch('public/404', $arr));
             Redis::init()->set(RedisKey::STR_404_HTML, $compressHtml);
         }
-
         return $compressHtml;
     }
 
