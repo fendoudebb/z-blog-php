@@ -3,17 +3,26 @@
 <head>
     {include file="public/base" title="$title" keywords="$keywords" description="$description" /}
     <style>
+        .main {
+            margin: 0 5%;
+        }
+
         .content {
-            width: 50vw;
-            margin: auto;
+            display: inline-block;
+            width: 65%;
+            max-width: 65%;
         }
 
         .content p {
             margin: 10px 0;
         }
 
+        .shadow {
+            margin-bottom: 8px;
+            padding: 16px 24px;
+        }
+
         .index-article-item {
-            padding: 18px 24px;
             border-bottom: 1px solid #f4f4f4;
         }
 
@@ -86,13 +95,13 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <div class="main">
-        {include file="public/header" /}
-        {empty name="post"}
-        post为空
-        {else /}
-        <ul class="content">
+{include file="public/header" /}
+<div class="main">
+    {empty name="post"}
+    post为空
+    {else /}
+    <div class="content">
+        <ul >
             {foreach $post as $p}
             <li class="shadow index-article-item">
                 <span class="article-tag">
@@ -114,10 +123,10 @@
             <ul class="pagination">
                 <li>
                     {if condition="$currentPage == 1"}
-                        <a class="disabled" href="javascript:void(0);">上一页</a>
+                    <a class="disabled" href="javascript:void(0);">上一页</a>
                     {else /}
-                        <a href="/">首页</a>
-                        <a href="?page={$currentPage-1}&size={$pageSize}">上一页</a>
+                    <a href="/">首页</a>
+                    <a href="?page={$currentPage-1}&size={$pageSize}">上一页</a>
                     {/if}
                 </li>
                 {for start="1" end="$totalPage + 1"}
@@ -126,31 +135,64 @@
                     {else /}
                     {/if}-->
                     {if condition="$i > $currentPage - 4 && $i < $currentPage + 4"}
-                        {if condition="$i == $currentPage"}
-                            <a class="active disabled" href="javascript:void(0);">{$i}</a>
-                        {else /}
-                            <a href="?page={$i}&size={$pageSize}">{$i}</a>
-                        {/if}
+                    {if condition="$i == $currentPage"}
+                    <a class="active disabled" href="javascript:void(0);">{$i}</a>
+                    {else /}
+                    <a href="?page={$i}&size={$pageSize}">{$i}</a>
+                    {/if}
                     {/if}
                 </li>
                 {/for}
                 <li>
                     {if condition="$currentPage < $totalPage"}
-                        <a href="?page={$currentPage+1}&size={$pageSize}">下一页</a>
-                        <a href="?page={$totalPage}&size={$pageSize}">尾页</a>
+                    <a href="?page={$currentPage+1}&size={$pageSize}">下一页</a>
+                    <a href="?page={$totalPage}&size={$pageSize}">尾页</a>
                     {else /}
-                        <a class="disabled" href="javascript:void(0);">下一页</a>
+                    <a class="disabled" href="javascript:void(0);">下一页</a>
                     {/if}
                 </li>
 
             </ul>
         </div>
-        {/empty}
     </div>
+    <div class="side-bar">
+        <div class="shadow">
+            <h3>阅读排行榜</h3>
+            <ul>
+                {foreach $pvRank as $pvPost}
+                <li>
+                    <a href="/p/{$pvPost[0]}.html">{$pvPost[1]}</a>
+                    <span>阅读数：{$pvPost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="shadow">
+            <h3>评论排行榜</h3>
+            <ul>
+                {foreach $commentRank as $commentPost}
+                <li>
+                    <a href="/p/{$commentPost[0]}.html">{$commentPost[1]}</a>
+                    <span>评论数：{$commentPost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="shadow">
+            <h3>点赞排行榜</h3>
+            <ul>
+                {foreach $likeRank as $likePost}
+                <li>
+                    <a href="/p/{$likePost[0]}.html">{$likePost[1]}</a>
+                    <span>点赞数：{$likePost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+    </div>
+    {/empty}
 </div>
-<div class="footer">
-    {include file="public/footer" /}
-</div>
+{include file="public/footer" /}
 {include file="public/base_js" /}
 </body>
 </html>

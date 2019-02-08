@@ -26,15 +26,19 @@ class Index extends Base {
                                 p.pv, p.comment_count AS commentCount, p.like_count AS likeCount 
                                 FROM `post` p INNER JOIN 
                                 (SELECT id FROM `post` WHERE STATUS = 1 and is_private = 0 ORDER BY `post_time` DESC LIMIT $offset, $size) b USING (id)");
-
-            $postFrontendCount = Redis::init()->hGet(RedisKey::HASH_STATISTICS, RedisKey::STATISTICS_POST_FRONTEND);
-            if ($postFrontendCount === false) {
+            $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+            $pipeline->hGet(RedisKey::HASH_STATISTICS, RedisKey::STATISTICS_POST_FRONTEND);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
+            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
+            $result = $pipeline->exec();
+            if ($result[0] === false) {
                 $statistics = Db::table('statistics')
                     ->field('count')
                     ->where('name',RedisKey::STATISTICS_POST_FRONTEND)
                     ->find();
-                $postFrontendCount = $statistics['count'];
-                Redis::init()->hMSet(RedisKey::HASH_STATISTICS, [RedisKey::STATISTICS_POST_FRONTEND => $postFrontendCount]);
+                $result[0] = $statistics['count'];
+                Redis::init()->hMSet(RedisKey::HASH_STATISTICS, [RedisKey::STATISTICS_POST_FRONTEND => $result[0]]);
             }
             $arr = [
                 'title' => '麦司机的个人博客',
@@ -42,9 +46,15 @@ class Index extends Base {
                 'description' => 'Java，PHP，Android，Vue.js，Linux，Nginx，MySQL，Redis，NoSQL，Git，JavaScript，HTML，CSS，Markdown，Python，Mac等各类互联网技术博客',
                 'currentPage' => $page,
                 'pageSize' => $size,
-                'totalPage' => ceil($postFrontendCount / $size),
+                'totalPage' => ceil($result[0] / $size),
                 'post' => $post
             ];
+            $pvRank = array_chunk($result[1], 3);
+            $commentRank = array_chunk($result[2], 3);
+            $likeRank = array_chunk($result[3], 3);
+            $arr['pvRank'] = $pvRank;
+            $arr['commentRank'] = $commentRank;
+            $arr['likeRank'] = $likeRank;
             $compressHtml = compressHtml($this->fetch('index', $arr));
             return $compressHtml;
         } catch (Exception $e) {
