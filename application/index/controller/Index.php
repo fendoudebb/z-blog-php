@@ -27,7 +27,7 @@ class Index extends Base {
                                 FROM `post` p INNER JOIN 
                                 (SELECT id FROM `post` WHERE STATUS = 1 and is_private = 0 ORDER BY `post_time` DESC LIMIT $offset, $size) b USING (id)");
             $pipeline = Redis::init()->multi(\Redis::PIPELINE);
-            $pipeline->hGet(RedisKey::HASH_STATISTICS, RedisKey::STATISTICS_POST_FRONTEND);
+            $pipeline->sCard(RedisKey::SET_VISIBLE_POST);
             $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
             $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
             $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
@@ -38,7 +38,6 @@ class Index extends Base {
                     ->where('name',RedisKey::STATISTICS_POST_FRONTEND)
                     ->find();
                 $result[0] = $statistics['count'];
-                Redis::init()->hMSet(RedisKey::HASH_STATISTICS, [RedisKey::STATISTICS_POST_FRONTEND => $result[0]]);
             }
             $arr = [
                 'title' => '麦司机的个人博客',
