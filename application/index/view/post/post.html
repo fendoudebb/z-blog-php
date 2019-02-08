@@ -56,7 +56,8 @@
         }
 
         .article-content {
-            width: 60%;
+            width: 65%;
+            max-width: 65%;
             display: inline-block;
             padding: 16px 24px;
         }
@@ -80,8 +81,9 @@
 
         .side-bar {
             display: inline-block;
-            padding: 16px 24px;
+            max-width: 30%;
             vertical-align: top;
+            margin-left: 8px;
         }
 
         .side-bar h3 {
@@ -125,6 +127,11 @@
             color: #8a8a8a;
         }
 
+        .shadow {
+            margin-bottom: 8px;
+            padding: 16px 24px;
+        }
+
     </style>
 </head>
 <body>
@@ -138,17 +145,40 @@
         <hr>
         <div style="margin-top: 15px">{$content}</div>
     </div>
-    <div class="shadow side-bar">
-        <h3>阅读排行榜</h3>
-        <ul>
-            {foreach $pvRank as $pvPost}
-            <li>
-            <a href="/p/{$pvPost[0]}.html">{$pvPost[1]}</a>
-            <span>阅读数：{$pvPost[2]}</span>
-            </li>
-            {/foreach}
-        </ul>
-
+    <div class="side-bar">
+        <div class="shadow">
+            <h3>阅读排行榜</h3>
+            <ul>
+                {foreach $pvRank as $pvPost}
+                <li>
+                    <a href="/p/{$pvPost[0]}.html">{$pvPost[1]}</a>
+                    <span>阅读数：{$pvPost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="shadow">
+            <h3>评论排行榜</h3>
+            <ul>
+                {foreach $commentRank as $commentPost}
+                <li>
+                    <a href="/p/{$commentPost[0]}.html">{$commentPost[1]}</a>
+                    <span>评论数：{$commentPost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="shadow">
+            <h3>点赞排行榜</h3>
+            <ul>
+                {foreach $likeRank as $likePost}
+                <li>
+                    <a href="/p/{$likePost[0]}.html">{$likePost[1]}</a>
+                    <span>点赞数：{$likePost[2]}</span>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
     </div>
 </div>
 {include file="public/footer" /}

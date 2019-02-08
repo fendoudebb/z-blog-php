@@ -37,9 +37,12 @@ class Post extends Base {
                 $this->log('post不存在 防缓存击穿');
                 return redirect('/404.html');
             }
-            $result[1]['pvRank'] = array_chunk($result[2],3);
-            $result[1]['commentRank'] = array_chunk($result[3],3);
-            $result[1]['likeRank'] = array_chunk($result[4],3);
+            $pvRank = array_chunk($result[2], 3);
+            $commentRank = array_chunk($result[3], 3);
+            $likeRank = array_chunk($result[4], 3);
+            $result[1]['pvRank'] = $pvRank;
+            $result[1]['commentRank'] = $commentRank;
+            $result[1]['likeRank'] = $likeRank;
             if ($result[1][RedisKey::POST_TITLE] !== false) {
                 $this->log("post[$postId], redis缓存");
                 return compressHtml($this->fetch('post', $result[1]));
@@ -82,6 +85,9 @@ class Post extends Base {
                 $this->log("post status[$postStatus], is private[$postIsPrivate]");
                 return redirect('/404.html');
             }
+            $p['pvRank'] = $pvRank;
+            $p['commentRank'] = $commentRank;
+            $p['likeRank'] = $likeRank;
             $compressHtml = compressHtml($this->fetch('post', $p));
             return $compressHtml;
         } catch (Exception $e) {
