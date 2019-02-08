@@ -13,6 +13,7 @@ class Post extends Base {
 
     public function post($postId) {
         try {
+            $this->log("post id : ".$postId);
             $postKey = RedisKey::HASH_POST_DETAIL . $postId;
             $pipeline = Redis::init()->multi(\Redis::PIPELINE);
             $pipeline->sIsMember(RedisKey::SET_VISIBLE_POST, $postId);
