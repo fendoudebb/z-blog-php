@@ -83,6 +83,6 @@ function timeFormat($postTime) {
     } else if ($deltaTimestamp >= 3600 * 24 * 3 && $deltaTimestamp <= 3600 * 24 * 30) {
         return intval(($deltaTimestamp / (3600 * 24))) . '天前';
     } else {
-        return date('Y-m-d',$postTimestamp);
+        return date('Y.m.d',$postTimestamp);
     }
 }
