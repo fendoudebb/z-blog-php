@@ -121,7 +121,7 @@
                 <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
                 <p class="index-article-desc">{$p.description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p.postTime)} · 阅读（{$p.pv}）· 评论（{$p.commentCount}）· 点赞（{$p.likeCount}）</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p.postTime)} · 阅读（{$p.pv}）· 评论（{$p.commentCount}）{if condition="isMobile() neq 1"}· 点赞（{$p.likeCount}）{/if}</span>
                 </p>
             </li>
             {/foreach}
