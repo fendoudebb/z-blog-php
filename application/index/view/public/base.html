@@ -251,9 +251,16 @@
 
     .side-bar {
         display: inline-block;
+        width: 30%;
         max-width: 30%;
         vertical-align: top;
         margin-left: 8px;
+    }
+
+    @media (max-width:750px) {
+        .side-bar {
+            display: none;
+        }
     }
 
     .side-bar h3 {

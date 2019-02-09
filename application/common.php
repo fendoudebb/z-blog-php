@@ -5,6 +5,10 @@ function now() {
     return date("Y-m-d H:i:s");
 }
 
+function isMobile() {
+    return \think\Request::instance()->isMobile();
+}
+
 function doGet($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
