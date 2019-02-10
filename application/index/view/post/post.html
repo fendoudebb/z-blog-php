@@ -106,6 +106,7 @@
         </div>
     </div>
     <div class="side-bar">
+        {notempty name="pvRank"}
         <div class="shadow">
             <h3>阅读排行榜</h3>
             <ul>
@@ -117,6 +118,8 @@
                 {/foreach}
             </ul>
         </div>
+        {/notempty}
+        {notempty name="commentRank"}
         <div class="shadow">
             <h3>评论排行榜</h3>
             <ul>
@@ -128,6 +131,8 @@
                 {/foreach}
             </ul>
         </div>
+        {/notempty}
+        {notempty name="likeRank"}
         <div class="shadow">
             <h3>点赞排行榜</h3>
             <ul>
@@ -139,6 +144,7 @@
                 {/foreach}
             </ul>
         </div>
+        {/notempty}
     </div>
 </div>
 {include file="public/footer" /}

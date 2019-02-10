@@ -28,9 +28,11 @@ class Index extends Base {
                                 (SELECT id FROM `post` WHERE STATUS = 1 and is_private = 0 ORDER BY `post_time` DESC LIMIT $offset, $size) b USING (id)");
             $pipeline = Redis::init()->multi(\Redis::PIPELINE);
             $pipeline->sCard(RedisKey::SET_VISIBLE_POST);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
+            if (!$this->isMobile) {
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
+            }
             $result = $pipeline->exec();
             if ($result[0] === false) {
                 $statistics = Db::table('statistics')
@@ -48,12 +50,14 @@ class Index extends Base {
                 'totalPage' => ceil($result[0] / $size),
                 'post' => $post
             ];
-            $pvRank = array_chunk($result[1], 3);
-            $commentRank = array_chunk($result[2], 3);
-            $likeRank = array_chunk($result[3], 3);
-            $arr['pvRank'] = $pvRank;
-            $arr['commentRank'] = $commentRank;
-            $arr['likeRank'] = $likeRank;
+            if (!$this->isMobile) {
+                $pvRank = array_chunk($result[1], 3);
+                $commentRank = array_chunk($result[2], 3);
+                $likeRank = array_chunk($result[3], 3);
+                $arr['pvRank'] = $pvRank;
+                $arr['commentRank'] = $commentRank;
+                $arr['likeRank'] = $likeRank;
+            }
             $compressHtml = compressHtml($this->fetch('index', $arr));
             return $compressHtml;
         } catch (Exception $e) {

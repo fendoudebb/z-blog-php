@@ -13,7 +13,6 @@ class Post extends Base {
 
     public function post($postId) {
         try {
-            $this->log("post id : ".$postId);
             $postKey = RedisKey::HASH_POST_DETAIL . $postId;
             $pipeline = Redis::init()->multi(\Redis::PIPELINE);
             $pipeline->sIsMember(RedisKey::SET_VISIBLE_POST, $postId);
@@ -30,20 +29,21 @@ class Post extends Base {
                 RedisKey::POST_LIKE_COUNT,
                 RedisKey::POST_HTML,
             ]);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
-            $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
+            if (!$this->isMobile) {
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->pv','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->pv'],'sort'=>'desc']);
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->commentCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->commentCount'],'sort'=>'desc']);
+                $pipeline->sort(RedisKey::SET_VISIBLE_POST, ['by'=>RedisKey::HASH_POST_DETAIL.'*->likeCount','limit'=>[0,5],'get'=>['#',RedisKey::HASH_POST_DETAIL.'*->title',RedisKey::HASH_POST_DETAIL.'*->likeCount'],'sort'=>'desc']);
+            }
             $result = $pipeline->exec();
             if ($result[0] === false) {
                 $this->log('post不存在 防缓存击穿');
                 return redirect('/404.html');
             }
-            $pvRank = array_chunk($result[2], 3);
-            $commentRank = array_chunk($result[3], 3);
-            $likeRank = array_chunk($result[4], 3);
-            $result[1]['pvRank'] = $pvRank;
-            $result[1]['commentRank'] = $commentRank;
-            $result[1]['likeRank'] = $likeRank;
+            if (!$this->isMobile) {
+                $result[1]['pvRank'] = array_chunk($result[2], 3);
+                $result[1]['commentRank'] = array_chunk($result[3], 3);
+                $result[1]['likeRank'] = array_chunk($result[4], 3);
+            }
             if ($result[1][RedisKey::POST_TITLE] !== false) {
                 $this->log("post[$postId], redis缓存");
                 return compressHtml($this->fetch('post', $result[1]));
@@ -86,9 +86,11 @@ class Post extends Base {
                 $this->log("post status[$postStatus], is private[$postIsPrivate]");
                 return redirect('/404.html');
             }
-            $p['pvRank'] = $pvRank;
-            $p['commentRank'] = $commentRank;
-            $p['likeRank'] = $likeRank;
+            if (!$this->isMobile) {
+                $p['pvRank'] = array_chunk($result[2], 3);
+                $p['commentRank'] = array_chunk($result[3], 3);
+                $p['likeRank'] = array_chunk($result[4], 3);
+            }
             $compressHtml = compressHtml($this->fetch('post', $p));
             return $compressHtml;
         } catch (Exception $e) {

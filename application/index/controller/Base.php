@@ -10,11 +10,13 @@ abstract class Base extends Controller {
 
     protected $ip;
     protected $url;
+    protected $isMobile;
 
     public function _initialize() {
         $request = Request::instance();
         $this->ip = $request->ip();
         $this->url = $request->url();
+        $this->isMobile = $request->isMobile();
     }
 
     public function log($msg) {
