@@ -29,34 +29,37 @@ function doGet($url) {
 
 function compressHtml($content) {
     $compressContent = '';
-    $chunks = preg_split('/(<pre.*?\/pre>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $chunks = preg_split('/(<(?:title|pre).*?\/(?:title|pre)>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
     foreach ($chunks as $c) {
-        if (strpos($c, '<pre') !== 0) {
-            $IE = '<!--[if';
-            $IE1 = '<!-【';
-            $start = '<!--';
-            $end = '-->';
-            $start1 = '<!--@';
-            $end1 = '@-->';
-            $c = preg_replace('#\/\*.*\*\/#isU', '', $c);//js块注释
-            $c = preg_replace('#[^:"\']\/\/[^\n]*#', '', $c);//js行注释
-            $c = str_replace("\t", "", $c);//tab
-            $c = preg_replace('#\s?(=|>=|\?|:|==|\+|\|\||\+=|>|<|\/|\-|,|\()\s?#', '$1', $c);//字符前后多余空格
-            $c = preg_replace('#([^"\'])[\s]+#', '$1 ', $c);
-            $c = preg_replace('#>\s<#', '><', $c);
-            $c = str_replace("\t", "", $c);//tab
-            $c = str_replace("\r\n", "", $c);//回车
-            $c = str_replace("\r", "", $c);//换行
-            $c = str_replace("\n", "", $c);//换行
-            //去除html注释,忽略IE兼容
-            $c = str_replace($IE, $IE1, $c);
-            $c = str_replace($start, $start1, $c);
-            $c = str_replace($end, $end1, $c);
-            $c = preg_replace('#(<![\-]{2}@[^@]*@[\-]{2}>)#', '', $c);
-            $c = str_replace($IE1, $IE, $c);
-            $c = str_replace($end1, $end, $c);
-            $c = trim($c, " ");
+        \think\Log::log("$c");
+        if (strpos($c, '<title') === 0 || strpos($c, '<pre') === 0) {
+            $compressContent .= $c;
+            continue;
         }
+        $IE = '<!--[if';
+        $IE1 = '<!-【';
+        $start = '<!--';
+        $end = '-->';
+        $start1 = '<!--@';
+        $end1 = '@-->';
+        $c = preg_replace('#\/\*.*\*\/#isU', '', $c);//js块注释
+        $c = preg_replace('#[^:"\']\/\/[^\n]*#', '', $c);//js行注释
+        $c = str_replace("\t", "", $c);//tab
+        $c = preg_replace('#\s?(=|>=|\?|:|==|\+|\|\||\+=|>|<|\/|\-|,|\()\s?#', '$1', $c);//字符前后多余空格
+        $c = preg_replace('#([^"\'])[\s]+#', '$1 ', $c);
+        $c = preg_replace('#>\s<#', '><', $c);
+        $c = str_replace("\t", "", $c);//tab
+        $c = str_replace("\r\n", "", $c);//回车
+        $c = str_replace("\r", "", $c);//换行
+        $c = str_replace("\n", "", $c);//换行
+        //去除html注释,忽略IE兼容
+        $c = str_replace($IE, $IE1, $c);
+        $c = str_replace($start, $start1, $c);
+        $c = str_replace($end, $end1, $c);
+        $c = preg_replace('#(<![\-]{2}@[^@]*@[\-]{2}>)#', '', $c);
+        $c = str_replace($IE1, $IE, $c);
+        $c = str_replace($end1, $end, $c);
+        $c = trim($c, " ");
         $compressContent .= $c;
     }
     return $compressContent;
