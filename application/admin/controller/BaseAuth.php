@@ -32,6 +32,7 @@ abstract class BaseAuth extends Base {
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
         $hashKeys = [
+            RedisKey::ADMIN_LOGIN_USER_INFO_ID,
             RedisKey::ADMIN_LOGIN_USER_INFO_UID,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
             RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME,

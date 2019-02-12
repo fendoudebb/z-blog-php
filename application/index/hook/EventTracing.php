@@ -41,7 +41,6 @@ class EventTracing {
         Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> ". json_encode($param));
 
         if (strpos($url, '/admin/') === 0) {
-            Log::log("admin url");
             return;
         }
 

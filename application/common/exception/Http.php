@@ -7,6 +7,7 @@ use Exception;
 use think\exception\Handle;
 use think\exception\RouteNotFoundException;
 use think\Log;
+use think\Request;
 
 class Http extends Handle {
 
@@ -20,6 +21,10 @@ class Http extends Handle {
 
         if ($e instanceof RouteNotFoundException) {
             Log::info("RouteNotFoundException -> " . $e->getMessage());
+            $url = Request::instance()->url();
+            if (strpos($url, '/admin/') === 0) {
+                return self::fail(ResCode::URL_NOT_EXIST);
+            }
 //            return self::fail(ResCode::URL_NOT_EXIST);
 //            return view('index@public/404');//跨模块调用
             return redirect('/404.html');//重定向到404页面

@@ -42,6 +42,7 @@ class Login extends Base {
             $nickname = $sysUser['nickname'];
             $avatar = $sysUser['avatar'];
             $userInfo = [
+                RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
                 RedisKey::ADMIN_LOGIN_USER_INFO_UID => $uid,
                 RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
                 RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME => $nickname,
