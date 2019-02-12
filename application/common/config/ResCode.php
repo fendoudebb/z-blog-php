@@ -32,6 +32,7 @@ class ResCode {
         self::MISSING_PARAMS_POST_ID => "missing params: post id",
         self::MISSING_PARAMS_TOPIC_ID => "missing params: topic id",
         self::MISSING_PARAMS_TOPIC_SORT => "missing params: topic sort",
+        self::MISSING_PARAMS_AUDIT_STATUS => "missing params: audit status",
 
 
 
@@ -39,6 +40,7 @@ class ResCode {
         self::ILLEGAL_ARGUMENT_TOPIC_PARENT_ID => "illegal argument: topic parent id",
         self::ILLEGAL_ARGUMENT_TOPIC_ID => "illegal argument: topic id",
         self::ILLEGAL_ARGUMENT_TOPIC_SORT => "illegal argument: topic sort",
+        self::ILLEGAL_ARGUMENT_AUDIT_STATUS => "illegal argument: audit status",
 
 
 
@@ -75,6 +77,7 @@ class ResCode {
     const MISSING_PARAMS_POST_ID = 2003;
     const MISSING_PARAMS_TOPIC_ID = 2004;
     const MISSING_PARAMS_TOPIC_SORT = 2005;
+    const MISSING_PARAMS_AUDIT_STATUS = 2006;
     //---missing params const end---
 
 
@@ -83,6 +86,7 @@ class ResCode {
     const ILLEGAL_ARGUMENT_TOPIC_PARENT_ID = 3001;
     const ILLEGAL_ARGUMENT_TOPIC_ID = 3002;
     const ILLEGAL_ARGUMENT_TOPIC_SORT = 3003;
+    const ILLEGAL_ARGUMENT_AUDIT_STATUS = 3004;
     //---illegal argument const end---
 
 

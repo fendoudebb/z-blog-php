@@ -7,6 +7,7 @@ Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert', ['method' => 'get|post']);
 
 Route::post('/admin/login', 'admin/Login/login');
+Route::post('/admin/logout', 'admin/Logout/logout');
 
 Route::post('/admin/statistics', 'admin/Statistics/statistics');
 
@@ -21,6 +22,9 @@ Route::post('/admin/topic/modify/parent', 'admin/TopicModifyParent/modifyTopicPa
 
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
+Route::post('/admin/post/info', 'admin/PostInfo/postInfo');
+Route::post('/admin/post/publish', 'admin/PostPublish/publishPost');
+Route::post('/admin/post/audit', 'admin/PostAudit/auditPost');
 Route::post('/admin/post/topic', 'admin/PostTopic/postTopic');
 Route::post('/admin/post/topic/add', 'admin/PostTopicAdd/addPostTopic');
 Route::post('/admin/post/topic/delete', 'admin/PostTopicDelete/deletePostTopic');
