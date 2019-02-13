@@ -24,17 +24,14 @@
             margin: 10px 0;
         }
 
-        .shadow {
+        .index-article-item {
+            transition: border-color .3s,background-color .3s,color .3s;
             margin-bottom: 8px;
             padding: 16px 24px;
         }
 
-        .index-article-item {
-            border-bottom: 1px solid #f4f4f4;
-        }
-
         .index-article-item:hover {
-            background-color: #FAFAFA;
+            background-color: #EFEEEE;
         }
 
         .index-article-item a {
@@ -45,7 +42,7 @@
         }
 
         .index-article-item a:hover {
-            color: #5BC0DE;
+            color: #0786ED;
         }
 
         .index-article-item a:active {
@@ -86,7 +83,7 @@
         }
 
         ul.pagination li a.active {
-            background-color: #5BC0DE;
+            background-color: #0786ED;
             color: white;
             border-radius: 5px;
         }
@@ -164,7 +161,7 @@
     </div>
     <div class="side-bar">
         {notempty name="pvRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>阅读排行榜</h3>
             <ul>
                 {foreach $pvRank as $pvPost}
@@ -177,7 +174,7 @@
         </div>
         {/notempty}
         {notempty name="commentRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>评论排行榜</h3>
             <ul>
                 {foreach $commentRank as $commentPost}
@@ -190,7 +187,7 @@
         </div>
         {/notempty}
         {notempty name="likeRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>点赞排行榜</h3>
             <ul>
                 {foreach $likeRank as $likePost}

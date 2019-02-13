@@ -107,7 +107,7 @@
     </div>
     <div class="side-bar">
         {notempty name="pvRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>阅读排行榜</h3>
             <ul>
                 {foreach $pvRank as $pvPost}
@@ -120,7 +120,7 @@
         </div>
         {/notempty}
         {notempty name="commentRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>评论排行榜</h3>
             <ul>
                 {foreach $commentRank as $commentPost}
@@ -133,7 +133,7 @@
         </div>
         {/notempty}
         {notempty name="likeRank"}
-        <div class="shadow">
+        <div class="shadow side-bar-widget">
             <h3>点赞排行榜</h3>
             <ul>
                 {foreach $likeRank as $likePost}

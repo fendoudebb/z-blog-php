@@ -157,14 +157,6 @@
         margin: 0 0 20px 0;
     }
 
-    a:hover {
-        color: #5BC0DE;
-    }
-
-    a:active {
-        color: #999;
-    }
-
     .header {
         height: auto;
         background-color: white;
@@ -190,6 +182,15 @@
     .header ul li a {
         text-decoration: none;
         padding: 0 16px;
+        color: black;
+    }
+
+    .header a:hover {
+        color: #0786ED;
+    }
+
+    .header a:active {
+        color: #999;
     }
 
     .footer {
@@ -248,7 +249,7 @@
         right: 50px;
         bottom: 50px;
         /*background:url(../../images/favicon.ico) no-repeat -70px 0px;*/
-        background-color: #4CAF50;
+        background-color: #0786ED;
         text-align: center;
         padding: 10px 0;
     }
@@ -267,13 +268,19 @@
         }
     }
 
-    .side-bar h3 {
-        font-size: 14px;
-        font-weight: bold;
-        margin:  0;
+    .side-bar-widget {
+        margin-bottom: 8px;
+        padding: 16px 24px;
     }
 
-    .side-bar h3::before {
+    .side-bar-widget h3 {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 0;
+        padding-bottom: 8px;
+    }
+
+    .side-bar-widget h3::before {
         display: inline-block;
         margin-right: 8px;
         content: '';
@@ -283,19 +290,24 @@
         background-color: #4CAF50;
     }
 
-    .side-bar ul, .side-bar li {
+    .side-bar-widget ul, .side-bar-widget li {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .side-bar li {
-        margin-top: 8px;
+    .side-bar-widget li {
+        padding: 8px 0;
+        outline: 0;
     }
 
-    .side-bar li a {
+    .side-bar-widget li:not(:last-child) {
+        border-bottom: 1px dashed #8a8a8a;
+    }
+
+    .side-bar-widget li a {
         display: block;
-        color: #333333;
+        color: #8a8a8a;
         text-decoration: none;
         line-height: 22px;
         max-height: 44px;
@@ -303,16 +315,16 @@
         word-wrap: break-word;
     }
 
-    .side-bar li span {
+    .side-bar-widget li span {
         font-size: 12px;
         color: #8a8a8a;
     }
 
-    .side-bar a:hover {
-        color: #5BC0DE;
+    .side-bar-widget a:hover {
+        color: #0786ED;
     }
 
-    .side-bar a:active {
+    .side-bar-widget a:active {
         color: #999;
     }
 
