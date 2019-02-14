@@ -3,22 +3,6 @@
 <head>
     {include file="public/base" /}
     <style>
-        .main {
-            margin: 0 5%;
-        }
-
-        .content {
-            display: inline-block;
-            width: 65%;
-            max-width: 65%;
-        }
-
-        @media (max-width:750px) {
-            .content {
-                width: 100%;
-                max-width: 100%;
-            }
-        }
 
         .content p {
             margin: 10px 0;
@@ -50,7 +34,7 @@
         }
 
         .index-article-title {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .index-article-desc {
@@ -104,7 +88,7 @@
     post为空
     {else /}
     <div class="content">
-        <ul >
+        <ul>
             {foreach $post as $p}
             <li class="shadow index-article-item">
                 <span class="article-tag">
