@@ -94,7 +94,6 @@
 
         .disabled {
             cursor: not-allowed;
-
         }
     </style>
 </head>
@@ -159,47 +158,7 @@
             </ul>
         </div>
     </div>
-    <div class="side-bar">
-        {notempty name="pvRank"}
-        <div class="shadow side-bar-widget">
-            <h3>阅读排行榜</h3>
-            <ul>
-                {foreach $pvRank as $pvPost}
-                <li>
-                    <a href="/p/{$pvPost[0]}.html">{$pvPost[1]}</a>
-                    <span>阅读数：{$pvPost[2]}</span>
-                </li>
-                {/foreach}
-            </ul>
-        </div>
-        {/notempty}
-        {notempty name="commentRank"}
-        <div class="shadow side-bar-widget">
-            <h3>评论排行榜</h3>
-            <ul>
-                {foreach $commentRank as $commentPost}
-                <li>
-                    <a href="/p/{$commentPost[0]}.html">{$commentPost[1]}</a>
-                    <span>评论数：{$commentPost[2]}</span>
-                </li>
-                {/foreach}
-            </ul>
-        </div>
-        {/notempty}
-        {notempty name="likeRank"}
-        <div class="shadow side-bar-widget">
-            <h3>点赞排行榜</h3>
-            <ul>
-                {foreach $likeRank as $likePost}
-                <li>
-                    <a href="/p/{$likePost[0]}.html">{$likePost[1]}</a>
-                    <span>点赞数：{$likePost[2]}</span>
-                </li>
-                {/foreach}
-            </ul>
-        </div>
-        {/notempty}
-    </div>
+    {include file="public/side_bar" /}
     {/empty}
 </div>
 {include file="public/footer" /}

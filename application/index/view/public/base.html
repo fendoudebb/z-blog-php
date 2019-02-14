@@ -297,8 +297,14 @@
     }
 
     .side-bar-widget li {
-        padding: 8px 0;
+        transition: border-color .3s,background-color .3s,color .3s;
+        padding: 8px 24px;
+        margin: 0 -24px;
         outline: 0;
+    }
+
+    .side-bar-widget li:hover {
+        background-color: #EFEEEE;
     }
 
     .side-bar-widget li:not(:last-child) {
@@ -318,10 +324,7 @@
     .side-bar-widget li span {
         font-size: 12px;
         color: #8a8a8a;
-    }
-
-    .side-bar-widget a:hover {
-        color: #0786ED;
+        display: block;
     }
 
     .side-bar-widget a:active {
