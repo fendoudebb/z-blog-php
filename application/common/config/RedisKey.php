@@ -6,6 +6,7 @@ namespace app\common\config;
 class RedisKey {
 
     const HYPER_IP = 'msj_hyper_ip';
+    const STR_PV = 'msj_str_pv';
 
     const HASH_STATISTICS = 'msj_hash_statistics';
     const STATISTICS_POST_BACKEND = 'post_backend';

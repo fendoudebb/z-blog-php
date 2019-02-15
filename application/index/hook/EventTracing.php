@@ -21,6 +21,12 @@ class EventTracing {
         if (!isset($referer)) {
             $referer = '';
         }
+        if (strpos($url, '/404') === 0) {
+            return;
+        }
+        if (strpos($url, '/admin/') === 0) {
+            return;
+        }
         Db::table('page_view_record')
             ->insert([
                 'url' => $url,
@@ -28,8 +34,13 @@ class EventTracing {
                 'user_agent' => $userAgent,
                 'referer' => $referer
             ]);
-        $addIpPool = Redis::init()->pfAdd(RedisKey::HYPER_IP, [$ip]);
-        if ($addIpPool) {
+        $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+
+        $pipeline->pfAdd(RedisKey::HYPER_IP, [$ip]);
+        $pipeline->incrBy(RedisKey::STR_PV, 1);
+        $result = $pipeline->exec();
+        $newIp = $result[0];
+        if ($newIp) {
             Db::table('ip_pool')
                 ->insert([
                     'ip' => $ip
@@ -39,10 +50,6 @@ class EventTracing {
         $date = date('Y-m-d H:i:s', time());
         $param = $request->param();
         Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> ". json_encode($param));
-
-        if (strpos($url, '/admin/') === 0) {
-            return;
-        }
 
         if (strpos($url, '/p/') === 0) {
             $postId = $request->route('postId');
