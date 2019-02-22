@@ -21,7 +21,8 @@
       "ext-redis": "*",
       "ext-curl": "*",
       "ext-json": "*",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+      "ext-mongodb": "*"
     },
     "autoload": {
         "psr-4": {
