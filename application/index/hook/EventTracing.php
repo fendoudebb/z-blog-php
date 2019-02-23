@@ -18,24 +18,23 @@ class EventTracing {
         $ip = $request->ip();
         $userAgent = $request->header('user-agent');
         $referer = $request->header('referer');
-        if (!isset($referer)) {
-            $referer = '';
-        }
         if (strpos($url, '/404') === 0) {
             return;
         }
         if (strpos($url, '/admin/') === 0) {
             return;
         }
+        $record = [
+            'url' => $url,
+            'ip' => $ip,
+            'user_agent' => $userAgent,
+        ];
+        if (isset($referer)) {
+            $record['referer'] = $referer;
+        }
         Db::table('page_view_record')
-            ->insert([
-                'url' => $url,
-                'ip' => $ip,
-                'user_agent' => $userAgent,
-                'referer' => $referer
-            ]);
+            ->insert($record);
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
-
         $pipeline->pfAdd(RedisKey::HYPER_IP, [$ip]);
         $pipeline->incrBy(RedisKey::STR_PV, 1);
         $result = $pipeline->exec();

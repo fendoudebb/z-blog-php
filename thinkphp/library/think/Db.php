@@ -11,8 +11,8 @@
 
 namespace think;
 
-use think\db\Connection;
-use think\db\Query;
+use think\mongo\Connection;
+use think\mongo\Query;
 
 /**
  * Class Db
