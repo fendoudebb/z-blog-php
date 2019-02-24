@@ -20,7 +20,7 @@ class Login extends Base {
         }
         try {
             $sysUser = Db::table('sys_user')
-                ->field('id, uid, nickname, avatar')
+                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1, 'avatar' => 1])
                 ->where('username', $username)
                 ->where('password', $password)
                 ->find();
@@ -28,22 +28,16 @@ class Login extends Base {
                 $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
                 return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
             }
-            $roles = Db::table('sys_user_role rel')
-                ->join('sys_user u', 'rel.user_id = u.id')
-                ->join('sys_role r', 'rel.role_id = r.id')
-                ->where('u.username', $username)
-                ->column('r.name as roleName');
+            $userId = $sysUser['id'];
+            $nickname = $sysUser['nickname'];
+            $avatar = $sysUser['avatar'];
+            $roles = $sysUser['roles'];
             if (empty($roles)) {
                 $this->log(ResCode::USER_ROLE_INFO_ERROR);
                 return $this->fail(ResCode::USER_ROLE_INFO_ERROR);
             }
-            $userId = $sysUser['id'];
-            $uid = $sysUser['uid'];
-            $nickname = $sysUser['nickname'];
-            $avatar = $sysUser['avatar'];
             $userInfo = [
                 RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
-                RedisKey::ADMIN_LOGIN_USER_INFO_UID => $uid,
                 RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
                 RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME => $nickname,
                 RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR => $avatar,

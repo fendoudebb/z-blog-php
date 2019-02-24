@@ -12,7 +12,6 @@ use think\Log;
 abstract class BaseAuth extends Base {
 
     protected $userId;
-    protected $uid;
     protected $username;
     protected $nickname;
     protected $avatar;
@@ -33,7 +32,6 @@ abstract class BaseAuth extends Base {
         }
         $hashKeys = [
             RedisKey::ADMIN_LOGIN_USER_INFO_ID,
-            RedisKey::ADMIN_LOGIN_USER_INFO_UID,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
             RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME,
             RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR,
@@ -41,11 +39,10 @@ abstract class BaseAuth extends Base {
         ];
         $userInfo = Redis::init()->hMGet($loginUserKey, $hashKeys);
         if (!isset($userInfo)) {
-            Log::log("base auth, without user info in cache, uid[$this->uid]");
+            Log::log("base auth, without user info in cache, uid[$this->userId]");
             throw new SystemException(ResCode::UNAUTHORIZED);
         }
         $this->userId = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ID];
-        $this->uid = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_UID];
         $this->username = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME];
         $this->nickname = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME];
         $this->avatar = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR];

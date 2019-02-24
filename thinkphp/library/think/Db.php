@@ -17,6 +17,7 @@ use think\mongo\Query;
 /**
  * Class Db
  * @package think
+ * @method Query collection(string $mongoCollection) static 指定mongo集合
  * @method Query table(string $table) static 指定数据表（含前缀）
  * @method Query name(string $name) static 指定数据表（不含前缀）
  * @method Query where(mixed $field, string $op = null, mixed $condition = null) static 查询条件
