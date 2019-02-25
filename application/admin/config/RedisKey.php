@@ -10,7 +10,6 @@ class RedisKey {
     const ADMIN_LOGIN_USER_INFO_ID = 'id';
     const ADMIN_LOGIN_USER_INFO_USERNAME = 'username';
     const ADMIN_LOGIN_USER_INFO_NICKNAME = 'nickname';
-    const ADMIN_LOGIN_USER_INFO_AVATAR = 'avatar';
     const ADMIN_LOGIN_USER_INFO_ROLES = 'roles';
 
 

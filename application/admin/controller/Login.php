@@ -20,7 +20,7 @@ class Login extends Base {
         }
         try {
             $sysUser = Db::table('sys_user')
-                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1, 'avatar' => 1])
+                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1])
                 ->where('username', $username)
                 ->where('password', $password)
                 ->find();
@@ -30,7 +30,6 @@ class Login extends Base {
             }
             $userId = $sysUser['id'];
             $nickname = $sysUser['nickname'];
-            $avatar = $sysUser['avatar'];
             $roles = $sysUser['roles'];
             if (empty($roles)) {
                 $this->log(ResCode::USER_ROLE_INFO_ERROR);
@@ -40,7 +39,6 @@ class Login extends Base {
                 RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
                 RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
                 RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME => $nickname,
-                RedisKey::ADMIN_LOGIN_USER_INFO_AVATAR => $avatar,
                 RedisKey::ADMIN_LOGIN_USER_INFO_ROLES => implode(",", $roles),
             ];
             $token = base64_encode($userId . ' ' . time());
