@@ -20,9 +20,9 @@ class Login extends Base {
         }
         try {
             $sysUser = Db::table('sys_user')
-                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1])
                 ->where('username', $username)
                 ->where('password', $password)
+                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1])
                 ->find();
             if (!isset($sysUser)) {
                 $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);

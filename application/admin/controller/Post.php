@@ -8,26 +8,75 @@ use think\Db;
 class Post extends BaseRoleAdmin {
 
     public function postList() {
-        $page = input('post.page');
-        $size = input('post.size');
-        if (!isset($page) || !is_numeric($page) || $page < 1) {
+        $page = intval(input('post.page'));
+        $size = intval(input('post.size'));
+        if ($page < 1) {
             $page = 1;
         }
-        if (!isset($size) || !is_numeric($size) || $size < 1 || $size > 20) {
+        if ($size < 1 || $size > 20) {
             $size = 20;
         }
+        $offset = ($page - 1) * $size;
+        $cmd = [
+            'aggregate' => 'post', // collection表名
+            'pipeline' => [
+                [
+                    '$lookup' => [
+                        'from' => 'sys_user',
+                        'localField' => 'userId',
+                        'foreignField' => '_id',
+                        'as' => 'sysUser'
+                    ]
+                ],
+                [
+                    '$unwind' => '$sysUser'
+                ],
+                [
+                    '$project' => [
+                        'sysUser.nickname' => 1,
+                        'postId' => 1,
+                        'postTime' => 1,
+                        'status' => 1,
+                        'title' => 1,
+                        'keywords' => 1,
+                        'description' => 1,
+                        'isCommentClose' => 1,
+                        'isPrivate' => 1,
+                        'isCopy' => 1,
+                        'originalLink' => 1,
+                        'isTop' => 1,
+                        'pv' => 1,
+                        'commentCount' => 1,
+                        'likeCount' => 1,
+                        'createTime' => [
+                            '$dateToString' => [
+                                'format' => "%H:%M:%S",
+                                'date' => [
+                                    '$toDate' => '$_id'
+                                ],
+                                'timezone' => "+08:00"
+
+                            ]
+                        ],
+                    ]
+                ],
+                [
+                    '$skip' => $offset
+                ],
+                [
+                    '$limit' => $size
+                ]
+            ],
+            'cursor' => new \stdClass()
+        ];
+        $post = Db::cmd($cmd);
         $response = [
         ];
-        $count = Db::table('post')
-            ->value('count(*)');
-        $offset = ($page - 1) * $size;
-        $post = Db::query("SELECT u.nickname, 
-p.id AS postId, p.post_time AS postTime, p.status, p.title, p.keywords, p.description, p.is_comment_close AS isCommentClose, p.is_private AS isPrivate, 
-p.is_copy AS isCopy, p.original_link AS originalLink, p.is_top AS isTop, p.pv, p.comment_count AS commentCount, p.like_count AS likeCount 
-                                FROM `post` p INNER JOIN 
-                                (SELECT id FROM `post` ORDER BY `post_time` DESC LIMIT $offset, $size) b USING (id) 
-                                STRAIGHT_JOIN  `sys_user` `u` ON `p`.`user_id` = `u`.`id`");
-        $response['totalCount'] = $count;
+        $cmd = [
+            'count' => 'post'
+        ];
+        $countResult = Db::cmd($cmd);
+        $response['totalCount'] = $countResult[0]['n'];
         $response['post'] = $post;
         return $this->res($response);
     }
