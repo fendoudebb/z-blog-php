@@ -8,6 +8,7 @@ use app\common\config\ResCode;
 use app\common\util\Redis;
 use think\Db;
 use think\Exception;
+use think\Log;
 
 class Login extends Base {
 
@@ -18,39 +19,43 @@ class Login extends Base {
             $this->log(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
             return $this->fail(ResCode::MISSING_PARAMS_USERNAME_OR_PASSWORD);
         }
-        try {
-            $sysUser = Db::table('sys_user')
-                ->where('username', $username)
-                ->where('password', $password)
-                ->field(['id' => 1, 'nickname' => 1, 'roles' => 1])
-                ->find();
-            if (!isset($sysUser)) {
-                $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
-                return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
-            }
-            $userId = $sysUser['id'];
-            $nickname = $sysUser['nickname'];
-            $roles = $sysUser['roles'];
-            if (empty($roles)) {
-                $this->log(ResCode::USER_ROLE_INFO_ERROR);
-                return $this->fail(ResCode::USER_ROLE_INFO_ERROR);
-            }
-            $userInfo = [
-                RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
-                RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
-                RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME => $nickname,
-                RedisKey::ADMIN_LOGIN_USER_INFO_ROLES => implode(",", $roles),
-            ];
-            $token = base64_encode($userId . ' ' . time());
-            $pipeline = Redis::init()->multi(\Redis::PIPELINE);
-            $loginUserKey = RedisKey::HASH_ADMIN_LOGIN_USER . $token;
-            $pipeline->hMSet($loginUserKey, $userInfo);
-            $pipeline->expire($loginUserKey, RedisKey::ADMIN_LOGIN_USER_EXPIRE_TIME);
-            $pipeline->exec();
-            return $this->res(['token' => $token, 'roles' => $roles]);
-        } catch (Exception $e) {
-            $this->logException($e->getMessage());
-            return $this->exception();
+        $cmd = [
+            'find' => 'sys_user',
+            'filter' => [
+                'username' => $username,
+            ],
+            'projection' => [
+                'password' => 1,
+                'roles' => 1
+            ],
+            'limit' => 1
+        ];
+        $userCmdArr = Db::cmd($cmd);
+        if (empty($userCmdArr)) {
+            $this->log(ResCode::USERNAME_DOES_NOT_EXIST);
+            return $this->fail(ResCode::USERNAME_DOES_NOT_EXIST);
         }
+        $user = $userCmdArr[0];
+        Log::log(json_encode($user));
+        $userId = $user['id'];
+        $roles = $user['roles'];
+        $pwd = $user['password'];
+        if ($password !== $pwd) {
+            $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
+            return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
+        }
+        $userInfo = [
+            RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
+            RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
+            RedisKey::ADMIN_LOGIN_USER_INFO_ROLES => implode(",", $roles),
+        ];
+        $token = base64_encode($userId . ' ' . time());
+        $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+        $loginUserKey = RedisKey::HASH_ADMIN_LOGIN_USER . $token;
+        $pipeline->hMSet($loginUserKey, $userInfo);
+        $pipeline->expire($loginUserKey, RedisKey::ADMIN_LOGIN_USER_EXPIRE_TIME);
+        $pipeline->exec();
+        return $this->res(['token' => $token, 'roles' => $roles]);
+
     }
 }

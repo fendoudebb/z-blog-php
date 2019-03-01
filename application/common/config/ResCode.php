@@ -13,6 +13,7 @@ class ResCode {
         self::URL_NOT_EXIST => 'url not exist',
         self::REQUEST_FAIL => 'request fail',
         self::REQUEST_SUCCESS => 'request success',
+        self::USERNAME_DOES_NOT_EXIST => 'username does not exist',
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
         self::USER_ROLE_INFO_ERROR => "user's role info error",
         self::TOPIC_NAME_ALREADY_EXISTS => "topic name already exists",
@@ -58,6 +59,7 @@ class ResCode {
     const REQUEST_SUCCESS = 200;
 
     //---error code const start---
+    const USERNAME_DOES_NOT_EXIST = 999;
     const USERNAME_OR_PASSWORD_ERROR = 1000;
     const USER_ROLE_INFO_ERROR = 1001;
     const TOPIC_NAME_ALREADY_EXISTS = 1002;

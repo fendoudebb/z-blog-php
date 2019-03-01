@@ -13,7 +13,6 @@ abstract class BaseAuth extends Base {
 
     protected $userId;
     protected $username;
-    protected $nickname;
     protected $avatar;
     protected $roles;
 
@@ -33,7 +32,6 @@ abstract class BaseAuth extends Base {
         $hashKeys = [
             RedisKey::ADMIN_LOGIN_USER_INFO_ID,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME,
-            RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME,
             RedisKey::ADMIN_LOGIN_USER_INFO_ROLES
         ];
         $userInfo = Redis::init()->hMGet($loginUserKey, $hashKeys);
@@ -43,7 +41,6 @@ abstract class BaseAuth extends Base {
         }
         $this->userId = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ID];
         $this->username = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME];
-        $this->nickname = $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_NICKNAME];
         $this->roles = explode(",", $userInfo[RedisKey::ADMIN_LOGIN_USER_INFO_ROLES]);
         Redis::init()->expire($loginUserKey, RedisKey::ADMIN_LOGIN_USER_EXPIRE_TIME);
     }
