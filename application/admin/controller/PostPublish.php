@@ -3,10 +3,8 @@
 namespace app\admin\controller;
 
 
-use app\common\config\RedisKey;
 use app\common\config\ResCode;
 use app\common\util\Parser;
-use app\common\util\Redis;
 use think\Db;
 
 class PostPublish extends BaseRoleAdmin {
@@ -15,50 +13,61 @@ class PostPublish extends BaseRoleAdmin {
         $postTitle = input('post.title');
         $postContent = input('post.content');
         $postTopic = input('post.topic');
-        $isCopy = input('post.isCopy');
-        $isPrivate = input('post.isPrivate');
+        $isCopy = intval(input('post.isCopy'));
+        $isPrivate = intval(input('post.isPrivate'));
+        $findMaxPostIdCmd = [
+            'find' => 'post',
+            'sort' => [
+                'postId' => -1
+            ],
+            'projection' => [
+                '_id' => 0,
+                'postId' => 1
+            ],
+            'limit' => 1,
+        ];
+        $cmdArr = Db::cmd($findMaxPostIdCmd);
+        if (empty($cmdArr)) {
+            $postId = 1;
+        } else {
+            if (array_key_exists('postId', $cmdArr[0])) {
+                $postId = $cmdArr[0]['postId'] + 1;
+            } else {
+                $postId = 1;
+            }
 
-        Db::startTrans();
-        $insertPostId = Db::table('post')
-            ->insertGetId([
-                'user_id' => $this->userId,
-                'title' => $postTitle,
-                'is_private' => $isPrivate
-            ]);
-        if (!$insertPostId) {
-            Db::rollback();
-            $this->log(ResCode::TABLE_INSERT_FAIL);
-            return $this->fail(ResCode::TABLE_INSERT_FAIL);
         }
-        $insertPostContentResult = Db::table('post_content')
-            ->insert([
-                'post_id' => $insertPostId,
-                'content' => $postContent
-            ]);
-        if (!$insertPostContentResult) {
-            Db::rollback();
-            $this->log(ResCode::TABLE_INSERT_FAIL);
-            return $this->fail(ResCode::TABLE_INSERT_FAIL);
-        }
+        $postTime = new \MongoDB\BSON\UTCDateTime();
         $parser = new Parser;
         $html = $parser->makeHtml($postContent);
-        $p = [
-            RedisKey::POST_TITLE => $postTitle,
-            RedisKey::POST_KEYWORDS => $post['keywords'],
-            RedisKey::POST_DESC => $post['description'],
-            RedisKey::POST_STATUS => 0,
-            RedisKey::POST_TIME => $post['postTime'],
-            RedisKey::POST_IS_PRIVATE => $isPrivate,
-            RedisKey::POST_IS_COMMENT_CLOSE => 0,
-            RedisKey::POST_IS_COPY => 0,
-            RedisKey::POST_ORIGINAL_LINK => '',
-            RedisKey::POST_PV => 0,
-            RedisKey::POST_COMMENT_COUNT => 0,
-            RedisKey::POST_LIKE_COUNT => 0,
-            RedisKey::POST_HTML => $html,
+        $insertPostCmd = [
+            'insert' => 'post',
+            'documents' => [
+                [
+                    'userId' => new \MongoDB\BSON\ObjectId($this->userId),
+                    'postId' => $postId,
+                    'postTime' => $postTime,
+                    'title' => $postTitle,
+                    'keywords' => $postTitle,
+                    'description' => $postTitle,
+                    'content' => $postContent,
+                    'content_html' => $html,
+                    'topic' => $postTopic,
+                    'isCopy' => $isCopy,
+                    'isPrivate' => $isPrivate,
+                    'isCommentClose' => 0,
+                    'status' => 0,
+                    'pv' => 0,
+                    'likeCount' => 0,
+                    'commentCount' => 0,
+                ]
+            ]
         ];
-        Redis::init()->hMSet($postKey, $p);
-        Db::commit();
+        $insertPostResult = Db::cmd($insertPostCmd);
+        if (empty($insertPostResult) || !$insertPostResult[0]['ok']) {
+            $this->log(ResCode::COLLECTION_INSERT_FAIL);
+            return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
+        }
         return $this->res();
     }
 
