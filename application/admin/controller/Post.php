@@ -35,7 +35,15 @@ class Post extends BaseRoleAdmin {
                     '$project' => [
                         'sysUser.nickname' => 1,
                         'postId' => 1,
-                        'postTime' => 1,
+                        'postTime' => [
+                            '$dateToString' => [
+                                'format' => "%Y-%m-%d %H:%M:%S",
+                                'date' => [
+                                    '$toDate' => '$postTime'
+                                ],
+                                'timezone' => "+08:00"
+                            ]
+                        ],
                         'status' => 1,
                         'title' => 1,
                         'keywords' => 1,
@@ -50,7 +58,7 @@ class Post extends BaseRoleAdmin {
                         'likeCount' => 1,
                         'createTime' => [
                             '$dateToString' => [
-                                'format' => "%H:%M:%S",
+                                'format' => "%Y-%m-%d %H:%M:%S",
                                 'date' => [
                                     '$toDate' => '$_id'
                                 ],

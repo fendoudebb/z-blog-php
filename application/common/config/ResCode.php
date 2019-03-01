@@ -44,8 +44,8 @@ class ResCode {
 
 
 
-        self::TABLE_INSERT_FAIL => "table insert fail",
-        self::TABLE_UPDATE_FAIL => "table update fail",
+        self::COLLECTION_INSERT_FAIL => "table insert fail",
+        self::COLLECTION_UPDATE_FAIL => "table update fail",
     ];
 
     const BAD_REQUEST = 400;
@@ -90,7 +90,7 @@ class ResCode {
     //---illegal argument const end---
 
 
-    const TABLE_INSERT_FAIL = 4000;
-    const TABLE_UPDATE_FAIL = 4001;
+    const COLLECTION_INSERT_FAIL = 4000;
+    const COLLECTION_UPDATE_FAIL = 4001;
 
 }

@@ -37,8 +37,8 @@ class PostAudit extends BaseRoleAdmin {
                     'status' => $auditStatus
                 ]);
             if (!$updateResult) {
-                $this->log(ResCode::TABLE_UPDATE_FAIL);
-                return $this->fail(ResCode::TABLE_UPDATE_FAIL);
+                $this->log(ResCode::COLLECTION_UPDATE_FAIL);
+                return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
             }
             if ($auditStatus === 1) {//上线
                 Redis::init()->sAdd(RedisKey::SET_VISIBLE_POST, $postId);

@@ -78,8 +78,8 @@ class PostTopicAdd extends BaseRoleAdmin {
                     ]);
                 if (!$updateResult) {
                     Db::rollback();
-                    $this->log(ResCode::TABLE_UPDATE_FAIL);
-                    return $this->fail(ResCode::TABLE_UPDATE_FAIL);
+                    $this->log(ResCode::COLLECTION_UPDATE_FAIL);
+                    return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
                 }
                 Db::commit();
                 return $this->res();
@@ -91,8 +91,8 @@ class PostTopicAdd extends BaseRoleAdmin {
                     ]);
                 if (!$insertResult) {
                     Db::rollback();
-                    $this->log(ResCode::TABLE_INSERT_FAIL);
-                    return $this->fail(ResCode::TABLE_INSERT_FAIL);
+                    $this->log(ResCode::COLLECTION_INSERT_FAIL);
+                    return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
                 }
                 Db::commit();
                 return $this->res();
