@@ -36,7 +36,6 @@ class Login extends Base {
             return $this->fail(ResCode::USERNAME_DOES_NOT_EXIST);
         }
         $user = $userCmdArr[0];
-        Log::log(json_encode($user));
         $userId = $user['id'];
         $roles = $user['roles'];
         $pwd = $user['password'];

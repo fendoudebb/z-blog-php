@@ -33,7 +33,7 @@ class Post extends BaseRoleAdmin {
                 ],
                 [
                     '$project' => [
-                        'sysUser.nickname' => 1,
+                        'sysUser.username' => 1,
                         'postId' => 1,
                         'postTime' => [
                             '$dateToString' => [

@@ -45,8 +45,8 @@ class ResCode {
 
 
 
-        self::COLLECTION_INSERT_FAIL => "table insert fail",
-        self::COLLECTION_UPDATE_FAIL => "table update fail",
+        self::COLLECTION_INSERT_FAIL => "collection insert fail",
+        self::COLLECTION_UPDATE_FAIL => "collection update fail",
     ];
 
     const BAD_REQUEST = 400;
