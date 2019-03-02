@@ -12,9 +12,9 @@ class PostPublish extends BaseRoleAdmin {
     public function publishPost() {
         $postTitle = input('post.title');
         $postContent = input('post.content');
-        $postTopic = input('post.topic');
-        $isCopy = intval(input('post.isCopy'));
-        $isPrivate = intval(input('post.isPrivate'));
+        $postTopic = input('post.topic/a');
+        $isCopy = boolval(input('post.isCopy'));
+        $isPrivate = boolval(input('post.isPrivate'));
         $findMaxPostIdCmd = [
             'find' => 'post',
             'sort' => [
@@ -40,27 +40,30 @@ class PostPublish extends BaseRoleAdmin {
         $postTime = new \MongoDB\BSON\UTCDateTime();
         $parser = new Parser;
         $html = $parser->makeHtml($postContent);
+        $document = [
+            'userId' => new \MongoDB\BSON\ObjectId($this->userId),
+            'postId' => $postId,
+            'postTime' => $postTime,
+            'title' => $postTitle,
+            'keywords' => $postTitle,
+            'description' => $postTitle,
+            'content' => $postContent,
+            'content_html' => $html,
+            'isCopy' => $isCopy,
+            'isPrivate' => $isPrivate,
+            'isCommentClose' => false,
+            'status' => 0,
+            'pv' => 0,
+            'likeCount' => 0,
+            'commentCount' => 0,
+        ];
+        if (!empty($postTopic)) {
+            $document['topic'] = $postTopic;
+        }
         $insertPostCmd = [
             'insert' => 'post',
             'documents' => [
-                [
-                    'userId' => new \MongoDB\BSON\ObjectId($this->userId),
-                    'postId' => $postId,
-                    'postTime' => $postTime,
-                    'title' => $postTitle,
-                    'keywords' => $postTitle,
-                    'description' => $postTitle,
-                    'content' => $postContent,
-                    'content_html' => $html,
-                    'topic' => $postTopic,
-                    'isCopy' => $isCopy,
-                    'isPrivate' => $isPrivate,
-                    'isCommentClose' => 0,
-                    'status' => 0,
-                    'pv' => 0,
-                    'likeCount' => 0,
-                    'commentCount' => 0,
-                ]
+                $document
             ]
         ];
         $insertPostResult = Db::cmd($insertPostCmd);
