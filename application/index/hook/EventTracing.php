@@ -6,7 +6,6 @@ namespace app\index\hook;
 use app\common\config\RedisKey;
 use app\common\util\Redis;
 use think\Db;
-use think\Exception;
 use think\Log;
 use think\Request;
 
@@ -24,54 +23,67 @@ class EventTracing {
         if (strpos($url, '/admin/') === 0) {
             return;
         }
-        $record = [
+        $createTime = new \MongoDB\BSON\UTCDateTime();
+        $document = [
             'url' => $url,
             'ip' => $ip,
-            'user_agent' => $userAgent,
+            'userAgent' => $userAgent,
+            'createTime' => $createTime
         ];
         if (isset($referer)) {
-            $record['referer'] = $referer;
+            $document['referer'] = $referer;
         }
-        Db::table('page_view_record')
-            ->insert($record);
+        $insertPageViewRecordCmd = [
+            'insert' => 'page_view_record',
+            'documents' => [
+                $document
+            ]
+        ];
+        Db::cmd($insertPageViewRecordCmd);
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
         $pipeline->pfAdd(RedisKey::HYPER_IP, [$ip]);
         $pipeline->incrBy(RedisKey::STR_PV, 1);
         $result = $pipeline->exec();
         $newIp = $result[0];
         if ($newIp) {
-            Db::table('ip_pool')
-                ->insert([
-                    'ip' => $ip
-                ]);
+            Db::cmd([
+                'insert' => 'ip_pool',
+                'documents' => [
+                    [
+                        'ip' => $ip,
+                        'createTime' => $createTime
+                    ]
+                ]
+            ]);
         }
         $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
         $date = date('Y-m-d H:i:s', time());
         $param = $request->param();
-        Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> ". json_encode($param));
-
+        Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> " . json_encode($param));
         if (strpos($url, '/p/') === 0) {
             $postId = $request->route('postId');
             if (!isset($postId)) {
                 Log::log('event tracing post id is empty');
                 return;
             }
-            try {
-                $updatePostResult = Db::table('post')
-                    ->where('id', $postId)
-                    ->update([
-                        'pv' => Db::raw('pv + 1')
-                    ]);
-                if (!$updatePostResult) {
-                    Log::log('event tracing update post fail');
-                    return;
-                }
-                Redis::init()->hIncrBy(RedisKey::HASH_POST_DETAIL . $postId, RedisKey::POST_PV, 1);
-            } catch (Exception $e) {
-                Log::log("event tracing log exception->" . $e->getMessage());
-            }
+            Db::cmd([
+                'update' => 'post',
+                'updates' => [
+                    [
+                        'q' => [
+                            'postId' => $postId
+                        ],
+                        'u' => [
+                            '$inc' => [
+                                'pv' => 1
+                            ],
+                            '$currentDate' => [
+                                'lastModified' => true
+                            ],
+                        ]
+                    ]
+                ]
+            ]);
         }
-
     }
-
 }

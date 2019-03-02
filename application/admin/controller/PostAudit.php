@@ -31,7 +31,7 @@ class PostAudit extends BaseRoleAdmin {
                     ],
                     'u' => [
                         '$set' => [
-                            'status' => 1
+                            'status' => $auditStatus
                         ],
                         '$currentDate' => [
                             'lastModified' => true
