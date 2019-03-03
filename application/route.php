@@ -11,14 +11,6 @@ Route::post('/admin/logout', 'admin/Logout/logout');
 
 Route::post('/admin/statistics', 'admin/Statistics/statistics');
 
-//---Topic api start---
-Route::post('/admin/topic', 'admin/Topic/topicList');
-Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
-Route::post('/admin/topic/modify/sort', 'admin/TopicModifySort/modifyTopicSort');
-Route::post('/admin/topic/modify/name', 'admin/TopicModifyName/modifyTopicName');
-Route::post('/admin/topic/modify/parent', 'admin/TopicModifyParent/modifyTopicParent');
-//---Topic api end---
-
 
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
