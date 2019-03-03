@@ -181,49 +181,6 @@ NULL
 }
 ```
 
-### PostTopic文章主题
-#### request url
-```text
-/admin/post/topic
-```
-
-#### request params
-Params | Type | Require | Desc
-:---: | :---: | :---: | :---:
-postId | number | Y | post id
-
-#### response params
-Params | Type | Desc
-:---: | :---: | :---:
-topicId | number | topic id
-topicName | string | topic name
-isDelete | number | whether topic was deleted
-
-#### error code
-Code | Msg
-:---: | :---: 
-2003 | missing params: post id
-3000 | illegal argument: post id
-
-#### example
-```json
-{
-    "code": 200,
-    "msg": "request success",
-    "data": [
-        {
-            "topicId": 1,
-            "topicName": "前端",
-            "isDelete": 0
-        },
-        {
-            "topicId": 2,
-            "topicName": "后端",
-            "isDelete": 1
-        }
-    ]
-}
-```
 ### PostTopicAdd添加文章主题
 #### request url
 ```text
@@ -233,16 +190,14 @@ Code | Msg
 #### request params
 Params | Type | Require | Desc
 :---: | :---: | :---: | :---:
-postId | number | Y | post id
-topicId | number | Y | topic id
+postId | string | Y | post id
+topic | string | Y | topic
 
 #### error code
 Code | Msg
 :---: | :---: 
 2003 | missing params: post id
-2004 | missing params: topic id
-3000 | illegal argument: post id
-3002 | illegal argument: topic id
+2004 | missing params: topic
 1006 | post topic already exists
 1007 | topic id does not exist
 1008 | post id does not exist

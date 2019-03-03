@@ -48,6 +48,7 @@ class Post extends BaseRoleAdmin {
                         'title' => 1,
                         'keywords' => 1,
                         'description' => 1,
+                        'topics' => 1,
                         'isCommentClose' => 1,
                         'isPrivate' => 1,
                         'isCopy' => 1,

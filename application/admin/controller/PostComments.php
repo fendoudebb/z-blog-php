@@ -7,9 +7,9 @@ use app\common\config\ResCode;
 use MongoDB\BSON\ObjectId;
 use think\Db;
 
-class PostComment extends BaseRoleAdmin {
+class PostComments extends BaseRoleAdmin {
 
-    public function postComment() {
+    public function postComments() {
         $postId = input('post.postId');
         $page = intval(input('post.page'));
         $size = intval(input('post.size'));
@@ -30,7 +30,7 @@ class PostComment extends BaseRoleAdmin {
                 '_id' => new ObjectId($postId),
             ],
             'projection' => [
-                'postComment' => [
+                'comments' => [
                     '$slice' => [$page, $size]
                 ]
             ],

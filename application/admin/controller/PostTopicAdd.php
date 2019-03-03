@@ -4,31 +4,38 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use MongoDB\BSON\ObjectId;
 use think\Db;
 use think\Exception;
+use think\Log;
 
 class PostTopicAdd extends BaseRoleAdmin {
 
     public function addPostTopic() {
         $postId = input('post.postId');
-        $topicId = input('post.topicId');
+        $topic = input('post.topic');
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-        if (!is_numeric($postId)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+
+        if (!isset($topic)) {
+            $this->log(ResCode::MISSING_PARAMS_TOPIC);
+            return $this->fail(ResCode::MISSING_PARAMS_TOPIC);
         }
-        if (!isset($topicId)) {
-            $this->log(ResCode::MISSING_PARAMS_TOPIC_ID);
-            return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
-        }
-        if (!is_numeric($topicId)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
-        }
-        try {
+        $postTopicCmd = [
+            'find' => 'post',
+            'filter' => [
+                '_id' => new ObjectId($postId)
+            ],
+            'projection' => [
+                'topics' => 1
+            ],
+            'limit' => 1
+        ];
+        $postTopicArr = Db::cmd($postTopicCmd);
+        Log::log(json_encode($postTopicArr));
+        /*try {
             Db::startTrans();
             $isPostExists = Db::table('post')
                 ->field('id')
@@ -101,7 +108,7 @@ class PostTopicAdd extends BaseRoleAdmin {
             Db::rollback();
             $this->logException($e->getMessage());
             return $this->exception();
-        }
+        }*/
 
     }
 
