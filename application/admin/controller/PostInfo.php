@@ -4,8 +4,8 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use MongoDB\BSON\ObjectId;
 use think\Db;
-use think\Exception;
 
 class PostInfo extends BaseRoleAdmin {
 
@@ -15,23 +15,26 @@ class PostInfo extends BaseRoleAdmin {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-        if (!is_numeric($postId)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+        $findPostCmd = [
+            'find' => 'post',
+            'filter' => [
+                '_id' => new ObjectId($postId)
+            ],
+            'projection' => [
+                '_id' => 1,
+                'title' => 1,
+                'isPrivate' => 1,
+                'content' => 1
+            ],
+            'limit' => 1
+        ];
+        $postCmdArr = Db::cmd($findPostCmd);
+        if (empty($postCmdArr)) {
+            $this->log(ResCode::POST_DOES_NOT_EXIST);
+            return $this->fail(ResCode::POST_DOES_NOT_EXIST);
         }
-        try {
-            $post = Db::table('post p')
-                ->field('p.id as postId, p.title, p.is_private as isPrivate, c.content')
-                ->join('post_content c', 'p.id = c.post_id')
-                ->where('p.id', $postId)
-                ->find();
-            return $this->res($post);
-        } catch (Exception $e) {
-            $this->logException($e->getMessage());
-            return $this->exception();
-        }
-
-
+        $post = $postCmdArr[0];
+        return $this->res($post);
     }
 
 }

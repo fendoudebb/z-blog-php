@@ -5,6 +5,8 @@ namespace app\admin\controller;
 
 use app\common\config\ResCode;
 use app\common\util\Parser;
+use MongoDB\BSON\ObjectId;
+use MongoDB\BSON\UTCDateTime;
 use think\Db;
 
 class PostPublish extends BaseRoleAdmin {
@@ -35,13 +37,12 @@ class PostPublish extends BaseRoleAdmin {
             } else {
                 $postId = 1;
             }
-
         }
-        $postTime = new \MongoDB\BSON\UTCDateTime();
+        $postTime = new UTCDateTime();
         $parser = new Parser;
         $html = $parser->makeHtml($postContent);
         $document = [
-            'userId' => new \MongoDB\BSON\ObjectId($this->userId),
+            'userId' => new ObjectId($this->userId),
             'postId' => $postId,
             'postTime' => $postTime,
             'title' => $postTitle,

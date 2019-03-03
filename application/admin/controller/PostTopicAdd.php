@@ -36,8 +36,8 @@ class PostTopicAdd extends BaseRoleAdmin {
                 ->find();
             if (!$isPostExists) {
                 Db::rollback();
-                $this->log(ResCode::POST_ID_DOES_NOT_EXIST);
-                return $this->fail(ResCode::POST_ID_DOES_NOT_EXIST);
+                $this->log(ResCode::POST_DOES_NOT_EXIST);
+                return $this->fail(ResCode::POST_DOES_NOT_EXIST);
             }
             $isTopicExists = Db::table('topic')
                 ->field('id')

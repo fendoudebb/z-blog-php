@@ -6,8 +6,8 @@ namespace app\admin\controller;
 use app\common\config\RedisKey;
 use app\common\config\ResCode;
 use app\common\util\Redis;
+use MongoDB\BSON\ObjectId;
 use think\Db;
-use think\Log;
 
 class PostAudit extends BaseRoleAdmin {
 
@@ -27,7 +27,7 @@ class PostAudit extends BaseRoleAdmin {
             'updates' => [
                 [
                     'q' => [
-                        '_id' => new \MongoDB\BSON\ObjectId($postId),
+                        '_id' => new ObjectId($postId),
                     ],
                     'u' => [
                         '$set' => [
@@ -41,7 +41,6 @@ class PostAudit extends BaseRoleAdmin {
             ],
         ];
         $modifyResult = Db::cmd($cmd);
-        Log::log(json_encode($modifyResult));
         if (empty($modifyResult) || !$modifyResult[0]['ok']) {
             $this->log(ResCode::COLLECTION_UPDATE_FAIL);
             return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);

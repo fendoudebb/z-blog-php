@@ -22,7 +22,7 @@ class ResCode {
         self::POST_TOPIC_HAS_BEEN_DELETED => "post topic has been deleted",
         self::POST_TOPIC_ALREADY_EXIST => "post topic already exists",
         self::TOPIC_ID_DOES_NOT_EXIST => "topic id does not exist",
-        self::POST_ID_DOES_NOT_EXIST => "post id does not exist",
+        self::POST_DOES_NOT_EXIST => "post id does not exist",
         self::OVER_POST_TOPIC_COUNT => "over post topic count",
 
 
@@ -33,7 +33,6 @@ class ResCode {
         self::MISSING_PARAMS_POST_ID => "missing params: post id",
         self::MISSING_PARAMS_TOPIC_ID => "missing params: topic id",
         self::MISSING_PARAMS_TOPIC_SORT => "missing params: topic sort",
-        self::MISSING_PARAMS_AUDIT_STATUS => "missing params: audit status",
 
 
 
@@ -68,7 +67,7 @@ class ResCode {
     const POST_TOPIC_HAS_BEEN_DELETED = 1005;
     const POST_TOPIC_ALREADY_EXIST = 1006;
     const TOPIC_ID_DOES_NOT_EXIST = 1007;
-    const POST_ID_DOES_NOT_EXIST = 1008;
+    const POST_DOES_NOT_EXIST = 1008;
     const OVER_POST_TOPIC_COUNT = 1009;
     //---error code const end---
 
@@ -79,7 +78,6 @@ class ResCode {
     const MISSING_PARAMS_POST_ID = 2003;
     const MISSING_PARAMS_TOPIC_ID = 2004;
     const MISSING_PARAMS_TOPIC_SORT = 2005;
-    const MISSING_PARAMS_AUDIT_STATUS = 2006;
     //---missing params const end---
 
 
