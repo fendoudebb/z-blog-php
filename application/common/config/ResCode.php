@@ -19,6 +19,8 @@ class ResCode {
         self::MISSING_PARAMS_POST_ID => "missing params: post id",
 
 
+        self::ILLEGAL_ARGUMENT_POST_ID => "illegal argument: post id",
+        self::ILLEGAL_ARGUMENT_TOPIC => "illegal argument: topic",
         self::ILLEGAL_ARGUMENT_AUDIT_STATUS => "illegal argument: audit status",
 
 
@@ -60,7 +62,9 @@ class ResCode {
 
 
     //---illegal argument const start---
-    const ILLEGAL_ARGUMENT_AUDIT_STATUS = 3000;
+    const ILLEGAL_ARGUMENT_POST_ID = 3000;
+    const ILLEGAL_ARGUMENT_TOPIC = 3001;
+    const ILLEGAL_ARGUMENT_AUDIT_STATUS = 3002;
     //---illegal argument const end---
 
 

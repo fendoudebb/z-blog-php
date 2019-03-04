@@ -14,7 +14,7 @@ class PostPublish extends BaseRoleAdmin {
     public function publishPost() {
         $postTitle = input('post.title');
         $postContent = input('post.content');
-        $postTopic = input('post.topic/a');
+        $postTopics = input('post.topics/a');
         $isCopy = boolval(input('post.isCopy'));
         $isPrivate = boolval(input('post.isPrivate'));
         $findMaxPostIdCmd = [
@@ -58,8 +58,8 @@ class PostPublish extends BaseRoleAdmin {
             'likeCount' => 0,
             'commentCount' => 0,
         ];
-        if (!empty($postTopic)) {
-            $document['topic'] = $postTopic;
+        if (!empty($postTopics)) {
+            $document['topics'] = $postTopics;
         }
         $insertPostCmd = [
             'insert' => 'post',

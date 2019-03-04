@@ -9,7 +9,7 @@ use think\Db;
 use think\Exception;
 use think\Log;
 
-class PostTopicAdd extends BaseRoleAdmin {
+class PostTopicAdd extends Base {
 
     public function addPostTopic() {
         $postId = input('post.postId');
@@ -18,11 +18,19 @@ class PostTopicAdd extends BaseRoleAdmin {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-
         if (!isset($topic)) {
             $this->log(ResCode::MISSING_PARAMS_TOPIC);
             return $this->fail(ResCode::MISSING_PARAMS_TOPIC);
         }
+        if (strlen($postId) !== 24) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+        }
+        if (empty($topic)) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC);
+        }
+
         $postTopicCmd = [
             'find' => 'post',
             'filter' => [
@@ -35,6 +43,7 @@ class PostTopicAdd extends BaseRoleAdmin {
         ];
         $postTopicArr = Db::cmd($postTopicCmd);
         Log::log(json_encode($postTopicArr));
+        var_dump($postTopicArr);
         /*try {
             Db::startTrans();
             $isPostExists = Db::table('post')

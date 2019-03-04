@@ -17,6 +17,10 @@ class PostComments extends BaseRoleAdmin {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
+        if (strlen($postId) !== 24) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+        }
         if ($page < 1) {
             $page = 1;
         }

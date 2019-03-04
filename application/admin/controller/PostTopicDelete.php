@@ -11,30 +11,30 @@ class PostTopicDelete extends BaseRoleAdmin {
 
     public function deletePostTopic() {
         $postId = input('post.postId');
-        $topicId = input('post.topicId');
+        $topic = input('post.topic');
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-        if (!is_numeric($postId)) {
+        if (!isset($topic)) {
+            $this->log(ResCode::MISSING_PARAMS_TOPIC);
+            return $this->fail(ResCode::MISSING_PARAMS_TOPIC);
+        }
+        if (strlen($postId) !== 24) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
         }
-        if (!isset($topicId)) {
-            $this->log(ResCode::MISSING_PARAMS_TOPIC_ID);
-            return $this->fail(ResCode::MISSING_PARAMS_TOPIC_ID);
-        }
-        if (!is_numeric($topicId)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC_ID);
+        if (empty($topic)) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC);
         }
 
-        try {
+        /*try {
             Db::startTrans();
             $postTopic = Db::table('post_topic')
                 ->field('id, is_delete')
                 ->where('post_id', $postId)
-                ->where('topic_id', $topicId)
+                ->where('topic_id', $topic)
                 ->find();
             if (!isset($postTopic)) {
                 Db::rollback();
@@ -65,7 +65,7 @@ class PostTopicDelete extends BaseRoleAdmin {
             Db::rollback();
             $this->logException($e->getMessage());
             return $this->exception();
-        }
+        }*/
 
     }
 

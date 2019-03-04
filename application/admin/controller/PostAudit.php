@@ -22,6 +22,10 @@ class PostAudit extends BaseRoleAdmin {
             $this->log(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
         }
+        if (strlen($postId) !== 24) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
+        }
         $cmd = [
             'update' => 'post',
             'updates' => [

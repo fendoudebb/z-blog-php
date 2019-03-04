@@ -9,8 +9,6 @@ Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert', ['method' => 
 Route::post('/admin/login', 'admin/Login/login');
 Route::post('/admin/logout', 'admin/Logout/logout');
 
-Route::post('/admin/statistics', 'admin/Statistics/statistics');
-
 
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
