@@ -7,7 +7,7 @@ use app\admin\config\RedisKey;
 use app\common\config\ResCode;
 use app\common\util\Redis;
 
-class Logout extends Base {
+class Logout extends BaseAuth {
 
     public function logout() {
         $token = $this->request->header('token');

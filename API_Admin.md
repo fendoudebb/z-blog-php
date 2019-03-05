@@ -6,8 +6,7 @@
     - [Response返回信息](#Response返回信息)
 - [LoginAndLogout登录与退出](#LoginAndLogout登录与退出)
     - [Login登录](#Login登录)
-- [Statistics统计信息](#Statistics统计信息)
-    - [Statistics统计信息](#Statistics统计信息)
+    - [Logout退出](#Logout退出)
 - [Post文章](#Post文章)
     - [PostInfo文章信息](#PostInfo文章信息)
     - [PostTopic文章主题](#PostTopic文章主题)
@@ -86,32 +85,17 @@ Code | Msg
 }
 ```
 
-## Statistics统计信息
-### Statistics统计信息
+### Logout退出
 #### request url
 ```text
-/admin/statistics
+/admin/logout
 ```
-
-#### response params
-Params | Type | Desc
-:---: | :---: | :---:
-name | string | statistics item name
-count | number | statistics item total amount
-update_time | string | statistics item last update time
 
 #### example
 ```json
 {
     "code": 200,
-    "msg": "request success",
-    "data": [
-        {
-            "name": "post",
-            "count": 4460022,
-            "update_time": "2019-01-24 17:57:09"
-        }
-    ]
+    "msg": "request success"
 }
 ```
 

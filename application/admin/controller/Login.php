@@ -7,8 +7,6 @@ use app\admin\config\RedisKey;
 use app\common\config\ResCode;
 use app\common\util\Redis;
 use think\Db;
-use think\Exception;
-use think\Log;
 
 class Login extends Base {
 
