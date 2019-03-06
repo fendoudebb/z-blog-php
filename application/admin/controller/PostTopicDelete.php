@@ -11,22 +11,22 @@ class PostTopicDelete extends BaseRoleAdmin {
 
     public function deletePostTopic() {
         $postId = input('post.postId');
-        $topic = input('post.topic');
+        $topics = input('post.topics/a');
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-        if (!isset($topic)) {
-            $this->log(ResCode::MISSING_PARAMS_TOPIC);
-            return $this->fail(ResCode::MISSING_PARAMS_TOPIC);
+        if (!isset($topics)) {
+            $this->log(ResCode::MISSING_PARAMS_TOPICS);
+            return $this->fail(ResCode::MISSING_PARAMS_TOPICS);
         }
         if (strlen($postId) !== 24) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
         }
-        if (empty($topic)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPIC);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPIC);
+        if (empty($topics)) {
+            $this->log(ResCode::ILLEGAL_ARGUMENT_TOPICS);
+            return $this->fail(ResCode::ILLEGAL_ARGUMENT_TOPICS);
         }
 
         /*try {
