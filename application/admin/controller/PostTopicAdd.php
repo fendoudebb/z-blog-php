@@ -6,8 +6,6 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use MongoDB\BSON\ObjectId;
 use think\Db;
-use think\Exception;
-use think\Log;
 
 class PostTopicAdd extends Base {
 
@@ -37,13 +35,46 @@ class PostTopicAdd extends Base {
                 '_id' => new ObjectId($postId)
             ],
             'projection' => [
+                '_id' => 0,
                 'topics' => 1
             ],
             'limit' => 1
         ];
         $postTopicArr = Db::cmd($postTopicCmd);
-        Log::log(json_encode($postTopicArr));
-        var_dump($postTopicArr);
+        if (!empty($postTopicArr)) {
+            if (!empty($postTopicArr[0])) {
+                $topics = $postTopicArr[0]['topics'];
+                if (in_array($topic, $topics)) {
+                    $this->log(ResCode::POST_TOPIC_ALREADY_EXIST);
+                    return $this->fail(ResCode::POST_TOPIC_ALREADY_EXIST);
+                }
+            }
+        }
+        $postTopicAddCmd = [
+            'update' => 'post',
+            'updates' => [
+                [
+                    'q' => [
+                        '_id' => new ObjectId($postId)
+                    ],
+                    'u' => [
+                        '$addToSet' => [
+                            'topics' => [
+                                '$each' => [
+                                    $topic
+                                ]
+                            ]
+                        ],
+                        '$currentDate' => [
+                            'lastModified' => true
+                        ],
+                    ]
+                ]
+            ]
+
+        ];
+        Db::cmd($postTopicAddCmd);
+        return $this->res();
         /*try {
             Db::startTrans();
             $isPostExists = Db::table('post')

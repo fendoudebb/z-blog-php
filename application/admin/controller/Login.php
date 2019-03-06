@@ -30,8 +30,8 @@ class Login extends Base {
         ];
         $userCmdArr = Db::cmd($cmd);
         if (empty($userCmdArr)) {
-            $this->log(ResCode::USERNAME_DOES_NOT_EXIST);
-            return $this->fail(ResCode::USERNAME_DOES_NOT_EXIST);
+            $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
+            return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
         }
         $user = $userCmdArr[0];
         $userId = $user['id'];

@@ -30,14 +30,10 @@ class ResCode {
 
 
 
-
-        self::USERNAME_DOES_NOT_EXIST => 'username does not exist',
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
         self::POST_TOPIC_DOES_NOT_EXIST => "post topic does not exist",
-        self::POST_TOPIC_HAS_BEEN_DELETED => "post topic has been deleted",
         self::POST_TOPIC_ALREADY_EXIST => "post topic already exists",
-        self::TOPIC_ID_DOES_NOT_EXIST => "topic id does not exist",
-        self::POST_DOES_NOT_EXIST => "post id does not exist",
+        self::POST_DOES_NOT_EXIST => "post does not exist",
         self::OVER_POST_TOPIC_COUNT => "over post topic count",
 
 
@@ -55,32 +51,29 @@ class ResCode {
     const REQUEST_SUCCESS = 200;
 
     //---missing params const start---
-    const MISSING_PARAMS_USERNAME_OR_PASSWORD = 2000;
-    const MISSING_PARAMS_POST_ID = 2001;
-    const MISSING_PARAMS_TOPIC = 2002;
+    const MISSING_PARAMS_USERNAME_OR_PASSWORD = 1000;
+    const MISSING_PARAMS_POST_ID = 1001;
+    const MISSING_PARAMS_TOPIC = 1002;
     //---missing params const end---
 
 
     //---illegal argument const start---
-    const ILLEGAL_ARGUMENT_POST_ID = 3000;
-    const ILLEGAL_ARGUMENT_TOPIC = 3001;
-    const ILLEGAL_ARGUMENT_AUDIT_STATUS = 3002;
+    const ILLEGAL_ARGUMENT_POST_ID = 2000;
+    const ILLEGAL_ARGUMENT_TOPIC = 2001;
+    const ILLEGAL_ARGUMENT_AUDIT_STATUS = 2002;
     //---illegal argument const end---
 
 
-    const COLLECTION_INSERT_FAIL = 4000;
-    const COLLECTION_UPDATE_FAIL = 4001;
+    const COLLECTION_INSERT_FAIL = 3000;
+    const COLLECTION_UPDATE_FAIL = 3001;
 
 
     //---error code const start---
-    const USERNAME_DOES_NOT_EXIST = 999;
-    const USERNAME_OR_PASSWORD_ERROR = 1000;
-    const POST_TOPIC_DOES_NOT_EXIST = 1004;
-    const POST_TOPIC_HAS_BEEN_DELETED = 1005;
-    const POST_TOPIC_ALREADY_EXIST = 1006;
-    const TOPIC_ID_DOES_NOT_EXIST = 1007;
-    const POST_DOES_NOT_EXIST = 1008;
-    const OVER_POST_TOPIC_COUNT = 1009;
+    const USERNAME_OR_PASSWORD_ERROR = 4000;
+    const POST_DOES_NOT_EXIST = 4001;
+    const POST_TOPIC_DOES_NOT_EXIST = 4002;
+    const POST_TOPIC_ALREADY_EXIST = 4003;
+    const OVER_POST_TOPIC_COUNT = 4009;
     //---error code const end---
 
 
