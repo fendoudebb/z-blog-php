@@ -223,16 +223,25 @@
 
     .header li {
         display: inline;
+        transition: border-color .3s,background-color .3s,color .3s;
+        padding: 16px 24px;
+    }
+
+    .header li:hover {
+        background-color: #9AE6CA;
+    }
+
+    .header li:hover a {
+        color: white;
     }
 
     .header ul li a {
         text-decoration: none;
-        padding: 0 16px;
         color: black;
     }
 
     .header a:hover {
-        color: #0786ED;
+        color: white;
     }
 
     .header a:active {

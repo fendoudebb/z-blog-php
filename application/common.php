@@ -31,7 +31,6 @@ function compressHtml($content) {
     $compressContent = '';
     $chunks = preg_split('/(<(?:title|pre).*?\/(?:title|pre)>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
     foreach ($chunks as $c) {
-        \think\Log::log("$c");
         if (strpos($c, '<title') === 0 || strpos($c, '<pre') === 0) {
             $compressContent .= $c;
             continue;
