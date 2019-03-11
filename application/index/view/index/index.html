@@ -84,18 +84,18 @@
 <body>
 {include file="public/header" /}
 <div class="main">
-    {empty name="post"}
+    {empty name="posts"}
     post为空
     {else /}
     <div class="content">
         <ul>
-            {foreach $post as $p}
+            {foreach $posts as $p}
             <li class="shadow index-article-item">
                 <span class="article-tag">
-                    {if condition="$p.isCopy eq 0"}
-                        原创
-                    {else /}
+                    {if condition="$p.isCopy"}
                         转载
+                    {else /}
+                        原创
                     {/if}
                     </span>
                 <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
