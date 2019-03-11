@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use app\index\util\RankInfo;
 use think\Db;
 
 class Index extends Base {
@@ -19,65 +20,8 @@ class Index extends Base {
             'description' => 'Java，PHP，Android，Vue.js，Linux，Nginx，MySQL，Redis，NoSQL，Git，JavaScript，HTML，CSS，Markdown，Python，Mac等各类互联网技术博客',
             'currentPage' => $page,
         ];
-        if (!$this->isMobile) {
-            $pvRankCmd = [
-                'find' => 'post',
-                'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
-                ],
-                'projection' => [
-                    '_id' => 0,
-                    'postId' => 1,
-                    'title' => 1,
-                    'pv' => 1
-                ],
-                'sort' => [
-                    'pv' => -1
-                ],
-                'limit' => 5
-            ];
-            $arr['pvRank'] = Db::cmd($pvRankCmd);
-
-            $likeCountRankCmd = [
-                'find' => 'post',
-                'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
-                ],
-                'projection' => [
-                    '_id' => 0,
-                    'postId' => 1,
-                    'title' => 1,
-                    'likeCount' => 1
-                ],
-                'sort' => [
-                    'likeCount' => -1
-                ],
-                'limit' => 5
-            ];
-            $arr['likeRank'] = Db::cmd($likeCountRankCmd);
-
-            $commentCountRankCmd = [
-                'find' => 'post',
-                'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
-                ],
-                'projection' => [
-                    '_id' => 0,
-                    'postId' => 1,
-                    'title' => 1,
-                    'commentCount' => 1
-                ],
-                'sort' => [
-                    'commentCount' => -1
-                ],
-                'limit' => 5
-            ];
-            $arr['commentRank'] = Db::cmd($commentCountRankCmd);
-        }
-
+        $rankInfo = new RankInfo();
+        $arr = array_merge($arr, $rankInfo->rankInfo());
         $indexPostsCmd = [
             'find' => 'post',
             'filter' => [
