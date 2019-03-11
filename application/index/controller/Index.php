@@ -29,6 +29,7 @@ class Index extends Base {
                 'projection' => [
                     '_id' => 0,
                     'postId' => 1,
+                    'title' => 1,
                     'pv' => 1
                 ],
                 'sort' => [
@@ -36,10 +37,7 @@ class Index extends Base {
                 ],
                 'limit' => 5
             ];
-            $pvRankCmdArr = Db::cmd($pvRankCmd);
-            if (!empty($pvRankCmdArr)) {
-                $arr['pvRank'] = $pvRankCmdArr[0];
-            }
+            $arr['pvRank'] = Db::cmd($pvRankCmd);
 
             $likeCountRankCmd = [
                 'find' => 'post',
@@ -50,17 +48,15 @@ class Index extends Base {
                 'projection' => [
                     '_id' => 0,
                     'postId' => 1,
-                    'pv' => 1
+                    'title' => 1,
+                    'likeCount' => 1
                 ],
                 'sort' => [
                     'likeCount' => -1
                 ],
                 'limit' => 5
             ];
-            $likeCountRankCmdArr = Db::cmd($likeCountRankCmd);
-            if (!empty($likeCountRankCmdArr)) {
-                $arr['commentRank'] = $likeCountRankCmdArr[0];
-            }
+            $arr['likeRank'] = Db::cmd($likeCountRankCmd);
 
             $commentCountRankCmd = [
                 'find' => 'post',
@@ -71,17 +67,15 @@ class Index extends Base {
                 'projection' => [
                     '_id' => 0,
                     'postId' => 1,
-                    'pv' => 1
+                    'title' => 1,
+                    'commentCount' => 1
                 ],
                 'sort' => [
-                    'likeCount' => -1
+                    'commentCount' => -1
                 ],
                 'limit' => 5
             ];
-            $commentCountRankCmdArr = Db::cmd($commentCountRankCmd);
-            if (!empty($commentCountRankCmdArr)) {
-                $arr['likeRank'] = $commentCountRankCmdArr[0];
-            }
+            $arr['commentRank'] = Db::cmd($commentCountRankCmd);
         }
 
         $indexPostsCmd = [
