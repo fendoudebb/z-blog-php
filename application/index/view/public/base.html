@@ -2,7 +2,7 @@
 {if condition="request()->pathinfo() eq '/'"}
 <title>{$title}</title>
 {else /}
-<title>{$title} - 麦司机</title>
+<title>{$title} | Z-Blog</title>
 {/if}
 <link rel="shortcut icon" href="https://s.maisiji.cn/pic/ico/favicon.ico">
 <link rel="canonical" href=https://{$Think.server.http_host}{$Think.server.request_uri}">
@@ -14,7 +14,7 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
 <meta name="referrer" content="always">
-<meta name="copyright" content="www.maisiji.cn"/>
+<meta name="copyright" content="www.zhangbj.com"/>
 <!-- 定义网页作者 author -->
 <meta name="author" content="zhangbj,15317832520@163.com">
 <!--
@@ -29,8 +29,8 @@
 <meta name="robots" content="index,follow">
 　　-->
 <meta name="robots" content="all">
-<meta name="google-site-verification" content="fmc_T5F0D4mqFYid4LrpOiVOEA4p8l_R5xjQCveieDE"/>
-<meta name="baidu-site-verification" content="ntadyLojR3"/>
+<meta name="google-site-verification" content="Q6qlBBHYlFq8K0QMSvdg_cVVzoG5-Gco4TJduxP1psE" />
+<meta name="baidu-site-verification" content="KrDGuKInJ7" />
 
 <!--Google Chrome-->
 <!-- 优先使用最新的chrome版本 -->
@@ -76,7 +76,7 @@
 <!-- 设置状态栏的背景颜色,只有在 “apple-mobile-web-app-capable” content=”yes” 时生效 -->
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <!-- 添加到主屏后的标题 -->
-<meta name="apple-mobile-web-app-title" content="麦司机网">
+<meta name="apple-mobile-web-app-title" content="Z-Blog">
 
 <!--Google Android-->
 <meta name="theme-color" content="#E64545">
@@ -434,22 +434,19 @@
 </script>-->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117165778-1"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117165778-2"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'UA-117165778-1');
+
+    gtag('config', 'UA-117165778-2');
 </script>
 <script defer="defer">
     var _hmt = _hmt || [];
-    (function () {
+    (function() {
         var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?d6a6afb0ede1dc335c85c4fe16c9c8d6";
+        hm.src = "https://hm.baidu.com/hm.js?7d6da7543f5aa367db6b0a986952f67c";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
