@@ -3,14 +3,9 @@
 namespace app\index\controller;
 
 
-use app\common\config\RedisKey;
 use app\common\config\ResCode;
-use app\common\util\Parser;
-use app\common\util\Redis;
+use app\common\util\Mongo;
 use app\index\util\RankInfo;
-use think\Db;
-use think\Exception;
-use think\Log;
 
 class Post extends Base {
 
@@ -37,23 +32,22 @@ class Post extends Base {
             ],
             'limit' => 1
         ];
-        $postCmdArr = Db::cmd($postCmd);
-        Log::log(json_encode($postCmdArr));
+        $postCmdArr = Mongo::cmd($postCmd);
         if (empty($postCmdArr)) {
             $this->log(ResCode::POST_DOES_NOT_EXIST);
             return redirect('/404.html');
         }
         $post = $postCmdArr[0];
-        $postStatus = $post['postStatus'];
+        $postStatus = $post->postStatus;
         if ($postStatus !== 'ONLINE') {
             $this->log(ResCode::POST_IS_NOT_ONLINE);
             return redirect('/404.html');
         }
 
         $arr = [
-            'title' => $post['title'],
-            'keywords' => $post['keywords'],
-            'description' => $post['description'],
+            'title' => $post->title,
+            'keywords' => $post->keywords,
+            'description' => $post->description,
             'post' => $post,
         ];
         $rankInfo = new RankInfo();

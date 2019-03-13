@@ -4,13 +4,15 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use app\common\util\Mongo;
+use MongoDB\BSON\ObjectId;
 use think\Db;
 
 class PostCommentSwitch extends BaseRoleAdmin {
 
     public function switchPostComment() {
         $postId = input('post.postId');
-        $commentStatus = boolval(input('post.commentStatus'));
+        $commentStatus = strval(input('post.commentStatus'));
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
@@ -24,11 +26,11 @@ class PostCommentSwitch extends BaseRoleAdmin {
             'updates' => [
                 [
                     'q' => [
-                        '_id' => new \MongoDB\BSON\ObjectId($postId)
+                        '_id' => new ObjectId($postId)
                     ],
                     'u' => [
                         '$set' => [
-                            'isCommentClose' => $commentStatus
+                            'commentStatus' => $commentStatus
                         ],
                         '$currentDate' => [
                             'lastModified' => true
@@ -37,8 +39,8 @@ class PostCommentSwitch extends BaseRoleAdmin {
                 ]
             ]
         ];
-        $updatePostCommentStatusResult = Db::cmd($updatePostCommentStatus);
-        if (empty($updatePostCommentStatusResult) || !$updatePostCommentStatusResult[0]['ok']) {
+        $updatePostCommentStatusResult = Mongo::cmd($updatePostCommentStatus);
+        if (empty($updatePostCommentStatusResult) || !$updatePostCommentStatusResult[0]->ok) {
             $this->log(ResCode::COLLECTION_UPDATE_FAIL);
             return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
         }

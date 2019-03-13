@@ -26,7 +26,7 @@
         }
 
         .index-article-item a:hover {
-            color: #0786ED;
+            color: #4CAF50;
         }
 
         .index-article-item a:active {
@@ -67,7 +67,7 @@
         }
 
         ul.pagination li a.active {
-            background-color: #0786ED;
+            background-color: #4CAF50;
             color: white;
             border-radius: 5px;
         }
@@ -91,15 +91,15 @@
         <ul>
             {foreach $posts as $p}
             <li class="shadow index-article-item">
-                {if condition="$p.postProp eq 'COPY'"}
+                {if condition="$p->postProp eq 'COPY'"}
                     <span class="article-tag" style="background-color: #FBB126">转载</span>
                 {else /}
                     <span class="article-tag">原创</span>
                 {/if}
-                <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
-                <p class="index-article-desc">{$p.description}</p>
+                <a href="/p/{$p->postId}.html" class="index-article-title" title="{$p->title}">{$p->title}</a>
+                <p class="index-article-desc">{$p->description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p.postTime)} · 阅读（{$p.pv}）· 评论（{$p.commentCount}）{if condition="isMobile() neq 1"}· 点赞（{$p.likeCount}）{/if}</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)} · 阅读（{$p->pv}）· 评论（{$p->commentCount}）{if condition="isMobile() neq 1"}· 点赞（{$p->likeCount}）{/if}</span>
                 </p>
             </li>
             {/foreach}

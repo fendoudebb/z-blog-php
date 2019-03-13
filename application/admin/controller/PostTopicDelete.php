@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
 use think\Db;
 
@@ -46,7 +47,7 @@ class PostTopicDelete extends BaseRoleAdmin {
                 ]
             ]
         ];
-        Db::cmd($deletePostTopicCmd);
+        Mongo::cmd($deletePostTopicCmd);
         return $this->res();
     }
 

@@ -2,8 +2,8 @@
 
 namespace app\index\controller;
 
+use app\common\util\Mongo;
 use app\index\util\RankInfo;
-use think\Db;
 
 class Index extends Base {
 
@@ -45,17 +45,16 @@ class Index extends Base {
             'skip' => $offset,
             'limit' => $size
         ];
-        $indexPostsCmdArr = Db::cmd($indexPostsCmd);
+        $indexPostsCmdArr = Mongo::cmd($indexPostsCmd);
         $arr['posts'] = $indexPostsCmdArr;
         $countPostsCmd = [
             'count' => 'post',
             'query' => [
-                'status' => 1,
-                'isPrivate' => false
+                'postStatus' => 'ONLINE',
             ]
         ];
-        $countPostCmdArr = Db::cmd($countPostsCmd);
-        $arr['totalPage'] = ceil($countPostCmdArr[0]['n'] / $size);
+        $countPostCmdArr = Mongo::cmd($countPostsCmd);
+        $arr['totalPage'] = ceil($countPostCmdArr[0]->n / $size);
         $compressHtml = compressHtml($this->fetch('index', $arr));
         return $compressHtml;
     }

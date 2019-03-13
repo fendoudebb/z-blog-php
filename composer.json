@@ -22,7 +22,8 @@
       "ext-curl": "*",
       "ext-json": "*",
       "ext-pdo": "*",
-      "ext-mongodb": "*"
+      "ext-mongodb": "*",
+      "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

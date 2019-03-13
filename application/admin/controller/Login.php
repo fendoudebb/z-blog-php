@@ -5,8 +5,8 @@ namespace app\admin\controller;
 
 use app\admin\config\RedisKey;
 use app\common\config\ResCode;
+use app\common\util\Mongo;
 use app\common\util\Redis;
-use think\Db;
 
 class Login extends Base {
 
@@ -28,15 +28,15 @@ class Login extends Base {
             ],
             'limit' => 1
         ];
-        $userCmdArr = Db::cmd($cmd);
+        $userCmdArr = Mongo::cmd($cmd);
         if (empty($userCmdArr)) {
             $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
             return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
         }
         $user = $userCmdArr[0];
-        $userId = $user['id'];
-        $roles = $user['roles'];
-        $pwd = $user['password'];
+        $userId = $user->id;
+        $roles = $user->roles;
+        $pwd = $user->password;
         if ($password !== $pwd) {
             $this->log(ResCode::USERNAME_OR_PASSWORD_ERROR);
             return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);

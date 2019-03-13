@@ -45,7 +45,7 @@ class PostAudit extends BaseRoleAdmin {
             ],
         ];
         $modifyResult = Db::cmd($cmd);
-        if (empty($modifyResult) || !$modifyResult[0]['ok']) {
+        if (empty($modifyResult) || !$modifyResult[0]->ok) {
             $this->log(ResCode::COLLECTION_UPDATE_FAIL);
             return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
         }

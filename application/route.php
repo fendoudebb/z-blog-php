@@ -4,8 +4,6 @@ use think\Route;
 
 Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 
-Route::any('/admin/insert/batch', 'admin/BatchInsert/batchInsert', ['method' => 'get|post']);
-
 Route::post('/admin/login', 'admin/Login/login');
 Route::post('/admin/logout', 'admin/Logout/logout');
 

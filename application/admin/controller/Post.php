@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 
+use app\common\util\Mongo;
 use think\Db;
 
 class Post extends BaseRoleAdmin {
@@ -76,14 +77,14 @@ class Post extends BaseRoleAdmin {
             ],
             'cursor' => new \stdClass()
         ];
-        $post = Db::cmd($cmd);
+        $post = Mongo::cmd($cmd);
         $response = [
         ];
         $cmd = [
             'count' => 'post'
         ];
         $countResult = Db::cmd($cmd);
-        $response['totalCount'] = $countResult[0]['n'];
+        $response['totalCount'] = $countResult[0]->n;
         $response['post'] = $post;
         return $this->res($response);
     }

@@ -3,7 +3,7 @@
 namespace app\index\util;
 
 
-use think\Db;
+use app\common\util\Mongo;
 use think\Request;
 
 class RankInfo {
@@ -26,7 +26,7 @@ class RankInfo {
                 ],
                 'limit' => 5
             ];
-            $arr['pvRank'] = Db::cmd($pvRankCmd);
+            $arr['pvRank'] = Mongo::cmd($pvRankCmd);
 
             $likeCountRankCmd = [
                 'find' => 'post',
@@ -44,7 +44,7 @@ class RankInfo {
                 ],
                 'limit' => 5
             ];
-            $arr['likeRank'] = Db::cmd($likeCountRankCmd);
+            $arr['likeRank'] = Mongo::cmd($likeCountRankCmd);
 
             $commentCountRankCmd = [
                 'find' => 'post',
@@ -62,7 +62,7 @@ class RankInfo {
                 ],
                 'limit' => 5
             ];
-            $arr['commentRank'] = Db::cmd($commentCountRankCmd);
+            $arr['commentRank'] = Mongo::cmd($commentCountRankCmd);
         }
         return $arr;
     }

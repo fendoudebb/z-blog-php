@@ -4,8 +4,8 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
-use think\Db;
 
 class PostComments extends BaseRoleAdmin {
 
@@ -40,7 +40,7 @@ class PostComments extends BaseRoleAdmin {
             ],
             'limit' => 1,
         ];
-        $postCommentCmdArr = Db::cmd($postCommentCmd);
+        $postCommentCmdArr = Mongo::cmd($postCommentCmd);
         return $this->res($postCommentCmdArr);
     }
 

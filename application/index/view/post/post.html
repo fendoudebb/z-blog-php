@@ -74,12 +74,12 @@
 {include file="public/header" /}
 <div class="main">
     <div class="shadow content">
-        <h1 class="article-title">{$post.title}</h1>
+        <h1 class="article-title">{$post->title}</h1>
         <p>
-            <span style="color: #8a8a8a">posted @ {:timeFormat($post.postTime)} · 阅读（{$post.pv}）· 评论（{$post.commentCount}）· 点赞（{$post.likeCount}）</span>
+            <span style="color: #8a8a8a">posted @ {:timeFormat($post->postTime)} · 阅读（{$post->pv}）· 评论（{$post->commentCount}）· 点赞（{$post->likeCount}）</span>
         </p>
         <hr>
-        <div style="margin-top: 15px">{$post.contentHtml}</div>
+        <div style="margin-top: 15px">{$post->contentHtml}</div>
     </div>
     {include file="public/side_bar" /}
 </div>

@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
 use think\Db;
 
@@ -32,7 +33,7 @@ class PostInfo extends BaseRoleAdmin {
             ],
             'limit' => 1
         ];
-        $postCmdArr = Db::cmd($findPostCmd);
+        $postCmdArr = Mongo::cmd($findPostCmd);
         if (empty($postCmdArr)) {
             $this->log(ResCode::POST_DOES_NOT_EXIST);
             return $this->fail(ResCode::POST_DOES_NOT_EXIST);

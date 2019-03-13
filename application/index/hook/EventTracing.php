@@ -4,8 +4,8 @@ namespace app\index\hook;
 
 
 use app\common\config\RedisKey;
+use app\common\util\Mongo;
 use app\common\util\Redis;
-use think\Db;
 use think\Log;
 use think\Request;
 
@@ -39,14 +39,14 @@ class EventTracing {
                 $document
             ]
         ];
-        Db::cmd($insertPageViewRecordCmd);
+        Mongo::cmd($insertPageViewRecordCmd);
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
         $pipeline->pfAdd(RedisKey::HYPER_IP, [$ip]);
         $pipeline->incrBy(RedisKey::STR_PV, 1);
         $result = $pipeline->exec();
         $newIp = $result[0];
         if ($newIp) {
-            Db::cmd([
+            Mongo::cmd([
                 'insert' => 'ip_pool',
                 'documents' => [
                     [
@@ -66,7 +66,7 @@ class EventTracing {
                 Log::log('event tracing post id is empty');
                 return;
             }
-            Db::cmd([
+            Mongo::cmd([
                 'update' => 'post',
                 'updates' => [
                     [
