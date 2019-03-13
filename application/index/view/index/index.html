@@ -91,13 +91,11 @@
         <ul>
             {foreach $posts as $p}
             <li class="shadow index-article-item">
-                <span class="article-tag">
-                    {if condition="$p.postProp eq 'COPY'"}
-                        转载
-                    {else /}
-                        原创
-                    {/if}
-                    </span>
+                {if condition="$p.postProp eq 'COPY'"}
+                    <span class="article-tag" style="background-color: #FBB126">转载</span>
+                {else /}
+                    <span class="article-tag">原创</span>
+                {/if}
                 <a href="/p/{$p.postId}.html" class="index-article-title" title="{$p.title}">{$p.title}</a>
                 <p class="index-article-desc">{$p.description}</p>
                 <p>
