@@ -13,12 +13,12 @@ class PostAudit extends BaseRoleAdmin {
 
     public function auditPost() {
         $postId = input('post.postId');
-        $auditStatus = intval(input('post.auditStatus'));
+        $auditStatus = strval(input('post.auditStatus'));
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
             return $this->fail(ResCode::MISSING_PARAMS_POST_ID);
         }
-        if ($auditStatus < 1 || $auditStatus > 2) {
+        if ($auditStatus !== 'ONLINE' && $auditStatus != 'OFFLINE') {
             $this->log(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
         }
@@ -35,7 +35,7 @@ class PostAudit extends BaseRoleAdmin {
                     ],
                     'u' => [
                         '$set' => [
-                            'status' => $auditStatus
+                            'postStatus' => $auditStatus
                         ],
                         '$currentDate' => [
                             'lastModified' => true

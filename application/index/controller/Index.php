@@ -25,15 +25,14 @@ class Index extends Base {
         $indexPostsCmd = [
             'find' => 'post',
             'filter' => [
-                'status' => 1,
-                'isPrivate' => false,
+                'postStatus' => 'ONLINE',
             ],
             'projection' => [
                 '_id' => 0,
                 'postId' => 1,
                 'postTime' => 1,
                 'title' => 1,
-                'isCopy' => 1,
+                'postProp' => 1,
                 'description' => 1,
                 'pv' => 1,
                 'likeCount' => 1,

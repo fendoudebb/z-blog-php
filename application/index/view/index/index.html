@@ -92,7 +92,7 @@
             {foreach $posts as $p}
             <li class="shadow index-article-item">
                 <span class="article-tag">
-                    {if condition="$p.isCopy"}
+                    {if condition="$p.postProp eq 'COPY'"}
                         转载
                     {else /}
                         原创

@@ -32,9 +32,10 @@ class ResCode {
 
 
         self::USERNAME_OR_PASSWORD_ERROR => 'username or password error',
+        self::POST_DOES_NOT_EXIST => "post does not exist",
+        self::POST_IS_NOT_ONLINE => "post is not online",
         self::POST_TOPIC_DOES_NOT_EXIST => "post topic does not exist",
         self::POST_TOPIC_ALREADY_EXIST => "post topic already exists",
-        self::POST_DOES_NOT_EXIST => "post does not exist",
         self::OVER_POST_TOPIC_COUNT => "over post topic count",
 
 
@@ -73,9 +74,10 @@ class ResCode {
     //---error code const start---
     const USERNAME_OR_PASSWORD_ERROR = 4000;
     const POST_DOES_NOT_EXIST = 4001;
-    const POST_TOPIC_DOES_NOT_EXIST = 4002;
-    const POST_TOPIC_ALREADY_EXIST = 4003;
-    const OVER_POST_TOPIC_COUNT = 4009;
+    const POST_IS_NOT_ONLINE = 4002;
+    const POST_TOPIC_DOES_NOT_EXIST = 4003;
+    const POST_TOPIC_ALREADY_EXIST = 4004;
+    const OVER_POST_TOPIC_COUNT = 4005;
     //---error code const end---
 
 

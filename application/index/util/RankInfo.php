@@ -13,8 +13,7 @@ class RankInfo {
             $pvRankCmd = [
                 'find' => 'post',
                 'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
+                    'postStatus' => 'ONLINE',
                 ],
                 'projection' => [
                     '_id' => 0,
@@ -32,8 +31,7 @@ class RankInfo {
             $likeCountRankCmd = [
                 'find' => 'post',
                 'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
+                    'postStatus' => 'ONLINE',
                 ],
                 'projection' => [
                     '_id' => 0,
@@ -51,8 +49,7 @@ class RankInfo {
             $commentCountRankCmd = [
                 'find' => 'post',
                 'filter' => [
-                    'status' => 1,
-                    'isPrivate' => false,
+                    'postStatus' => 'ONLINE',
                 ],
                 'projection' => [
                     '_id' => 0,

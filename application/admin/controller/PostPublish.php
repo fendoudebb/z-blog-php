@@ -15,7 +15,7 @@ class PostPublish extends BaseRoleAdmin {
         $postTitle = input('post.title');
         $postContent = input('post.content');
         $postTopics = input('post.topics/a');
-        $isCopy = boolval(input('post.isCopy'));
+        $postProp = strval(input('post.postProp'));
         $isPrivate = boolval(input('post.isPrivate'));
         $findMaxPostIdCmd = [
             'find' => 'post',
@@ -49,11 +49,10 @@ class PostPublish extends BaseRoleAdmin {
             'keywords' => $postTitle,
             'description' => $postTitle,
             'content' => $postContent,
-            'content_html' => $html,
-            'isCopy' => $isCopy,
-            'isPrivate' => $isPrivate,
-            'isCommentClose' => false,
-            'status' => 0,
+            'contentHtml' => $html,
+            'postProp' => $postProp,
+            'commentStatus' => 'OPEN',
+            'postStatus' => $isPrivate ? 'PRIVATE' : 'AUDIT',
             'pv' => 0,
             'likeCount' => 0,
             'commentCount' => 0,

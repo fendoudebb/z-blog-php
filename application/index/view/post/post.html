@@ -73,15 +73,13 @@
 <body>
 {include file="public/header" /}
 <div class="main">
-    <div class="content">
-        <div class="shadow">
-            <h1 class="article-title">{$title}</h1>
-            <p>
-                <span style="color: #8a8a8a">posted @ {:timeFormat($postTime)} · 阅读（{$pv}）· 评论（{$commentCount}）· 点赞（{$likeCount}）</span>
-            </p>
-            <hr>
-            <div style="margin-top: 15px">{$content}</div>
-        </div>
+    <div class="shadow content">
+        <h1 class="article-title">{$post.title}</h1>
+        <p>
+            <span style="color: #8a8a8a">posted @ {:timeFormat($post.postTime)} · 阅读（{$post.pv}）· 评论（{$post.commentCount}）· 点赞（{$post.likeCount}）</span>
+        </p>
+        <hr>
+        <div style="margin-top: 15px">{$post.contentHtml}</div>
     </div>
     {include file="public/side_bar" /}
 </div>

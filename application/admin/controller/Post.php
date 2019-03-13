@@ -44,15 +44,13 @@ class Post extends BaseRoleAdmin {
                                 'timezone' => "+08:00"
                             ]
                         ],
-                        'status' => 1,
+                        'postStatus' => 1,
                         'title' => 1,
                         'keywords' => 1,
                         'description' => 1,
                         'topics' => 1,
-                        'isCommentClose' => 1,
-                        'isPrivate' => 1,
-                        'isCopy' => 1,
-                        'originalLink' => 1,
+                        'commentStatus' => 1,
+                        'postProp' => 1,
                         'isTop' => 1,
                         'pv' => 1,
                         'commentCount' => 1,

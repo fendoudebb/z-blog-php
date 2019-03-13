@@ -30,6 +30,7 @@
             min-height: 60vh;
             max-height: 60vh;
         }
+
         #json * {
             font-size: 16px;
             font-family: "Courier New";
@@ -120,30 +121,28 @@
     </style>
 </head>
 <body>
-<div class="wrap">
-    <div class="main">
-        {include file="public/header" /}
-        <div style="display: inline-block;width: 45vw;margin-left: 3vw;margin-right: 2vw;">
-            <textarea id="json-textarea" placeholder="请输入JSON字符串" title="格式化JSON"></textarea>
-            <div style="margin-top: 10px">
-                <button id="format-btn" class="shadow button" title="解析json">解析</button>
-                <button id="compress-btn" class="shadow button" title="压缩成一行">压缩</button>
-                <button id="copy-btn" class="shadow button" data-clipboard-target="#json-textarea" title="复制文本内容">
-                    复制
-                </button>
-                <button id="save-btn" class="shadow button" title="保存至本地">保存</button>
-                <button id="clear-btn" class="shadow button" title="清空数据">清空</button>
-            </div>
+<div class="main">
+    {include file="public/header" /}
+    <div class="content" style="display: inline-block;width: 45vw;margin-left: 3vw;margin-right: 2vw;">
+        <textarea id="json-textarea" placeholder="请输入JSON字符串" title="格式化JSON"></textarea>
+        <div style="margin-top: 10px">
+            <button id="format-btn" class="shadow button" title="解析json">解析</button>
+            <button id="compress-btn" class="shadow button" title="压缩成一行">压缩</button>
+            <button id="copy-btn" class="shadow button" data-clipboard-target="#json-textarea" title="复制文本内容">
+                复制
+            </button>
+            <button id="save-btn" class="shadow button" title="保存至本地">保存</button>
+            <button id="clear-btn" class="shadow button" title="清空数据">清空</button>
         </div>
-        <div style="display: inline-block;width: 45vw;margin-left: 2vw;margin-right: 3vw;float: right;">
-            <div id="format-json-result">
-                <div id="json" title="格式化json结果"></div>
-                <div id="format-json-result-btn-group" style="margin-top: 10px">
-                    <button id="collapse-expand-btn" class="shadow button" title="折叠/展开json">折叠
-                    </button>
-                    <button id="full-screen-btn" class="shadow button" title="全屏显示">全屏
-                    </button>
-                </div>
+    </div>
+    <div class="content" style="display: inline-block;width: 45vw;margin-left: 2vw;margin-right: 3vw;float: right;">
+        <div id="format-json-result">
+            <div id="json" title="格式化json结果"></div>
+            <div id="format-json-result-btn-group" style="margin-top: 10px">
+                <button id="collapse-expand-btn" class="shadow button" title="折叠/展开json">折叠
+                </button>
+                <button id="full-screen-btn" class="shadow button" title="全屏显示">全屏
+                </button>
             </div>
         </div>
     </div>
