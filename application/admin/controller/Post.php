@@ -4,7 +4,6 @@ namespace app\admin\controller;
 
 
 use app\common\util\Mongo;
-use think\Db;
 
 class Post extends BaseRoleAdmin {
 
@@ -19,9 +18,25 @@ class Post extends BaseRoleAdmin {
         }
         $offset = ($page - 1) * $size;
         $cmd = [
+            'find' => 'post',
+            'projection' => [
+                'postId' => 1,
+                'title' => 1,
+                'topics' => 1,
+                'postStatus' => 1,
+                'postTime' => 1,
+                'postProp' => 1,
+                'pv' => 1,
+                'likeCount' => 1,
+                'commentCount' => 1,
+            ],
+            'skip' => $offset,
+            'limit' => 20
+        ];
+        $cmd = [
             'aggregate' => 'post', // collection表名
             'pipeline' => [
-                [
+                /*[
                     '$lookup' => [
                         'from' => 'sys_user',
                         'localField' => 'userId',
@@ -31,10 +46,14 @@ class Post extends BaseRoleAdmin {
                 ],
                 [
                     '$unwind' => '$sysUser'
-                ],
+                ],*/
                 [
                     '$project' => [
-                        'sysUser.username' => 1,
+//                        'sysUser.username' => 1,
+                        '_id' => 0,
+                        'id' => [
+                            '$toString' => '$_id'
+                        ],
                         'postId' => 1,
                         'postTime' => [
                             '$dateToString' => [
@@ -83,7 +102,7 @@ class Post extends BaseRoleAdmin {
         $cmd = [
             'count' => 'post'
         ];
-        $countResult = Db::cmd($cmd);
+        $countResult = Mongo::cmd($cmd);
         $response['totalCount'] = $countResult[0]->n;
         $response['post'] = $post;
         return $this->res($response);

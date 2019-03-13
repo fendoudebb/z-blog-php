@@ -8,7 +8,6 @@ use app\common\util\Mongo;
 use app\common\util\Parser;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
-use think\Db;
 
 class PostPublish extends BaseRoleAdmin {
 
@@ -33,7 +32,7 @@ class PostPublish extends BaseRoleAdmin {
         if (empty($cmdArr)) {
             $postId = 1;
         } else {
-            if (property_exists('postId', $cmdArr[0])) {
+            if (property_exists($cmdArr[0],'postId')) {
                 $postId = $cmdArr[0]->postId + 1;
             } else {
                 $postId = 1;
@@ -68,7 +67,7 @@ class PostPublish extends BaseRoleAdmin {
                 $document
             ]
         ];
-        $insertPostResult = Db::cmd($insertPostCmd);
+        $insertPostResult = Mongo::cmd($insertPostCmd);
         if (empty($insertPostResult) || !$insertPostResult[0]->ok) {
             $this->log(ResCode::COLLECTION_INSERT_FAIL);
             return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
