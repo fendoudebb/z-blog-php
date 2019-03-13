@@ -2,17 +2,35 @@
 <html lang="zh">
 <head>
     {include file="public/base" /}
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: #F5F5F5;
+            padding: 8px 12px;
+            margin: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+{include file="public/header" /}
+<div class="main">
+    <div class="shadow" style="width: 30%;height: 30%;display: inline-block;padding: 30px">
+        页面不存在~
+    </div>
+    <div style="margin-top: 20px">
+        <button class="shadow button" title="返回首页">
+            <a href="/" style="color: #F5F5F5; text-decoration: none;">返回首页</a>
+        </button>
+    </div>
+</div>
 <div class="footer">
     {include file="public/footer" /}
 </div>
 {include file="public/base_js" /}
 </body>
-<script>var path = document.getElementById('tail');
-path.setAttribute('d', 'M89,315c2.2-15.2-23-13.2-21.6,4.8c1.7,22.3,24.4,22.1,42.5,9.1c10.8-7.8,15.3-1.8,19.1,1.1 c2.3,1.7,6.7,3.3,11-3');
-//var segments = path.pathSegList;
-//segments.getItem(2).y = -10;
-//# sourceURL=pen.js
-</script>
 </html>
