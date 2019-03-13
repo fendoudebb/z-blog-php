@@ -7,6 +7,7 @@ use app\admin\config\RedisKey;
 use app\common\config\ResCode;
 use app\common\util\Mongo;
 use app\common\util\Redis;
+use MongoDB\BSON\ObjectId;
 
 class Login extends Base {
 
@@ -34,7 +35,8 @@ class Login extends Base {
             return $this->fail(ResCode::USERNAME_OR_PASSWORD_ERROR);
         }
         $user = $userCmdArr[0];
-        $userId = $user->id;
+        $objectId = new ObjectId($user->_id);
+        $userId = $objectId->__toString();
         $roles = $user->roles;
         $pwd = $user->password;
         if ($password !== $pwd) {

@@ -18,22 +18,6 @@ class Post extends BaseRoleAdmin {
         }
         $offset = ($page - 1) * $size;
         $cmd = [
-            'find' => 'post',
-            'projection' => [
-                'postId' => 1,
-                'title' => 1,
-                'topics' => 1,
-                'postStatus' => 1,
-                'postTime' => 1,
-                'postProp' => 1,
-                'pv' => 1,
-                'likeCount' => 1,
-                'commentCount' => 1,
-            ],
-            'skip' => $offset,
-            'limit' => 20
-        ];
-        $cmd = [
             'aggregate' => 'post', // collection表名
             'pipeline' => [
                 /*[
