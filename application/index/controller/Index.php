@@ -15,9 +15,9 @@ class Index extends Base {
         $size = 20;
         $offset = ($page - 1) * $size;
         $arr = [
-            'title' => 'Z-Blog',
-            'keywords' => 'Java，PHP，Android，Vue.js，MySQL，Redis，Linux，移动互联网，技术博客，Z-Blog',
-            'description' => 'Java，PHP，Android，Vue.js，Linux，Nginx，MySQL，Redis，NoSQL，Git，JavaScript，HTML，CSS，Markdown，Python，Mac等各类互联网技术博客',
+            'title' => 'Z-博客',
+            'keywords' => 'Java，PHP，Android，Vue.js，MySQL，Redis，Linux，移动互联网，技术博客，Z-博客',
+            'description' => 'Z-博客：记录Java，PHP，Android，Vue.js，Linux，Nginx，MySQL，Redis，NoSQL，Git，JavaScript，HTML，CSS，Markdown，Python，Mac等各类互联网技术',
             'currentPage' => $page,
         ];
         $rankInfo = new RankInfo();
