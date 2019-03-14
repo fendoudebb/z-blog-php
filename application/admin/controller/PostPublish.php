@@ -21,7 +21,9 @@ class PostPublish extends BaseRoleAdmin {
         if (isset($postId)) {//修改
             $parser = new Parser;
             $html = $parser->makeHtml($postContent);
-            $description = mb_substr(strip_tags($html), 0, 80, 'utf-8');
+            $stripTagsHtml = strip_tags($html);
+            $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
+            $description = mb_substr($stripTagsHtml, 0, 80, 'utf-8');
             $updatePostCmd = [
                 'update' => 'post',
                 'updates' => [
@@ -38,6 +40,7 @@ class PostPublish extends BaseRoleAdmin {
                                 'topics' => $postTopics,
                                 'postProp' => $postProp,
                                 'postStatus' => $isPrivate ? 'PRIVATE' : 'AUDIT',
+                                'postWordCount' => $postWordCount
                             ],
                             '$currentDate' => [
                                 'lastModified' => true
@@ -75,7 +78,9 @@ class PostPublish extends BaseRoleAdmin {
             $postTime = new UTCDateTime();
             $parser = new Parser;
             $html = $parser->makeHtml($postContent);
-            $description = mb_substr(strip_tags($html), 0, 80, 'utf-8');
+            $stripTagsHtml = strip_tags($html);
+            $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
+            $description = mb_substr($stripTagsHtml, 0, 80, 'utf-8');
             $document = [
                 'userId' => new ObjectId($this->userId),
                 'postId' => $postId,
@@ -86,6 +91,7 @@ class PostPublish extends BaseRoleAdmin {
                 'content' => $postContent,
                 'contentHtml' => $html,
                 'postProp' => $postProp,
+                'postWordCount' => $postWordCount,
                 'commentStatus' => 'OPEN',
                 'postStatus' => $isPrivate ? 'PRIVATE' : 'AUDIT',
                 'pv' => 0,
