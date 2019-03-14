@@ -24,6 +24,7 @@ class Post extends Base {
                 'postStatus' => 1,
                 'commentStatus' => 1,
                 'postProp' => 1,
+                'postWordCount' => 1,
                 'topics' => 1,
                 'pv' => 1,
                 'commentCount' => 1,

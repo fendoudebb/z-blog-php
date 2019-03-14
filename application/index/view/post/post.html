@@ -51,7 +51,7 @@
             margin: 15px 0;
         }
 
-        .content {
+        .shadow {
             margin-bottom: 8px;
             padding: 16px 24px;
         }
@@ -68,18 +68,47 @@
             cursor: pointer;
         }
 
+        .like-button {
+            display: inline-block;
+            padding: 0 20px;
+            font-size: 14px;
+            border: 2px solid #4CAF50;
+            border-radius: 40px;
+            background: white;
+            outline: none;
+        }
+
+        .like-button:hover {
+            background: #A3E6C7;
+            color: #EFEEEE;
+        }
+
+        .like-button a:before {
+            /*content: url("../../../../public/favicon.ico");*/
+            content: url("https://s.zhangbj.com/pic/ico/favicon.ico");
+        }
+
     </style>
 </head>
 <body>
 {include file="public/header" /}
 <div class="main">
-    <div class="shadow content">
-        <h1 class="article-title">{$post->title}</h1>
-        <p>
-            <span style="color: #8a8a8a">posted @ {:timeFormat($post->postTime)} · 阅读（{$post->pv}）· 评论（{$post->commentCount}）· 点赞（{$post->likeCount}）{notempty name="$post->topics"}· 分类（{:implode('，', $post->topics)}）{/notempty}</span>
-        </p>
-        <hr>
-        <div style="margin-top: 15px">{$post->contentHtml}</div>
+    <div class="content">
+        <div class="shadow">
+            <h1 class="article-title">{$post->title}</h1>
+            <p>
+                <span style="color: #8a8a8a">posted @ {:timeFormat($post->postTime)} · 阅读（{$post->pv}）· 评论（{$post->commentCount}）· 点赞（{$post->likeCount}）{notempty name="$post->topics"}· 分类（{:implode('，', $post->topics)}）{/notempty}</span>
+            </p>
+            <hr>
+            <div style="margin-top: 15px">{$post->contentHtml}</div>
+        </div>
+        <div class="shadow">
+            字数：{$post->postWordCount}
+            <div class="like-button" onclick="alert('aaa')">
+                <a >点赞</a>
+
+            </div>
+        </div>
     </div>
     {include file="public/side_bar" /}
 </div>
