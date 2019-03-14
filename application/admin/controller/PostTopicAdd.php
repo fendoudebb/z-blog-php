@@ -43,11 +43,13 @@ class PostTopicAdd extends Base {
         $postTopicArr = Mongo::cmd($postTopicCmd);
         if (!empty($postTopicArr)) {
             if (!empty($postTopicArr[0])) {
-                $topics = $postTopicArr[0]->topics;
-                if (in_array($topic, $topics)) {
-                    $this->log(ResCode::POST_TOPIC_ALREADY_EXIST);
-                    return $this->fail(ResCode::POST_TOPIC_ALREADY_EXIST);
-                }
+                if(property_exists($postTopicArr[0], 'topics')){
+                    $topics = $postTopicArr[0]->topics;
+                    if (in_array($topic, $topics)) {
+                        $this->log(ResCode::POST_TOPIC_ALREADY_EXIST);
+                        return $this->fail(ResCode::POST_TOPIC_ALREADY_EXIST);
+                    }
+                };
             }
         }
         $postTopicAddCmd = [

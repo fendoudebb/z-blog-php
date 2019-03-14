@@ -50,8 +50,6 @@ class Post extends BaseRoleAdmin {
                         ],
                         'postStatus' => 1,
                         'title' => 1,
-                        'keywords' => 1,
-                        'description' => 1,
                         'topics' => 1,
                         'commentStatus' => 1,
                         'postProp' => 1,

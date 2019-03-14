@@ -18,7 +18,6 @@ class Post extends Base {
             'projection' => [
                 '_id' => 0,
                 'title' => 1,
-                'keywords' => 1,
                 'description' => 1,
                 'postTime' => 1,
                 'contentHtml' => 1,
@@ -46,10 +45,14 @@ class Post extends Base {
 
         $arr = [
             'title' => $post->title,
-            'keywords' => $post->keywords,
             'description' => $post->description,
             'post' => $post,
         ];
+        if (isset($post->topics) && !empty($post->topics)) {
+            $arr['keywords'] = implode(",", $post->topics) . ";$post->title";
+        } else {
+            $arr['keywords'] = $post->title;
+        }
         $rankInfo = new RankInfo();
         $arr = array_merge($arr, $rankInfo->rankInfo());
 

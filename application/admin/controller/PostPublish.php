@@ -47,8 +47,8 @@ class PostPublish extends BaseRoleAdmin {
             'postId' => $postId,
             'postTime' => $postTime,
             'title' => $postTitle,
-            'keywords' => $postTitle,
             'description' => $description,
+            'topics' => $postTopics,
             'content' => $postContent,
             'contentHtml' => $html,
             'postProp' => $postProp,
@@ -58,9 +58,6 @@ class PostPublish extends BaseRoleAdmin {
             'likeCount' => 0,
             'commentCount' => 0,
         ];
-        if (!empty($postTopics)) {
-            $document['topics'] = $postTopics;
-        }
         $insertPostCmd = [
             'insert' => 'post',
             'documents' => [
