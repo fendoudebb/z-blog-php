@@ -111,7 +111,7 @@
                     <a class="disabled" href="javascript:void(0);">上一页</a>
                     {else /}
                     <a href="/">首页</a>
-                    <a href="?page={$currentPage-1}&size={$pageSize}">上一页</a>
+                    <a href="?page={$currentPage-1}">上一页</a>
                     {/if}
                 </li>
                 {for start="1" end="$totalPage + 1"}
@@ -123,15 +123,15 @@
                     {if condition="$i == $currentPage"}
                     <a class="active disabled" href="javascript:void(0);">{$i}</a>
                     {else /}
-                    <a href="?page={$i}&size={$pageSize}">{$i}</a>
+                    <a href="?page={$i}">{$i}</a>
                     {/if}
                     {/if}
                 </li>
                 {/for}
                 <li>
                     {if condition="$currentPage < $totalPage"}
-                    <a href="?page={$currentPage+1}&size={$pageSize}">下一页</a>
-                    <a href="?page={$totalPage}&size={$pageSize}">尾页</a>
+                    <a href="?page={$currentPage+1}">下一页</a>
+                    <a href="?page={$totalPage}">尾页</a>
                     {else /}
                     <a class="disabled" href="javascript:void(0);">下一页</a>
                     {/if}

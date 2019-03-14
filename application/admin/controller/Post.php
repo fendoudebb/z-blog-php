@@ -67,7 +67,10 @@ class Post extends BaseRoleAdmin {
 
                             ]
                         ],
-                    ]
+                    ],
+                ],
+                [
+                    '$sort' => ['postId' => -1]
                 ],
                 [
                     '$skip' => $offset

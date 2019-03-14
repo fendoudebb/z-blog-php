@@ -29,7 +29,9 @@ class PostInfo extends BaseRoleAdmin {
                 '_id' => 1,
                 'title' => 1,
                 'postStatus' => 1,
-                'content' => 1
+                'content' => 1,
+                'topics' => 1,
+                'postProp' => 1
             ],
             'limit' => 1
         ];
@@ -39,6 +41,12 @@ class PostInfo extends BaseRoleAdmin {
             return $this->fail(ResCode::POST_DOES_NOT_EXIST);
         }
         $post = $postCmdArr[0];
+        $objectId = $post->_id;
+        if (is_object($objectId) && method_exists($objectId, '__toString')) {
+            $id = $objectId->__toString();
+            $post->id = $id;
+            unset($post->_id);
+        };
         return $this->res($post);
     }
 
