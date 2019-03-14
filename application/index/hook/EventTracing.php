@@ -71,7 +71,7 @@ class EventTracing {
                 'updates' => [
                     [
                         'q' => [
-                            'postId' => $postId
+                            'postId' => intval($postId)
                         ],
                         'u' => [
                             '$inc' => [
