@@ -4,12 +4,30 @@
 // ----------------------------
 db.getCollection("ip_pool").drop();
 db.createCollection("ip_pool");
+db.getCollection("ip_pool").createIndex({
+    ip: ""
+}, {
+    name: "uk_ip",
+    background: true,
+    unique: true
+});
 
 // ----------------------------
 // Collection structure for page_view_record
 // ----------------------------
 db.getCollection("page_view_record").drop();
 db.createCollection("page_view_record");
+db.getCollection("page_view_record").createIndex({
+    createTime: ""
+}, {
+    name: "createTime_"
+});
+db.getCollection("page_view_record").createIndex({
+    url: "",
+    createTime: ""
+}, {
+    name: "url__createTime_"
+});
 
 // ----------------------------
 // Collection structure for post
@@ -35,11 +53,29 @@ db.createCollection("post",{
                         "OPEN",
                         "CLOSE"
                     ]
+                },
+                postId: {
+                    bsonType: "long"
+                },
+                postProp: {
+                    bsonType: "string",
+                    enum: [
+                        "ORIGINAL",
+                        "COPY"
+                    ]
+                },
+                topics: {
+                    bsonType: "array"
+                },
+                postLike: {
+                    bsonType: "array"
                 }
             },
             required: [
                 "postStatus",
-                "commentStatus"
+                "commentStatus",
+                "postId",
+                "postProp"
             ]
         }
     },
@@ -48,11 +84,17 @@ db.createCollection("post",{
 });
 db.getCollection("post").createIndex({
     postId: "",
-    postStatus: "",
-    postTime: ""
+    postStatus: ""
 }, {
-    name: "post:id-status-time",
+    name: "postId__postStatus_",
     background: true
+});
+db.getCollection("post").createIndex({
+    postId: ""
+}, {
+    name: "postId_",
+    background: true,
+    unique: true
 });
 
 // ----------------------------
@@ -90,7 +132,8 @@ db.createCollection("sys_user",{
 db.getCollection("sys_user").createIndex({
     username: ""
 }, {
-    name: "uk_username",
+    name: "username_",
+    background: true,
     unique: true
 });
 
