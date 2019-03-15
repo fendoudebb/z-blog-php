@@ -8,6 +8,7 @@ use app\common\util\Mongo;
 use app\common\util\Parser;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
+use think\Log;
 
 class PostPublish extends BaseRoleAdmin {
 
@@ -50,6 +51,7 @@ class PostPublish extends BaseRoleAdmin {
                 ]
             ];
             $updateResult = Mongo::cmd($updatePostCmd);
+            Log::log("update: " . json_encode($updateResult));
             if (!$updateResult[0]->ok) {
                 return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
             }
@@ -105,6 +107,7 @@ class PostPublish extends BaseRoleAdmin {
                 ]
             ];
             $insertPostResult = Mongo::cmd($insertPostCmd);
+            Log::log("insert: " . json_encode($insertPostResult));
             if (empty($insertPostResult) || !$insertPostResult[0]->ok) {
                 $this->log(ResCode::COLLECTION_INSERT_FAIL);
                 return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
