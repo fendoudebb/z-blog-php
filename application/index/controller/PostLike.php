@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 
 use app\common\util\Mongo;
+use MongoDB\BSON\UTCDateTime;
 
 class PostLike extends Base {
     public function likePost() {
@@ -11,6 +12,7 @@ class PostLike extends Base {
         $postLikeExistCmd = [
             'find' => 'post',
             'filter' => [
+                'postId' => intval($postId),
                 'postLike' => [
                     '$elemMatch' => [
                         'ip' => $this->ip
@@ -39,7 +41,8 @@ class PostLike extends Base {
                         ],
                         '$addToSet' => [
                             'postLike' => [
-                                'ip' => $this->ip
+                                'ip' => $this->ip,
+                                'likeTime' => new UTCDateTime()
                             ]
                         ]
                     ]

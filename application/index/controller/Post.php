@@ -59,6 +59,7 @@ class Post extends Base {
         $postLikeExistCmd = [
             'find' => 'post',
             'filter' => [
+                'postId' => intval($postId),
                 'postLike' => [
                     '$elemMatch' => [
                         'ip' => $this->ip
