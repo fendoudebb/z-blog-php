@@ -24,6 +24,8 @@ Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
 Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 
+Route::post('/post/like', 'index/PostLike/likePost');
+
 return [
 
 ];

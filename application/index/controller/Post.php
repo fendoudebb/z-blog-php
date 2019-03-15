@@ -17,6 +17,7 @@ class Post extends Base {
             ],
             'projection' => [
                 '_id' => 0,
+                'postId' => 1,
                 'title' => 1,
                 'description' => 1,
                 'postTime' => 1,
@@ -54,6 +55,24 @@ class Post extends Base {
         } else {
             $arr['keywords'] = $post->title;
         }
+
+        $postLikeExistCmd = [
+            'find' => 'post',
+            'filter' => [
+                'postLike' => [
+                    '$elemMatch' => [
+                        'ip' => $this->ip
+                    ]
+                ]
+            ],
+            'projection' => [
+                '_id' => 0,
+                'postId' => 1
+            ]
+        ];
+        $existResult = Mongo::cmd($postLikeExistCmd);
+        $arr['isLiked'] = !empty($existResult);
+
         $rankInfo = new RankInfo();
         $arr = array_merge($arr, $rankInfo->rankInfo());
 

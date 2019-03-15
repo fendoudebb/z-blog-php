@@ -54,6 +54,7 @@
         .shadow {
             margin-bottom: 8px;
             padding: 16px 24px;
+            word-wrap: break-word;
         }
 
         .hljs-button {
@@ -70,22 +71,12 @@
 
         .like-button {
             display: inline-block;
-            padding: 0 20px;
+            padding: 5px 10px;
             font-size: 14px;
-            border: 2px solid #4CAF50;
-            border-radius: 40px;
-            background: white;
-            outline: none;
-        }
-
-        .like-button:hover {
-            background: #A3E6C7;
-            color: #EFEEEE;
-        }
-
-        .like-button a:before {
-            /*content: url("../../../../public/favicon.ico");*/
-            content: url("https://s.zhangbj.com/pic/ico/favicon.ico");
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
         }
 
     </style>
@@ -96,17 +87,24 @@
     <div class="content">
         <div class="shadow">
             <h1 class="article-title">{$post->title}</h1>
-            <p>
-                <span style="color: #8a8a8a">posted @ {:timeFormat($post->postTime)} · 阅读（{$post->pv}）· 评论（{$post->commentCount}）· 点赞（{$post->likeCount}）{notempty name="$post->topics"}· 分类（{:implode('，', $post->topics)}）{/notempty}</span>
-            </p>
             <hr>
             <div style="margin-top: 15px">{$post->contentHtml}</div>
         </div>
         <div class="shadow">
-            字数：{$post->postWordCount}
-            <div class="like-button" onclick="alert('aaa')">
-                <a >点赞</a>
-
+            <p style="margin: 0;color: #8a8a8a">
+                posted @ {:timeFormat($post->postTime)} · 阅读({$post->pv}) · 评论({$post->commentCount}) · 点赞(<span
+                    id="like">{$post->likeCount}</span>) · 字数({$post->postWordCount}){notempty name="$post->topics"} ·
+                分类({:implode('，', $post->topics)}){/notempty}
+            </p>
+            <p></p>
+            <div style="text-align: center">
+                <div class="like-button">
+                    {if condition="$isLiked"}
+                    已点赞
+                    {else /}
+                    点赞
+                    {/if}
+                </div>
             </div>
         </div>
     </div>
@@ -115,32 +113,57 @@
 {include file="public/footer" /}
 {include file="public/base_js" /}
 <script>
-    hljs.initHighlightingOnLoad();
+    //@formatter:off
+    {if condition="$isLiked"}
+    $(".like-button").css("cursor", 'not-allowed');
+    {else /}
+        var data = {'postId': {$post->postId}};
+        var $likeBtn = $(".like-button");
+        $likeBtn.bind('click', function() {
+            $.post("/post/like", data,function (data) {
+                if (data.code === 200) {
+                    let $like = $("#like");
+                    var likeCount = $like.text();
+                    $like.text(Number(likeCount) + 1);
+                    $likeBtn.unbind('click');
+                    $likeBtn.text("已点赞");
+                    $likeBtn.css("cursor", 'not-allowed');
+                } else if (data.code === -1) {
+                    $likeBtn.unbind('click');
+                    $likeBtn.text("已点赞");
+                    $likeBtn.css("cursor", 'not-allowed');
+                }
+            });
+        });
+    {/if}
+    //@formatter:on
 
-    $("pre").each(function (index, element) {
-        let preTag = $(this);
-        preTag.append("<div class='hljs-button' title='Copy to Clipboard'>Copy</div>");
-        let id = "code" + index;
-        preTag.children("code").attr("id", id);
-        preTag.children(".hljs-button").attr("data-clipboard-target", "#" + id);
-    });
-    let clipboard = new ClipboardJS('.hljs-button');
-    clipboard.on('success', function (e) {
-        e.clearSelection();
-        let copyBtn = $(e.trigger);
-        copyBtn.html("Copy Success");
-        setTimeout(function () {
-            copyBtn.html("Copy");
-        }, 1000);
+        hljs.initHighlightingOnLoad();
 
-    });
-    clipboard.on('error', function (e) {
-        let copyBtn = $(e.trigger);
-        copyBtn.html("Copy Fail");
-        setTimeout(function () {
-            copyBtn.html("Copy");
-        }, 1000);
-    });
+        $("pre").each(function (index, element) {
+            let preTag = $(this);
+            preTag.append("<div class='hljs-button' title='Copy to Clipboard'>Copy</div>");
+            let id = "code" + index;
+            preTag.children("code").attr("id", id);
+            preTag.children(".hljs-button").attr("data-clipboard-target", "#" + id);
+        });
+        let clipboard = new ClipboardJS('.hljs-button');
+        clipboard.on('success', function (e) {
+            e.clearSelection();
+            let copyBtn = $(e.trigger);
+            copyBtn.html("Copy Success");
+            setTimeout(function () {
+                copyBtn.html("Copy");
+            }, 1000);
+
+        });
+        clipboard.on('error', function (e) {
+            let copyBtn = $(e.trigger);
+            copyBtn.html("Copy Fail");
+            setTimeout(function () {
+                copyBtn.html("Copy");
+            }, 1000);
+        });
 </script>
 </body>
 </html>
