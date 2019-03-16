@@ -22,7 +22,8 @@ class RankInfo {
                     'pv' => 1
                 ],
                 'sort' => [
-                    'pv' => -1
+                    'pv' => -1,
+                    'postTime' => -1
                 ],
                 'limit' => 5
             ];
@@ -40,7 +41,8 @@ class RankInfo {
                     'likeCount' => 1
                 ],
                 'sort' => [
-                    'likeCount' => -1
+                    'likeCount' => -1,
+                    'postTime' => -1
                 ],
                 'limit' => 5
             ];
@@ -58,7 +60,8 @@ class RankInfo {
                     'commentCount' => 1
                 ],
                 'sort' => [
-                    'commentCount' => -1
+                    'commentCount' => -1,
+                    'postTime' => -1
                 ],
                 'limit' => 5
             ];
