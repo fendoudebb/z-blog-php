@@ -30,6 +30,12 @@ class EventTracing {
             'userAgent' => $userAgent,
             'createTime' => $createTime
         ];
+        if (ini_get("browscap")) {
+            $userAgentParseResult = get_browser($userAgent, true);
+            $document['browser'] = $userAgentParseResult['browser'];
+            $document['browserVersion'] = $userAgentParseResult['version'];
+            $document['browserPlatform'] = $userAgentParseResult['platform'];
+        }
         if (isset($referer)) {
             $document['referer'] = $referer;
         }
