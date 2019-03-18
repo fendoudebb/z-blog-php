@@ -19,6 +19,10 @@ Route::post('/admin/post/comments', 'admin/PostComments/postComments');
 Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostComment');
 //---Post api end---
 
+//---statistics api start---
+Route::post('/admin/page_view', 'admin/PageView/pageView');
+//---statistics api end---
+
 Route::get('/', 'index/Index/index');
 Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);

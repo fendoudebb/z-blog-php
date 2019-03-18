@@ -32,9 +32,8 @@ class EventTracing {
         ];
         if (ini_get("browscap")) {
             $userAgentParseResult = get_browser($userAgent, true);
-            $document['browser'] = $userAgentParseResult['browser'];
-            $document['browserVersion'] = $userAgentParseResult['version'];
-            $document['browserPlatform'] = $userAgentParseResult['platform'];
+            $document['browser'] = $userAgentParseResult['parent'];
+            $document['os'] = $userAgentParseResult['platform'];
         }
         if (isset($referer)) {
             $document['referer'] = $referer;
