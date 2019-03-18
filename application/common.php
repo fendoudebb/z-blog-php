@@ -67,7 +67,9 @@ function compressHtml($content) {
 function timeFormat($postTime) {
     //当前时间的时间戳
     if ($postTime instanceof \MongoDB\BSON\UTCDateTime) {
-        $postTime = $postTime->toDateTime()->format("Y-m-d H:i:s");
+        $dateTime = $postTime->toDateTime();
+        $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+        $postTime = $dateTime->format("Y-m-d H:i:s");
     }
     $nowTimestamp = strtotime(date('Y-m-d H:i:s'), time());
     //之前时间参数的时间戳
