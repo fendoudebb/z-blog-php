@@ -21,6 +21,7 @@ Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostCom
 
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
+Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
 //---statistics api end---
 
 Route::get('/', 'index/Index/index');
