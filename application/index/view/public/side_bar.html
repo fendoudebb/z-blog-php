@@ -5,7 +5,7 @@
         <ul>
             {foreach $pvRank as $pvPost}
             <li>
-                <a href="/p/{$pvPost->title}.html" title="{$pvPost->title}">
+                <a href="/p/{$pvPost->postId}.html" title="{$pvPost->title}">
                     <span>{$pvPost->title}</span>
                     <span>阅读数：{$pvPost->pv}</span>
                 </a>
@@ -20,7 +20,7 @@
         <ul>
             {foreach $commentRank as $commentPost}
             <li>
-                <a href="/p/{$commentPost->title}.html" title="{$commentPost->title}">
+                <a href="/p/{$commentPost->postId}.html" title="{$commentPost->title}">
                     <span>{$commentPost->title}</span>
                     <span>评论数：{$commentPost->commentCount}</span>
                 </a>
@@ -35,7 +35,7 @@
         <ul>
             {foreach $likeRank as $likePost}
             <li>
-                <a href="/p/{$likePost->title}.html" title="{$likePost->title}">
+                <a href="/p/{$likePost->postId}.html" title="{$likePost->title}">
                     <span>{$likePost->title}</span>
                     <span>点赞数：{$likePost->likeCount}</span>
                 </a>
