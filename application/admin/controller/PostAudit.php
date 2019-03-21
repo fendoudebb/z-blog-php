@@ -54,6 +54,7 @@ class PostAudit extends BaseRoleAdmin {
         } else {//下线
             Redis::init()->sRem(RedisKey::SET_VISIBLE_POST, $postId);
         }
+        Redis::init()->del(RedisKey::SITEMAP_XML);
         return $this->res();
     }
 

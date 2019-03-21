@@ -23,7 +23,8 @@
       "ext-json": "*",
       "ext-pdo": "*",
       "ext-mongodb": "*",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-dom": "*"
     },
     "autoload": {
         "psr-4": {

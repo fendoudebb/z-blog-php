@@ -90,12 +90,16 @@ class Xml extends Response
 
         foreach ($data as $key => $val) {
             if (is_numeric($key)) {
-                $id && $attr = " {$id}=\"{$key}\"";
+//                $id && $attr = " {$id}=\"{$key}\"";
                 $key         = $item;
             }
-            $xml .= "<{$key}{$attr}>";
-            $xml .= (is_array($val) || is_object($val)) ? $this->dataToXml($val, $item, $id) : $val;
-            $xml .= "</{$key}>";
+            if ($key === 'baidu-tag') {
+                $xml .= $val;
+            } else {
+                $xml .= "<{$key}>";
+                $xml .= (is_array($val) || is_object($val)) ? $this->dataToXml($val, $item, $id) : $val;
+                $xml .= "</{$key}>";
+            }
         }
         return $xml;
     }

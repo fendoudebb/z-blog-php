@@ -2,6 +2,7 @@
 
 use think\Route;
 
+Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
 Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 
 Route::post('/admin/login', 'admin/Login/login');
