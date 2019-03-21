@@ -46,6 +46,13 @@ class SitemapXML extends Base {
                     'changefreq' => 'always',
                     'priority' => 1
                 ],
+                [
+                    'loc' => $rootUrl.'/tool/json/format.html',
+                    'baidu-tag' => $baiduTag,
+                    'lastmod' => $today,
+                    'changefreq' => 'daily',
+                    'priority' => 0.8
+                ]
             ];
             $sitemapPostsCmd = [
                 'find' => 'post',
