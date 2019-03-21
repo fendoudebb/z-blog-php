@@ -30,6 +30,7 @@ Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
 Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 
 Route::post('/post/like', 'index/PostLike/likePost');
+Route::post('/post/comment', 'index/PostComment/postComment');
 
 return [
 
