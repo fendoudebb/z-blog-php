@@ -36,14 +36,14 @@ class SitemapXML extends Base {
             $data = json_decode($cacheSitemapXML);
         } else {
             $rootUrl = 'https://' . request()->host();
-            $today = date('Y-m-d');
+            $today = date('c');//Y-m-d\TH:i:s.0000\Z
             $baiduTag = "<mobile:mobile type=\"pc,mobile\"/>";
             $data = [
                 [
                     'loc' => $rootUrl,
                     'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
-                    'changefreq' => 'daily',
+                    'changefreq' => 'always',
                     'priority' => 1
                 ],
             ];
@@ -68,7 +68,7 @@ class SitemapXML extends Base {
                     'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'daily',
-                    'priority' => 1
+                    'priority' => 0.8
                 ];
                 array_push($data, $sitemap);
             }
