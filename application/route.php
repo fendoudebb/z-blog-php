@@ -20,6 +20,14 @@ Route::post('/admin/post/comments', 'admin/PostComments/postComments');
 Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostComment');
 //---Post api end---
 
+//---Post api start---
+Route::post('/admin/topic', 'admin/Topic/topic');
+Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
+Route::post('/admin/topic/delete', 'admin/TopicDelete/deleteTopic');
+Route::post('/admin/topic/sort/modify', 'admin/TopicSortModify/modifyTopicSort');
+
+//---Post api end---
+
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
