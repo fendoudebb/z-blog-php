@@ -21,7 +21,8 @@ class TopicDelete extends BaseRoleAdmin {
                 [
                     'q' => [
                         '_id' => new ObjectId($topicId)
-                    ]
+                    ],
+                    'limit' => 1
                 ]
             ]
         ];

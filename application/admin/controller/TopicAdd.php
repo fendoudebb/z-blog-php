@@ -11,7 +11,7 @@ class TopicAdd extends BaseRoleAdmin {
     public function addTopic() {
         $topic = strval(input('post.topic'));
         $findMaxSortTopicCmd = [
-            'find' => 'post',
+            'find' => 'topic',
             'sort' => [
                 'sort' => -1
             ],
@@ -33,10 +33,10 @@ class TopicAdd extends BaseRoleAdmin {
         }
 
         $insertTopicCmd = [
-            'insert' => 'post',
+            'insert' => 'topic',
             'documents' => [
                 [
-                    'topic' => $topic,
+                    'name' => $topic,
                     'sort' => $sort,
                 ]
             ]
