@@ -5,7 +5,7 @@ namespace app\index\controller;
 
 use app\common\config\ResCode;
 use app\common\util\Mongo;
-use app\index\util\RankInfo;
+use app\index\util\SidebarInfo;
 
 class Post extends Base {
 
@@ -74,8 +74,8 @@ class Post extends Base {
         $existResult = Mongo::cmd($postLikeExistCmd);
         $arr['isLiked'] = !empty($existResult);
 
-        $rankInfo = new RankInfo();
-        $arr = array_merge($arr, $rankInfo->rankInfo());
+        $rankInfo = new SidebarInfo();
+        $arr = array_merge($arr, $rankInfo->sidebarInfo());
 
         $compressHtml = compressHtml($this->fetch('post', $arr));
         return $compressHtml;

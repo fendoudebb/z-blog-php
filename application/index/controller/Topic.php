@@ -2,12 +2,13 @@
 
 namespace app\index\controller;
 
+
 use app\common\util\Mongo;
 use app\index\util\SidebarInfo;
 
-class Index extends Base {
+class Topic extends Base {
 
-    public function index() {
+    public function topic($topic) {
         $page = intval(input('get.page'));
         if ($page < 1) {
             $page = 1;
@@ -15,6 +16,9 @@ class Index extends Base {
         $size = 20;
         $offset = ($page - 1) * $size;
         $arr = [
+            'title' => $topic,
+            'keywords' => $topic,
+            'description' => $topic,
             'currentPage' => $page,
         ];
         $rankInfo = new SidebarInfo();
@@ -23,6 +27,7 @@ class Index extends Base {
             'find' => 'post',
             'filter' => [
                 'postStatus' => 'ONLINE',
+                'topics' => $topic
             ],
             'projection' => [
                 '_id' => 0,
@@ -52,7 +57,7 @@ class Index extends Base {
         ];
         $countPostCmdArr = Mongo::cmd($countPostsCmd);
         $arr['totalPage'] = ceil($countPostCmdArr[0]->n / $size);
-        $compressHtml = compressHtml($this->fetch('index', $arr));
+        $compressHtml = compressHtml($this->fetch('topic', $arr));
         return $compressHtml;
     }
 

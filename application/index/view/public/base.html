@@ -315,7 +315,7 @@
         padding: 10px 0;
     }
 
-    .side-bar {
+    .sidebar {
         display: inline-block;
         text-align: left;
         width: 30%;
@@ -325,52 +325,52 @@
     }
 
     @media (max-width: 1920px) {
-        .side-bar {
+        .sidebar {
             width: 15%;
             max-width: 15%;
         }
     }
 
     @media (max-width: 1366px) {
-        .side-bar {
+        .sidebar {
             width: 18%;
             max-width: 18%;
         }
     }
 
     @media (max-width: 1400px) {
-        .side-bar {
+        .sidebar {
             width: 20%;
             max-width: 20%;
         }
     }
 
     @media (max-width: 1024px) {
-        .side-bar {
+        .sidebar {
             width: 23%;
             max-width: 23%;
         }
     }
 
     @media (max-width: 750px) {
-        .side-bar {
+        .sidebar {
             display: none;
         }
     }
 
-    .side-bar-widget {
+    .sidebar-widget {
         margin-bottom: 8px;
         padding: 16px 24px;
     }
 
-    .side-bar-widget h3 {
+    .sidebar-widget h3 {
         font-size: 15px;
         font-weight: bold;
         margin: 0;
         padding-bottom: 8px;
     }
 
-    .side-bar-widget h3::before {
+    .sidebar-widget h3::before {
         display: inline-block;
         margin-right: 8px;
         content: '';
@@ -380,28 +380,28 @@
         background-color: #4CAF50;
     }
 
-    .side-bar-widget ul, .side-bar-widget li {
+    .sidebar-widget ul, .sidebar-widget li {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    .side-bar-widget li {
+    .sidebar-widget li {
         transition: border-color .3s, background-color .3s, color .3s;
         padding: 8px 24px;
         margin: 0 -24px;
         outline: 0;
     }
 
-    .side-bar-widget li:hover {
+    .sidebar-widget li:hover {
         background-color: #EFEEEE;
     }
 
-    .side-bar-widget li:not(:last-child) {
+    .sidebar-widget li:not(:last-child) {
         border-bottom: 1px dashed #8a8a8a;
     }
 
-    .side-bar-widget li a {
+    .sidebar-widget li a {
         display: block;
         color: #8a8a8a;
         text-decoration: none;
@@ -411,7 +411,7 @@
         word-wrap: break-word;
     }
 
-    .side-bar-widget li span {
+    .sidebar-widget li span {
         font-size: 12px;
         color: #8a8a8a;
         display: block;
@@ -420,12 +420,28 @@
         text-overflow: ellipsis
     }
 
-    .side-bar-widget a:active {
+    .sidebar-widget a:active {
         color: #999;
     }
 
-    .side-bar-widget a:hover span {
+    .sidebar-widget a:hover span {
         color: #000000;
+    }
+
+    .sidebar-topic {
+        margin-top: 10px;
+    }
+
+    .sidebar-topic a{
+        color: #8a8a8a;
+        font-size: 12px;
+        display: inline-block;
+        text-decoration: none;
+        border-radius: 3px;
+        border: 1px solid #8a8a8a;
+        padding: 2px 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
     }
 
 </style>

@@ -25,7 +25,7 @@ Route::post('/admin/topic', 'admin/Topic/topic');
 Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
 Route::post('/admin/topic/delete', 'admin/TopicDelete/deleteTopic');
 Route::post('/admin/topic/sort/modify', 'admin/TopicSortModify/modifyTopicSort');
-
+Route::post('/admin/topic/name/modify', 'admin/TopicNameModify/modifyTopicName');
 //---Post api end---
 
 //---statistics api start---
@@ -35,6 +35,7 @@ Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
 
 Route::get('/', 'index/Index/index');
 Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
+Route::get('/topic/:topic', 'index/Topic/topic', ['ext' => 'html']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
 Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 

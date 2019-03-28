@@ -6,8 +6,8 @@ namespace app\index\util;
 use app\common\util\Mongo;
 use think\Request;
 
-class RankInfo {
-    public function rankInfo() {
+class SidebarInfo {
+    public function sidebarInfo() {
         $arr = [];
         if (!Request::instance()->isMobile()) {
             $pvRankCmd = [
@@ -66,6 +66,19 @@ class RankInfo {
                 'limit' => 5
             ];
             $arr['commentRank'] = Mongo::cmd($commentCountRankCmd);
+
+            $topicCmd = [
+                'find' => 'topic',
+                'projection' => [
+                    '_id' => 0,
+                    'name' => 1,
+                ],
+                'sort' => [
+                    'sort' => 1
+                ]
+            ];
+
+            $arr['topic'] = Mongo::cmd($topicCmd);
         }
         return $arr;
     }

@@ -3,7 +3,6 @@
 <head>
     {include file="public/base" /}
     <style>
-
         .content p {
             margin: 10px 0;
         }
@@ -80,22 +79,43 @@
         .disabled {
             cursor: not-allowed;
         }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: #F5F5F5;
+            padding: 8px 12px;
+            margin: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 {include file="public/header" /}
 <div class="main">
     {empty name="posts"}
-    post为空
+    <div class="content" style="text-align: center">
+        <div class="shadow" style="padding: 30px">
+            该标签下暂无文章
+        </div>
+        <div style="margin-top: 20px">
+            <button class="shadow button" title="返回首页">
+                <a href="/" style="color: #F5F5F5; text-decoration: none;">返回首页</a>
+            </button>
+        </div>
+    </div>
     {else /}
     <div class="content">
         <ul>
             {foreach $posts as $p}
             <li class="shadow index-article-item">
                 {if condition="$p->postProp eq 'COPY'"}
-                    <span class="article-tag" style="background-color: #FBB126">转载</span>
+                <span class="article-tag" style="background-color: #FBB126">转载</span>
                 {else /}
-                    <span class="article-tag">原创</span>
+                <span class="article-tag">原创</span>
                 {/if}
                 <a href="/p/{$p->postId}.html" class="index-article-title" title="{$p->title}">{$p->title}</a>
                 <p class="index-article-desc">{$p->description}</p>
@@ -137,12 +157,11 @@
                     <a class="disabled" href="javascript:void(0);">下一页</a>
                     {/if}
                 </li>
-
             </ul>
         </div>
     </div>
-    {include file="public/sidebar" /}
     {/empty}
+    {include file="public/sidebar" /}
 </div>
 {include file="public/footer" /}
 {include file="public/base_js" /}

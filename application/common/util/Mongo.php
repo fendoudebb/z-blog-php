@@ -6,6 +6,7 @@ namespace app\common\util;
 use MongoDB\Driver\Command;
 use MongoDB\Driver\Exception\Exception;
 use MongoDB\Driver\Manager;
+use think\Log;
 
 class Mongo {
 
