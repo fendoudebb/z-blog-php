@@ -53,6 +53,7 @@ class Topic extends Base {
             'count' => 'post',
             'query' => [
                 'postStatus' => 'ONLINE',
+                'topics' => $topic
             ]
         ];
         $countPostCmdArr = Mongo::cmd($countPostsCmd);
