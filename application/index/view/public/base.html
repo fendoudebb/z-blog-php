@@ -229,29 +229,27 @@
 
     .header li {
         display: inline;
-        transition: border-color .3s, background-color .3s, color .3s;
-        padding: 16px 24px;
-    }
-
-    .header li:hover {
-        background-color: #4CAF50;
     }
 
     .header li:hover a {
+        background-color: #4CAF50;
         color: white;
     }
 
     .header ul li a {
         text-decoration: none;
         color: black;
+        padding: 16px 24px;
+        transition: border-color .3s, background-color .3s, color .3s;
     }
 
-    .header a:hover {
-        color: white;
+    .header-a-checked {
+        background-color: #4CAF50;
+        color: white !important;
     }
 
     .header a:active {
-        color: #999;
+        color: white;
     }
 
     .footer {
