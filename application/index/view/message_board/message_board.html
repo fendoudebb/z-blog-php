@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {include file="public/base" /}
+    <style>
+        li.shadow {
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+
+        .top-area {
+            border-bottom: 1px solid #4CAF50;
+            padding: 8px 12px
+        }
+
+        .nickname-span {
+            font-size: 12px;
+        }
+
+        .floor-span {
+            font-size: 12px;
+            color: #8a8a8a;
+            float: right
+        }
+
+        .content-pre {
+            margin: 5px 0;
+            padding: 8px 12px;
+            min-height: 50px;
+            white-space:pre-wrap;
+            word-break:break-all;
+            word-wrap: break-word;
+        }
+
+        .foot-area {
+            height: 20px;
+            padding: 8px 12px;
+        }
+
+        .time-span {
+            font-size: 12px;
+            color: #8a8a8a;
+            float: right
+        }
+
+        #nickname {
+            border: 1px solid #4CAF50;
+            border-radius: 2px;
+            background-color: #ffffffff;
+            outline: none; /*没有黄框*/
+            resize: none; /*不能拖拽*/
+            height: 20px;
+        }
+
+        #message {
+            border: 1px solid #4CAF50;
+            border-radius: 2px;
+            background-color: #ffffffff;
+            width: 100%;
+            height: 200px;
+            outline: none; /*没有黄框*/
+            resize: none; /*不能拖拽*/
+            padding: 0;
+            display: block;
+            font-family: "Courier New";
+        }
+
+        #submitBtn {
+            position: absolute;
+            right: -1px;
+            bottom: 0;
+            margin: 0
+        }
+    </style>
+</head>
+<body>
+{include file="public/header" /}
+<div class="main">
+    <div class="content" style="text-align: center">
+        {empty name="comments"}
+            <div class="shadow" style="padding: 30px">
+                暂无留言
+            </div>
+        {else /}
+        <ul style="text-align: left">
+            {foreach $comments as $comment}
+            <li class="shadow">
+                <div class="top-area">
+                    <span class="nickname-span">{$comment->nickname}</span>
+                    <span class="floor-span">{$comment->floor}楼</span>
+                </div>
+                <pre class="content-pre">{$comment->content}</pre>
+                <div class="foot-area">
+                    <span class="time-span">{:timeFormat($comment->commentTime)}</span>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+        <div style="text-align: center;margin-top: 20px">
+            <ul class="pagination">
+                <li>
+                    {if condition="$currentPage == 1"}
+                    <a class="disabled" href="javascript:void(0);">上一页</a>
+                    {else /}
+                    <a href="/">首页</a>
+                    <a href="?page={$currentPage-1}">上一页</a>
+                    {/if}
+                </li>
+                {for start="1" end="$totalPage + 1"}
+                <li>
+                    <!--{if condition="$i > $currentPage - 5 && $i < $currentPage + 5"}
+                    {else /}
+                    {/if}-->
+                    {if condition="$i > $currentPage - 4 && $i < $currentPage + 4"}
+                    {if condition="$i == $currentPage"}
+                    <a class="active disabled" href="javascript:void(0);">{$i}</a>
+                    {else /}
+                    <a href="?page={$i}">{$i}</a>
+                    {/if}
+                    {/if}
+                </li>
+                {/for}
+                <li>
+                    {if condition="$currentPage < $totalPage"}
+                    <a href="?page={$currentPage+1}">下一页</a>
+                    <a href="?page={$totalPage}">尾页</a>
+                    {else /}
+                    <a class="disabled" href="javascript:void(0);">下一页</a>
+                    {/if}
+                </li>
+
+            </ul>
+        </div>
+        {/empty}
+
+        <div class="shadow" style="margin-top: 20px;padding: 30px;text-align: left">
+            <div style="margin-bottom: 20px">
+                昵称：
+                <label>
+                    <input id="nickname" type="text" name="nickname" placeholder="请输入昵称">
+                </label>
+            </div>
+
+            <div style="position: relative">
+                <textarea id="message" title="评论区" placeholder="请输入留言"></textarea>
+                <button id="submitBtn" class="shadow button" title="留言">
+                    留言
+                </button>
+            </div>
+
+            <p id="error-hint" style="color: red;" hidden>
+
+            </p>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+{include file="public/base_js" /}
+<script>
+    function strLen(str) {
+        var len = 0;
+        for (var i=0; i<str.length; i++) {
+            if (str.charCodeAt(i)>127 || str.charCodeAt(i)===94) {
+                len += 2;
+            } else {
+                len ++;
+            }
+        }
+        return len;
+    }
+
+    let $submitBtn = $('#submitBtn');
+
+    let clickFunc = function () {
+        let $errorHint = $('#error-hint');
+        let nickname = $('#nickname').val();
+        let content = $('#message').val();
+        let nicknameLen = strLen(nickname);
+        let contentLen = strLen(content);
+        if (nicknameLen <= 0 || contentLen <= 0) {
+            $errorHint.html("昵称或留言不能为空~");
+            $errorHint.show();
+            return
+        }
+        if (nicknameLen > 16) {
+            $errorHint.html("昵称长度不能超过16位~");
+            $errorHint.show();
+            return
+        }
+        if (contentLen > 1000) {
+            $errorHint.html("留言内容不能超过1000位~");
+            $errorHint.show();
+            return
+        }
+        $submitBtn.unbind();
+        var data = {'nickname': nickname, 'content': content};
+
+        $.post("/leave-a-message", data,function (data) {
+            console.log("ok");
+            if (data.code === 200) {
+                // window.location.reload();
+                window.location.href=window.location.href;
+            } else {
+                $submitBtn.bind('click', clickFunc);
+            }
+        });
+    };
+    $submitBtn.bind('click', clickFunc);
+
+</script>
+</body>
+</html>

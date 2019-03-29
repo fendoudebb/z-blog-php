@@ -25,6 +25,7 @@ class ResCode {
         self::ILLEGAL_ARGUMENT_TOPIC_ID => "illegal argument: topic id",
         self::ILLEGAL_ARGUMENT_TOPIC_NAME => "illegal argument: topic name",
         self::ILLEGAL_ARGUMENT_AUDIT_STATUS => "illegal argument: audit status",
+        self::ILLEGAL_ARGUMENT_COMMENT_ID => "illegal argument: comment id",
 
 
 
@@ -68,6 +69,7 @@ class ResCode {
     const ILLEGAL_ARGUMENT_TOPIC_ID = 2002;
     const ILLEGAL_ARGUMENT_TOPIC_NAME = 2003;
     const ILLEGAL_ARGUMENT_AUDIT_STATUS = 2004;
+    const ILLEGAL_ARGUMENT_COMMENT_ID = 2005;
     //---illegal argument const end---
 
 

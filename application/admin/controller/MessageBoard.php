@@ -1,0 +1,65 @@
+<?php
+
+namespace app\admin\controller;
+
+
+use app\common\util\Mongo;
+
+class MessageBoard extends BaseRoleAdmin {
+
+    public function messageBoard() {
+        $page = intval(input('post.page'));
+        $size = intval(input('post.size'));
+        if ($page < 1) {
+            $page = 1;
+        }
+        if ($size < 1 || $size > 20) {
+            $size = 20;
+        }
+        $offset = ($page - 1) * $size;
+
+        $cmd = [
+            'aggregate' => 'comment', // collection表名
+            'pipeline' => [
+                [
+                    '$project' => [
+                        '_id' => 0,
+                        'id' => [
+                            '$toString' => '$_id'
+                        ],
+                        'nickname' => 1,
+                        'content' => 1,
+                        'commentTime' => 1,
+                        'floor' => 1,
+                        'status' => 1,
+                        'browser' => 1,
+                        'os' => 1,
+                        'userAgent' => 1,
+                        'ip' => 1,
+                    ],
+                ],
+                [
+                    '$sort' => ['floor' => -1]
+                ],
+                [
+                    '$skip' => $offset
+                ],
+                [
+                    '$limit' => $size
+                ]
+            ],
+            'cursor' => new \stdClass()
+        ];
+        $topic = Mongo::cmd($cmd);
+        $response = [
+        ];
+        $cmd = [
+            'count' => 'comment'
+        ];
+        $countResult = Mongo::cmd($cmd);
+        $response['totalCount'] = $countResult[0]->n;
+        $response['comment'] = $topic;
+        return $this->res($response);
+    }
+
+}

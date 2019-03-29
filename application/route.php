@@ -28,12 +28,18 @@ Route::post('/admin/topic/sort/modify', 'admin/TopicSortModify/modifyTopicSort')
 Route::post('/admin/topic/name/modify', 'admin/TopicNameModify/modifyTopicName');
 //---Post api end---
 
+//---Comment api start---
+Route::post('/admin/message/board', 'admin/MessageBoard/messageBoard');
+Route::post('/admin/message/delete', 'admin/MessageDelete/deleteMessage');
+//---Comment api end---
+
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
 //---statistics api end---
 
 Route::get('/', 'index/Index/index');
+Route::get('/message-board', 'index/MessageBoard/messageBoard', ['ext' => 'html']);
 Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/topic/:topic', 'index/Topic/topic', ['ext' => 'html']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
@@ -41,6 +47,7 @@ Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 
 Route::post('/post/like', 'index/PostLike/likePost');
 Route::post('/post/comment', 'index/PostComment/postComment');
+Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
 
 return [
 

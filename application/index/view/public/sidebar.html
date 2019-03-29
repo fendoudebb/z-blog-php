@@ -4,7 +4,7 @@
         <h3>标签</h3>
         <div class="sidebar-topic">
             {foreach $topic as $t}
-            <a href="/topic/{$t->name}.html"><span>{$t->name}</span></a>
+            <a href="/topic/{$t->name}.html" title="{$t->name}"><span>{$t->name}</span></a>
             {/foreach}
         </div>
     </div>
