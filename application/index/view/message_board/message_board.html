@@ -32,9 +32,20 @@
             word-wrap: break-word;
         }
 
+        .content-delete-pre {
+            color: #8a8a8a;
+            text-decoration: line-through;
+            font-style: italic;
+        }
+
         .foot-area {
             height: 20px;
             padding: 8px 12px;
+        }
+
+        .browse-os-span {
+            font-size: 12px;
+            color: #8a8a8a;
         }
 
         .time-span {
@@ -89,8 +100,13 @@
                     <span class="nickname-span">{$comment->nickname}</span>
                     <span class="floor-span">{$comment->floor}楼</span>
                 </div>
+                {if condition="$comment->status === 'ONLINE'"}
                 <pre class="content-pre">{$comment->content}</pre>
+                {else /}
+                <pre class="content-pre content-delete-pre">留言已删除</pre>
+                {/if}
                 <div class="foot-area">
+                    <span class="browse-os-span">{$comment->browser} | {$comment->os}</span>
                     <span class="time-span">{:timeFormat($comment->commentTime)}</span>
                 </div>
             </li>
@@ -140,17 +156,11 @@
                     <input id="nickname" type="text" name="nickname" placeholder="请输入昵称">
                 </label>
             </div>
-
             <div style="position: relative">
                 <textarea id="message" title="评论区" placeholder="请输入留言"></textarea>
-                <button id="submitBtn" class="shadow button" title="留言">
-                    留言
-                </button>
+                <button id="submitBtn" class="shadow button" title="留言">留言</button>
             </div>
-
-            <p id="error-hint" style="color: red;" hidden>
-
-            </p>
+            <p id="error-hint" style="color: red;" hidden></p>
         </div>
     </div>
 </div>

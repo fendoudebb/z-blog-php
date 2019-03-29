@@ -6,7 +6,6 @@ namespace app\index\controller;
 use app\common\config\ResCode;
 use app\common\util\Mongo;
 use MongoDB\BSON\UTCDateTime;
-use think\Log;
 
 class MessageLeave extends Base {
 
@@ -15,7 +14,6 @@ class MessageLeave extends Base {
         $content = strval(input("post.content"));
         $nickname = htmlspecialchars($nickname, ENT_NOQUOTES);
         $content = htmlspecialchars($content, ENT_NOQUOTES);
-        Log::log($content);
         $findMaxFloorCmd = [
             'find' => 'comment',
             'sort' => [
@@ -48,7 +46,6 @@ class MessageLeave extends Base {
             'status' => 'ONLINE',
             'ip' => $this->ip,
             'userAgent' => $this->userAgent,
-
         ];
 
         if (ini_get("browscap")) {

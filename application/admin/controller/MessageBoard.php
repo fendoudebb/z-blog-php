@@ -29,7 +29,15 @@ class MessageBoard extends BaseRoleAdmin {
                         ],
                         'nickname' => 1,
                         'content' => 1,
-                        'commentTime' => 1,
+                        'commentTime' => [
+                            '$dateToString' => [
+                                'format' => "%Y-%m-%d %H:%M:%S",
+                                'date' => [
+                                    '$toDate' => '$commentTime'
+                                ],
+                                'timezone' => "+08:00"
+                            ]
+                        ],
                         'floor' => 1,
                         'status' => 1,
                         'browser' => 1,
@@ -50,7 +58,7 @@ class MessageBoard extends BaseRoleAdmin {
             ],
             'cursor' => new \stdClass()
         ];
-        $topic = Mongo::cmd($cmd);
+        $comments = Mongo::cmd($cmd);
         $response = [
         ];
         $cmd = [
@@ -58,7 +66,7 @@ class MessageBoard extends BaseRoleAdmin {
         ];
         $countResult = Mongo::cmd($cmd);
         $response['totalCount'] = $countResult[0]->n;
-        $response['comment'] = $topic;
+        $response['comments'] = $comments;
         return $this->res($response);
     }
 
