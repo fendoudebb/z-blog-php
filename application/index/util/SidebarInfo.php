@@ -12,11 +12,10 @@ class SidebarInfo {
     public function sidebarInfo() {
         $arr = [];
         if (!Request::instance()->isMobile()) {
-            /*$sideBarInfo = Redis::init()->get(RedisKey::SIDEBAR_INFO);
+            $sideBarInfo = Redis::init()->get(RedisKey::SIDEBAR_INFO);
             if ($sideBarInfo) {
-                $json_decode = json_decode($sideBarInfo,true);
-                return $json_decode;
-            }*/
+                return unserialize($sideBarInfo);
+            }
             $ipCountCmd = [
                 'count' => 'ip_pool',
             ];
@@ -111,7 +110,8 @@ class SidebarInfo {
             ];
 
             $arr['topic'] = Mongo::cmd($topicCmd);
-            Redis::init()->setex(RedisKey::SIDEBAR_INFO, 3600, json_encode($arr));
+
+            Redis::init()->setex(RedisKey::SIDEBAR_INFO, 3600, serialize($arr));
         }
         return $arr;
     }
