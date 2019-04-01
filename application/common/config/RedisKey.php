@@ -12,7 +12,7 @@ class RedisKey {
     const STR_404_HTML = 'zblog_str_404_html';
     const SET_VISIBLE_POST = 'zblog_set_visible_post';
 
-    const SIDEBAR_INFO = 'zblog_sidebar_info';
+    const WEB_INFO = 'zblog_web_info';
 
 
 }

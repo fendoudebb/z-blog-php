@@ -12,9 +12,9 @@ class SidebarInfo {
     public function sidebarInfo() {
         $arr = [];
         if (!Request::instance()->isMobile()) {
-            $sideBarInfo = Redis::init()->get(RedisKey::SIDEBAR_INFO);
-            if ($sideBarInfo) {
-                return unserialize($sideBarInfo);
+            $webInfo = Redis::init()->get(RedisKey::WEB_INFO);
+            if ($webInfo) {
+                return unserialize($webInfo);
             }
             $ipCountCmd = [
                 'count' => 'ip_pool',
@@ -36,7 +36,7 @@ class SidebarInfo {
             $postCountCmdArr = Mongo::cmd($postCountCmd);
             $postCount = $postCountCmdArr[0]->n;
 
-            $arr['webmaster'] = [
+            $arr['webInfo'] = [
                 'ipCount' => $ipCount,
                 'pvCount' => $pvCount,
                 'postCount' => $postCount,
@@ -111,7 +111,7 @@ class SidebarInfo {
 
             $arr['topic'] = Mongo::cmd($topicCmd);
 
-            Redis::init()->setex(RedisKey::SIDEBAR_INFO, 3600, serialize($arr));
+            Redis::init()->setex(RedisKey::WEB_INFO, 3600, serialize($arr));
         }
         return $arr;
     }

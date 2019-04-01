@@ -2,12 +2,11 @@
 
 use think\Route;
 
-Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
-Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 
 Route::post('/admin/login', 'admin/Login/login');
 Route::post('/admin/logout', 'admin/Logout/logout');
 
+Route::post('/admin/web_info', 'admin/WebInfo/webInfo');
 
 //---Post api start---
 Route::post('/admin/post', 'admin/Post/postList');
@@ -37,6 +36,9 @@ Route::post('/admin/message/delete', 'admin/MessageDelete/deleteMessage');
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
 //---statistics api end---
+
+Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
+Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 
 Route::get('/', 'index/Index/index');
 Route::get('/message-board', 'index/MessageBoard/messageBoard', ['ext' => 'html']);
