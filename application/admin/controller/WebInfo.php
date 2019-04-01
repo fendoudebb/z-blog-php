@@ -39,7 +39,6 @@ class WebInfo extends BaseRoleAdmin {
                 'pvCount' => $pvCount,
                 'postCount' => $postCount,
             ];
-            Redis::init()->setex(RedisKey::WEB_INFO, 3600, serialize($arr));
         }
         return $this->res($arr);
     }
