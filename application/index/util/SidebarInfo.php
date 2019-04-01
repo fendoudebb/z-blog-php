@@ -12,10 +12,11 @@ class SidebarInfo {
     public function sidebarInfo() {
         $arr = [];
         if (!Request::instance()->isMobile()) {
-            $sideBarInfo = Redis::init()->get(RedisKey::SIDEBAR_INFO);
+            /*$sideBarInfo = Redis::init()->get(RedisKey::SIDEBAR_INFO);
             if ($sideBarInfo) {
-                return json_decode($sideBarInfo);
-            }
+                $json_decode = json_decode($sideBarInfo,true);
+                return $json_decode;
+            }*/
             $ipCountCmd = [
                 'count' => 'ip_pool',
             ];
