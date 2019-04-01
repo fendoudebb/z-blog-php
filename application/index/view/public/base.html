@@ -171,7 +171,7 @@
 
     /*取消a标签在移动端点击时的蓝色*/
     a {
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-tap-highlight-color: transparent;
         -webkit-user-select: none;
         /*-moz-user-focus: none;*/
         -moz-user-select: none;
@@ -241,24 +241,27 @@
     }
 
     .header li {
-        display: inline;
+        display: inline-block;
+        padding: 0 20px;
+        transition: border-color .3s, background-color .3s, color .3s;
+    }
+
+    .header li:hover {
+        background-color: #4CAF50;
     }
 
     .header li:hover a {
-        background-color: #4CAF50;
         color: white;
     }
 
     .header ul li a {
+        font-size: 14px;
         text-decoration: none;
         color: black;
-        padding: 16px 24px;
-        transition: border-color .3s, background-color .3s, color .3s;
     }
 
     .header-a-checked {
         background-color: #4CAF50;
-        color: white !important;
     }
 
     .header a:active {
