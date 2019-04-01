@@ -169,6 +169,19 @@
         padding: 0;
     }
 
+    /*取消a标签在移动端点击时的蓝色*/
+    a {
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-user-select: none;
+        /*-moz-user-focus: none;*/
+        -moz-user-select: none;
+    }
+
+    /*去除ios input框点击时的灰色背景*/
+    input {
+        -webkit-tap-highlight-color:rgba(0,0,0,0);
+    }
+
     .main {
         text-align: center;
     }
