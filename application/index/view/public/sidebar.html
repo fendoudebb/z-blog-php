@@ -1,4 +1,20 @@
 <div class="sidebar">
+    {notempty name="webmaster"}
+    <div class="shadow sidebar-widget">
+        <h3>站长统计</h3>
+        <ul>
+            <li>
+                <span>文章数：{$webmaster.postCount}</span>
+            </li>
+            <li>
+                <span>访客数：{$webmaster.ipCount}</span>
+            </li>
+            <li>
+                <span>浏览量：{$webmaster.pvCount}</span>
+            </li>
+        </ul>
+    </div>
+    {/notempty}
     {notempty name="topic"}
     <div class="shadow sidebar-widget">
         <h3>标签</h3>
