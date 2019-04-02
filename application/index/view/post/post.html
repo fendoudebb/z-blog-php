@@ -86,15 +86,15 @@
 <div class="main">
     <div class="content">
         <div class="shadow">
-            <h1 class="article-title">{$post->title}</h1>
+            <h1>{$post->title}</h1>
             <hr>
             <div style="margin-top: 15px">{$post->contentHtml}</div>
         </div>
         <div class="shadow">
             <p style="margin: 0;color: #8a8a8a">
-                posted @ {:timeFormat($post->postTime)} · 阅读({$post->pv}) · 评论({$post->commentCount}) · 点赞(<span
-                    id="like">{$post->likeCount}</span>) · 字数({$post->postWordCount}){notempty name="$post->topics"} ·
-                分类({:implode('，', $post->topics)}){/notempty}
+                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：{$post->commentCount}，点赞：<span
+                    id="like">{$post->likeCount}</span>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
+                标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="topic-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
             </p>
             <p></p>
             <div style="text-align: center">

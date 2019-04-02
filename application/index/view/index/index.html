@@ -3,44 +3,8 @@
 <head>
     {include file="public/base" /}
     <style>
-
         .content p {
             margin: 10px 0;
-        }
-
-        .index-article-item {
-            transition: border-color .3s,background-color .3s,color .3s;
-            margin-bottom: 8px;
-            padding: 16px 24px;
-        }
-
-        .index-article-item:hover {
-            background-color: #EFEEEE;
-        }
-
-        .index-article-item a {
-            word-wrap: break-word;
-            text-decoration: none;
-            font-weight: bold;
-            color: black;
-        }
-
-        .index-article-item a:hover {
-            color: #4CAF50;
-        }
-
-        .index-article-item a:active {
-            color: #999;
-        }
-
-        .index-article-title {
-            font-size: 18px;
-        }
-
-        .index-article-desc {
-            margin: 0;
-            color: #8a8a8a;
-            word-wrap: break-word;
         }
     </style>
 </head>
@@ -53,16 +17,16 @@
     <div class="content">
         <ul>
             {foreach $posts as $p}
-            <li class="shadow index-article-item">
+            <li class="shadow index-post-item">
                 {if condition="$p->postProp eq 'COPY'"}
-                    <span class="article-tag" style="background-color: #FBB126">转载</span>
+                    <span class="post-tag" style="background-color: #FBB126">转载</span>
                 {else /}
-                    <span class="article-tag">原创</span>
+                    <span class="post-tag">原创</span>
                 {/if}
-                <a href="/p/{$p->postId}.html" class="index-article-title" title="{$p->title}">{$p->title}</a>
-                <p class="index-article-desc">{$p->description}</p>
+                <a href="/p/{$p->postId}.html" class="index-post-title-a" title="{$p->title}">{$p->title}</a>
+                <p class="index-post-desc">{$p->description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)} · 阅读（{$p->pv}）· 评论（{$p->commentCount}）{if condition="isMobile() neq 1"}· 点赞（{$p->likeCount}）{notempty name="$p->topics"}· 分类（{:implode('，', $p->topics)}）{/notempty}{/if}</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}，评论：{$p->commentCount}{if condition="isMobile() neq 1"}，点赞：{$p->likeCount}{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="topic-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}{/if}</span>
                 </p>
             </li>
             {/foreach}
