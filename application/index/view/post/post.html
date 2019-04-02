@@ -90,11 +90,10 @@
             <hr>
             <div style="margin-top: 15px">{$post->contentHtml}</div>
         </div>
-        <div class="shadow">
+        <div id="post-like" class="shadow">
             <p style="margin: 0;color: #8a8a8a">
-                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：{$post->commentCount}，点赞：<span
-                    id="like">{$post->likeCount}</span>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
-                标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="topic-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
+                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：{$post->commentCount}，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
+                标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
             </p>
             <p></p>
             <div style="text-align: center">
