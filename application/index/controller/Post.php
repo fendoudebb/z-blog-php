@@ -29,7 +29,8 @@ class Post extends Base {
                 'topics' => 1,
                 'pv' => 1,
                 'commentCount' => 1,
-                'likeCount' => 1
+                'likeCount' => 1,
+                'postComment' => 1
             ],
             'limit' => 1
         ];

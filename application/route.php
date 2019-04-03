@@ -30,6 +30,7 @@ Route::post('/admin/topic/name/modify', 'admin/TopicNameModify/modifyTopicName')
 //---Comment api start---
 Route::post('/admin/message/board', 'admin/MessageBoard/messageBoard');
 Route::post('/admin/message/delete', 'admin/MessageDelete/deleteMessage');
+Route::post('/admin/message/reply', 'admin/MessageReply/replyMessage');
 //---Comment api end---
 
 //---statistics api start---

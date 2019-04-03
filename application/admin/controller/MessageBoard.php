@@ -44,6 +44,7 @@ class MessageBoard extends BaseRoleAdmin {
                         'os' => 1,
                         'userAgent' => 1,
                         'ip' => 1,
+                        'reply' => 1,
                     ],
                 ],
                 [

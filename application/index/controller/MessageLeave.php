@@ -5,6 +5,7 @@ namespace app\index\controller;
 
 use app\common\config\ResCode;
 use app\common\util\Mongo;
+use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
 class MessageLeave extends Base {
@@ -39,6 +40,7 @@ class MessageLeave extends Base {
         $commentTime = new UTCDateTime();
 
         $document = [
+            'commentId' => new ObjectId(),
             'content' => $content,
             'nickname' => $nickname,
             'floor' => $floor,

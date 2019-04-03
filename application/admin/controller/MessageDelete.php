@@ -15,8 +15,6 @@ class MessageDelete extends BaseRoleAdmin {
             $this->log(ResCode::ILLEGAL_ARGUMENT_COMMENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_COMMENT_ID);
         }
-
-
         $cmd = [
             'update' => 'comment',
             'updates' => [

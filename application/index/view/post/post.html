@@ -79,6 +79,22 @@
             cursor: pointer;
         }
 
+        .post-comment-li {
+            padding: 0;
+        }
+
+        .top-area {
+            padding: 16px 24px 4px 24px;
+        }
+
+        .content-pre {
+            padding: 8px 24px;
+        }
+
+        .foot-area {
+            padding: 8px 24px;
+        }
+
     </style>
 </head>
 <body>
@@ -92,7 +108,7 @@
         </div>
         <div id="post-like" class="shadow">
             <p style="margin: 0;color: #8a8a8a">
-                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：{$post->commentCount}，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
+                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：<a href="/p/{$post->postId}.html#post-comment" class="anchor-link-a">{$post->commentCount}</a>，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
                 标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
             </p>
             <p></p>
@@ -106,17 +122,113 @@
                 </div>
             </div>
         </div>
+
+        <div id="post-comment">
+            {empty name="$post->postComment"}
+            <div  class="shadow" style="padding: 16px 24px;">
+                <span style="font-size: 14px">暂无留言~</span>
+            </div>
+            {else /}
+            <ul>
+                {foreach $post->postComment as $comment}
+                <li class="post-comment-li shadow">
+                    <div class="top-area">
+                        <span class="nickname-span">{$comment->nickname}</span>
+                        <span class="floor-span">{$comment->floor}楼</span>
+                    </div>
+                    {if condition="$comment->status === 'ONLINE'"}
+                    <pre class="content-pre">{$comment->content}</pre>
+                    {else /}
+                    <pre class="content-pre content-delete-pre">留言已删除</pre>
+                    {/if}
+                    <div class="foot-area">
+                        <span class="browse-os-span">{$comment->browser} | {$comment->os}</span>
+                        <span class="time-span">{:timeFormat($comment->commentTime)}</span>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+            {/empty}
+
+            <div class="shadow" style="padding: 16px 24px;text-align: left">
+                <div style="margin-bottom: 20px">
+                    昵称：
+                    <label>
+                        <input id="nickname" type="text" name="nickname" placeholder="请输入昵称...">
+                    </label>
+                </div>
+                <div style="position: relative">
+                    <textarea id="message" title="评论区" placeholder="请输入评论..."></textarea>
+                    <button id="submitBtn" class="button" title="评论">评论</button>
+                </div>
+                <p id="error-hint" style="color: red;font-size: 14px" hidden></p>
+            </div>
+        </div>
+
     </div>
     {include file="public/sidebar" /}
 </div>
 {include file="public/footer" /}
 {include file="public/base_js" /}
 <script>
+    var postId = {$post->postId};
+
+    function strLen(str) {
+        var len = 0;
+        for (var i=0; i<str.length; i++) {
+            if (str.charCodeAt(i)>127 || str.charCodeAt(i)===94) {
+                len += 2;
+            } else {
+                len ++;
+            }
+        }
+        return len;
+    }
+
+    let $submitBtn = $('#submitBtn');
+
+    let clickFunc = function () {
+        let $errorHint = $('#error-hint');
+        let nickname = $('#nickname').val();
+        let content = $('#message').val();
+        let nicknameLen = strLen(nickname);
+        let contentLen = strLen(content);
+        if (nicknameLen <= 0 || contentLen <= 0) {
+            $errorHint.html("昵称或评论不能为空~");
+            $errorHint.show();
+            return
+        }
+        if (nicknameLen > 16) {
+            $errorHint.html("昵称长度不能超过16位~");
+            $errorHint.show();
+            return
+        }
+        if (contentLen > 1000) {
+            $errorHint.html("评论内容不能超过1000位~");
+            $errorHint.show();
+            return
+        }
+        $submitBtn.unbind();
+        var data = {'postId': postId, 'nickname': nickname, 'postComment': content};
+
+        $.post("/post/comment", data,function (data) {
+            if (data.code === 200) {
+                window.location.reload();
+                // window.location.href=window.location.href;
+            } else {
+                $submitBtn.bind('click', clickFunc);
+                $errorHint.html("评论失败~");
+                $errorHint.show();
+            }
+        });
+    };
+    $submitBtn.bind('click', clickFunc);
+
     //@formatter:off
     {if condition="$isLiked"}
     $(".like-button").css("cursor", 'not-allowed');
     {else /}
-        var data = {'postId': {$post->postId}};
+        var data = {'postId': postId};
         var $likeBtn = $(".like-button");
         $likeBtn.bind('click', function() {
             $.post("/post/like", data,function (data) {

@@ -35,7 +35,7 @@
                 <a href="/p/{$p->postId}.html" class="index-post-title-a" title="{$p->title}">{$p->title}</a>
                 <p class="index-post-desc">{$p->description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}，评论：{$p->commentCount}{if condition="isMobile() neq 1"}，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}{/if}</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}，评论：<a href="/p/{$p->postId}.html#post-comment" class="anchor-link-a">{$p->commentCount}</a>{if condition="isMobile() neq 1"}，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}{/if}</span>
                 </p>
             </li>
             {/foreach}
