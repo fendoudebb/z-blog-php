@@ -40,6 +40,7 @@ class ResCode {
         self::POST_TOPIC_DOES_NOT_EXIST => "post topic does not exist",
         self::POST_TOPIC_ALREADY_EXIST => "post topic already exists",
         self::OVER_POST_TOPIC_COUNT => "over post topic count",
+        self::POST_COMMENT_IS_EMPTY => "post comment is empty",
 
 
 
@@ -84,6 +85,7 @@ class ResCode {
     const POST_TOPIC_DOES_NOT_EXIST = 4003;
     const POST_TOPIC_ALREADY_EXIST = 4004;
     const OVER_POST_TOPIC_COUNT = 4005;
+    const POST_COMMENT_IS_EMPTY = 4006;
     //---error code const end---
 
 

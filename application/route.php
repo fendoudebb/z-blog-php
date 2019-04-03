@@ -15,7 +15,8 @@ Route::post('/admin/post/publish', 'admin/PostPublish/publishPost');
 Route::post('/admin/post/audit', 'admin/PostAudit/auditPost');
 Route::post('/admin/post/topic/add', 'admin/PostTopicAdd/addPostTopic');
 Route::post('/admin/post/topic/delete', 'admin/PostTopicDelete/deletePostTopic');
-Route::post('/admin/post/comments', 'admin/PostComments/postComments');
+Route::post('/admin/post/comment', 'admin/PostComment/postComment');
+Route::post('/admin/post/comment/delete', 'admin/PostCommentDelete/deletePostComment');
 Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostComment');
 //---Post api end---
 
