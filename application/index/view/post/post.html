@@ -97,7 +97,9 @@
             cursor: pointer;
         }
 
-        .post-comment-li {
+        #post-comment ul li{
+            list-style-type: none;
+            margin: 0 0 10px 0;
             padding: 0;
         }
 
@@ -126,7 +128,7 @@
         </div>
         <div id="post-like" class="shadow">
             <p style="margin: 0;color: #8a8a8a">
-                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，评论：<a href="/p/{$post->postId}.html#post-comment" class="anchor-link-a">{$post->commentCount}</a>，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>，字数：{$post->postWordCount}{notempty name="$post->topics"}，
+                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，字数：{$post->postWordCount}，评论：<a href="/p/{$post->postId}.html#post-comment" class="anchor-link-a">{$post->commentCount}</a>，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>{notempty name="$post->topics"}，
                 标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
             </p>
             <p></p>
@@ -143,13 +145,13 @@
 
         <div id="post-comment">
             {empty name="$post->postComment"}
-            <div  class="shadow" style="padding: 16px 24px;">
+            <div class="shadow" style="padding: 16px 24px;">
                 <span style="font-size: 14px">暂无留言~</span>
             </div>
             {else /}
             <ul>
                 {foreach $post->postComment as $comment}
-                <li class="post-comment-li shadow">
+                <li class="shadow">
                     <div class="top-area">
                         <span class="nickname-span">{$comment->nickname}</span>
                         <span class="floor-span">{$comment->floor}楼</span>
