@@ -5,10 +5,10 @@ namespace app\admin\controller;
 
 use app\common\config\ResCode;
 use app\common\util\Mongo;
+use app\common\util\Parsedown;
 use app\common\util\Parser;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
-use think\Log;
 
 class PostPublish extends BaseRoleAdmin {
 
@@ -19,9 +19,11 @@ class PostPublish extends BaseRoleAdmin {
         $postTopics = input('post.topics/a');
         $postProp = strval(input('post.postProp'));
         $isPrivate = boolval(input('post.isPrivate'));
+        $parser = new Parsedown();
+        $html = $parser->text($postContent);
+        /*$parser = new Parser();
+        $html = $parser->makeHtml($postContent);*/
         if (isset($postId)) {//修改
-            $parser = new Parser;
-            $html = $parser->makeHtml($postContent);
             $stripTagsHtml = strip_tags($html);
             $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
             $description = mb_substr($stripTagsHtml, 0, 80, 'utf-8');
@@ -77,8 +79,6 @@ class PostPublish extends BaseRoleAdmin {
                 }
             }
             $postTime = new UTCDateTime();
-            $parser = new Parser;
-            $html = $parser->makeHtml($postContent);
             $stripTagsHtml = strip_tags($html);
             $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
             $description = mb_substr($stripTagsHtml, 0, 80, 'utf-8');
