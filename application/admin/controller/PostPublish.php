@@ -6,7 +6,6 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use app\common\util\Mongo;
 use app\common\util\Parsedown;
-use app\common\util\Parser;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
@@ -20,7 +19,7 @@ class PostPublish extends BaseRoleAdmin {
         $postProp = strval(input('post.postProp'));
         $isPrivate = boolval(input('post.isPrivate'));
         $parser = new Parsedown();
-        $html = $parser->text($postContent);
+        $html = $parser->setMarkupEscaped(true)->text($postContent);
         /*$parser = new Parser();
         $html = $parser->makeHtml($postContent);*/
         if (isset($postId)) {//修改

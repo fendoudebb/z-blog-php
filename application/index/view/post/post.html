@@ -4,6 +4,52 @@
     {include file="public/base" /}
     <style>
 
+        .table-area {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse; /*使用单一线条的边框*/
+            margin: 10px auto;
+            table-layout: fixed;
+            word-break: break-word;
+            empty-cells: show; /*单元格无内容依旧绘制边框*/
+            min-width: 100%;
+            border-color: grey;
+        }
+
+        table td, table th {
+            border: 1px solid #e9eaec;
+            height: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        table th {
+            white-space: nowrap; /*表头内容强制在一行显示*/
+            background-color: #F8F8F9;
+            width: auto;
+            color: #495060;
+            font-size: 12px;
+        }
+
+        table td {
+            color: #495060;
+            font-size: 12px;
+        }
+
+        table tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        table tr:nth-child(even) {
+            background: #F8F8F9;
+        }
+
+        table tr:hover {
+            background: #efefef;
+        }
+
         .content ul li{
             list-style-type: disc;
             margin: 0 16px 16px 20px;
@@ -66,7 +112,16 @@
         }
 
         h1 {
+            font-size: 24px;
             margin: 15px 0;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        h3 {
+            font-size: 18px;
         }
 
         .shadow {
@@ -191,6 +246,8 @@
 {include file="public/footer" /}
 {include file="public/base_js" /}
 <script>
+    $("table").wrap("<div class='table-area'></div>");
+
     var postId = {$post->postId};
 
     function strLen(str) {
