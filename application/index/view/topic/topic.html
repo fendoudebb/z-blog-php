@@ -5,6 +5,7 @@
     <style>
         .content p {
             margin: 10px 0;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -27,15 +28,10 @@
         <ul>
             {foreach $posts as $p}
             <li class="shadow index-post-item">
-                {if condition="$p->postProp eq 'COPY'"}
-                <span class="post-tag" style="background-color: #FBB126">转载</span>
-                {else /}
-                <span class="post-tag">原创</span>
-                {/if}
-                <a href="/p/{$p->postId}.html" class="index-post-title-a" title="{$p->title}">{$p->title}</a>
+                <a href="/p/{$p->postId}.html" class="index-post-title-a ellipsis" title="{$p->title}">{$p->title}</a>
                 <p class="index-post-desc">{$p->description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}，评论：<a href="/p/{$p->postId}.html#post-comment" class="anchor-link-a">{$p->commentCount}</a>{if condition="isMobile() neq 1"}，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}{/if}</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}{if condition="isMobile() neq 1"}，评论：<a href="/p/{$p->postId}.html#post-comment" class="anchor-link-a">{$p->commentCount}</a>，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{/if}{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}</span>
                 </p>
             </li>
             {/foreach}
