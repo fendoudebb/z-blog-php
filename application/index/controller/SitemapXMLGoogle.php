@@ -29,7 +29,7 @@ class SitemapXMLGoogle extends Base {
             "item_node" => "url",
             "id" => ""
         ];
-        $cacheSitemapXML = Redis::init()->get(RedisKey::SITEMAP_XML);
+        $cacheSitemapXML = Redis::init()->get(RedisKey::SITEMAP_XML_GOOGLE);
         if ($cacheSitemapXML) {
             $data = json_decode($cacheSitemapXML);
         } else {
@@ -79,7 +79,7 @@ class SitemapXMLGoogle extends Base {
                 ];
                 array_push($data, $sitemap);
             }
-            Redis::init()->set(RedisKey::SITEMAP_XML, json_encode($data));
+            Redis::init()->set(RedisKey::SITEMAP_XML_GOOGLE, json_encode($data));
         }
         return xml($data, 200, [], $options);
     }

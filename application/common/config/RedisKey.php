@@ -6,6 +6,7 @@ namespace app\common\config;
 class RedisKey {
 
     const SITEMAP_XML = 'zblog_sitemap_xml';
+    const SITEMAP_XML_GOOGLE = 'zblog_sitemap_xml_google';
     const HYPER_IP = 'zblog_hyper_ip';
     const STR_PV = 'zblog_str_pv';
 
