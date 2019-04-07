@@ -49,12 +49,16 @@ class PostAudit extends BaseRoleAdmin {
             $this->log(ResCode::COLLECTION_UPDATE_FAIL);
             return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
         }
+        $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+
         if ($auditStatus === 1) {//上线
-            Redis::init()->sAdd(RedisKey::SET_VISIBLE_POST, $postId);
+            $pipeline->sAdd(RedisKey::SET_VISIBLE_POST, $postId);
         } else {//下线
-            Redis::init()->sRem(RedisKey::SET_VISIBLE_POST, $postId);
+            $pipeline->sRem(RedisKey::SET_VISIBLE_POST, $postId);
         }
-        Redis::init()->del(RedisKey::SITEMAP_XML);
+        $pipeline->del(RedisKey::SITEMAP_XML);
+        $pipeline->del(RedisKey::SITEMAP_XML_GOOGLE);
+        $pipeline->exec();
         return $this->res();
     }
 
