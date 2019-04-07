@@ -18,14 +18,13 @@ use app\common\util\Mongo;
 use app\common\util\Redis;
 use think\Log;
 
-class SitemapXML extends Base {
+class SitemapXMLGoogle extends Base {
 
-    public function sitemapXML() {
+    public function sitemapXMLGoogle() {
         $options = [
             "root_node" => "urlset",
             "root_attr" => [
                 "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9",
-                "xmlns:mobile" => "http://www.baidu.com/schemas/sitemap-mobile/1/"
             ],
             "item_node" => "url",
             "id" => ""
@@ -36,25 +35,21 @@ class SitemapXML extends Base {
         } else {
             $rootUrl = 'https://' . request()->host();
             $today = date('c');//Y-m-d\TH:i:s.0000\Z
-            $baiduTag = "<mobile:mobile type=\"pc,mobile\"/>";
             $data = [
                 [
                     'loc' => $rootUrl,
-                    'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'always',
                     'priority' => 1
                 ],
                 [
                     'loc' => $rootUrl.'/message-board.html',
-                    'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'always',
                     'priority' => 1
                 ],
                 [
                     'loc' => $rootUrl.'/tool/json/format.html',
-                    'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'daily',
                     'priority' => 0.8
@@ -78,7 +73,6 @@ class SitemapXML extends Base {
             foreach ($sitemapPostsCmdArr as $post) {
                 $sitemap = [
                     'loc' => $rootUrl . '/p/'.$post->postId . '.html',
-                    'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'daily',
                     'priority' => 0.8
