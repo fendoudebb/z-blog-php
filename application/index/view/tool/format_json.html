@@ -111,9 +111,9 @@
 <body>
 <div class="main">
     {include file="public/header" /}
-    <div class="content" style="display: inline-block;width: 45vw;margin-left: 3vw;margin-right: 2vw;">
+    <div style="display: inline-block;width: 45vw;margin-left: 3vw;margin-right: 2vw;text-align: left">
         <textarea id="json-textarea" placeholder="请输入JSON字符串" title="格式化JSON"></textarea>
-        <div style="margin-top: 10px">
+        <div style="margin-top: 10px;">
             <button id="format-btn" class="shadow button" title="解析json">解析</button>
             <button id="compress-btn" class="shadow button" title="压缩成一行">压缩</button>
             <button id="copy-btn" class="shadow button" data-clipboard-target="#json-textarea" title="复制文本内容">
@@ -123,7 +123,7 @@
             <button id="clear-btn" class="shadow button" title="清空数据">清空</button>
         </div>
     </div>
-    <div class="content" style="display: inline-block;width: 45vw;margin-left: 2vw;margin-right: 3vw;float: right;">
+    <div style="display: inline-block;width: 45vw;margin-left: 2vw;margin-right: 3vw;float: right;text-align: left">
         <div id="format-json-result">
             <div id="json" title="格式化json结果"></div>
             <div id="format-json-result-btn-group" style="margin-top: 10px">
