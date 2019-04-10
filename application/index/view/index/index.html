@@ -62,18 +62,21 @@
 
             </ul>
         </div>
-        <div style="margin-top: 20px">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-format="fluid"
-                 data-ad-layout-key="-fb+5w+4e-db+86"
-                 data-ad-client="ca-pub-4671741323231057"
-                 data-ad-slot="3384783185"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+        <!--list item 在手机端展示-->
+        {if condition="isMobile() eq 1"}
+            <div style="margin-top: 20px">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-format="fluid"
+                     data-ad-layout-key="-fb+5w+4e-db+86"
+                     data-ad-client="ca-pub-4671741323231057"
+                     data-ad-slot="3384783185"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        {/if}
     </div>
     {include file="public/sidebar" /}
     {/empty}
