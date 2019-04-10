@@ -41,6 +41,20 @@ class SidebarInfo {
                 'pvCount' => $pvCount,
                 'postCount' => $postCount,
             ];
+
+            $topicCmd = [
+                'find' => 'topic',
+                'projection' => [
+                    '_id' => 0,
+                    'name' => 1,
+                ],
+                'sort' => [
+                    'sort' => 1
+                ]
+            ];
+
+            $arr['topic'] = Mongo::cmd($topicCmd);
+
             $pvRankCmd = [
                 'find' => 'post',
                 'filter' => [
@@ -97,19 +111,6 @@ class SidebarInfo {
                 'limit' => 5
             ];
             $arr['commentRank'] = Mongo::cmd($commentCountRankCmd);
-
-            $topicCmd = [
-                'find' => 'topic',
-                'projection' => [
-                    '_id' => 0,
-                    'name' => 1,
-                ],
-                'sort' => [
-                    'sort' => 1
-                ]
-            ];
-
-            $arr['topic'] = Mongo::cmd($topicCmd);
 
             Redis::init()->setex(RedisKey::WEB_INFO, 3600, serialize($arr));
         }

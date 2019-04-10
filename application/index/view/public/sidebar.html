@@ -25,51 +25,53 @@
         </div>
     </div>
     {/notempty}
-    {notempty name="pvRank"}
-    <div class="shadow sidebar-widget">
-        <h3>阅读排行榜</h3>
-        <ul>
-            {foreach $pvRank as $pvPost}
-            <li>
-                <a href="/p/{$pvPost->postId}.html" title="{$pvPost->title}">
-                    <span>{$pvPost->title}</span>
-                    <span>阅读数：{$pvPost->pv}</span>
-                </a>
-            </li>
-            {/foreach}
-        </ul>
-    </div>
-    {/notempty}
-    {notempty name="likeRank"}
-    <div class="shadow sidebar-widget">
-        <h3>点赞排行榜</h3>
-        <ul>
-            {foreach $likeRank as $likePost}
-            <li>
-                <a href="/p/{$likePost->postId}.html" title="{$likePost->title}">
-                    <span>{$likePost->title}</span>
-                    <span>点赞数：{$likePost->likeCount}</span>
-                </a>
-            </li>
-            {/foreach}
-        </ul>
-    </div>
-    {/notempty}
-    {notempty name="commentRank"}
-    <div class="shadow sidebar-widget">
-        <h3>评论排行榜</h3>
-        <ul>
-            {foreach $commentRank as $commentPost}
-            <li>
-                <a href="/p/{$commentPost->postId}.html" title="{$commentPost->title}">
-                    <span>{$commentPost->title}</span>
-                    <span>评论数：{$commentPost->commentCount}</span>
-                </a>
-            </li>
-            {/foreach}
-        </ul>
-    </div>
-    {/notempty}
+    {if condition="strpos(request()->pathinfo(), 'p/') !== 0"}
+        {notempty name="pvRank"}
+        <div class="shadow sidebar-widget">
+            <h3>阅读排行榜</h3>
+            <ul>
+                {foreach $pvRank as $pvPost}
+                <li>
+                    <a href="/p/{$pvPost->postId}.html" title="{$pvPost->title}">
+                        <span>{$pvPost->title}</span>
+                        <span>阅读数：{$pvPost->pv}</span>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        {/notempty}
+        {notempty name="likeRank"}
+        <div class="shadow sidebar-widget">
+            <h3>点赞排行榜</h3>
+            <ul>
+                {foreach $likeRank as $likePost}
+                <li>
+                    <a href="/p/{$likePost->postId}.html" title="{$likePost->title}">
+                        <span>{$likePost->title}</span>
+                        <span>点赞数：{$likePost->likeCount}</span>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        {/notempty}
+        {notempty name="commentRank"}
+        <div class="shadow sidebar-widget">
+            <h3>评论排行榜</h3>
+            <ul>
+                {foreach $commentRank as $commentPost}
+                <li>
+                    <a href="/p/{$commentPost->postId}.html" title="{$commentPost->title}">
+                        <span>{$commentPost->title}</span>
+                        <span>评论数：{$commentPost->commentCount}</span>
+                    </a>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        {/notempty}
+    {/if}
     <div style="text-align: center">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- sidebar -->
