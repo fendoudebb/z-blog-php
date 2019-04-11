@@ -170,6 +170,42 @@
             padding: 8px 24px;
         }
 
+        img {
+            display: block;
+            margin: 12px auto;
+            max-width: 100%;
+            cursor: zoom-in;
+            cursor: -moz-zoom-in;
+            cursor: -webkit-zoom-in;
+        }
+
+        .bg-img{
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            -moz-box-align: center;
+            -moz-box-pack: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 99999999;
+            background: rgba(255, 255, 255,0.8);
+            overflow: auto;
+        }
+
+        .zoom-in{
+            cursor: -moz-zoom-in;
+            cursor: -webkit-zoom-in;
+            cursor: zoom-in;
+        }
+        .zoom-out{
+            max-width: none;
+            cursor: -moz-zoom-out;
+            cursor: -webkit-zoom-out;
+            cursor: zoom-out;
+        }
     </style>
 </head>
 <body>
@@ -365,6 +401,25 @@
                 copyBtn.html("Copy");
             }, 1000);
         });
+</script>
+<script>
+    $('img').addClass('zoom-in');
+    //点击图片放大
+    $('.zoom-in').bind('click', function () {
+        var img_content = $(this).attr("src");
+        $("body").append(
+            "<div class='bg-img'>"
+            + "<img src='" + img_content + "' class='zoom-out'>"
+            + "</div>"
+        );
+        $("html").css('overflow-y', 'hidden');
+    });
+
+    //点击外层区域页面图片隐藏
+    $(document).on("click", ".bg-img", function () {
+        $(this).remove();
+        $("html").css('overflow-y', 'scroll');
+    })
 </script>
 </body>
 </html>

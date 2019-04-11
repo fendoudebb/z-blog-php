@@ -18,6 +18,7 @@ Route::post('/admin/post/topic/delete', 'admin/PostTopicDelete/deletePostTopic')
 Route::post('/admin/post/comment', 'admin/PostComment/postComment');
 Route::post('/admin/post/comment/delete', 'admin/PostCommentDelete/deletePostComment');
 Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostComment');
+Route::post('/admin/img/upload', 'admin/ImageUpload/uploadImage');
 //---Post api end---
 
 //---Post api start---
