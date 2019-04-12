@@ -145,12 +145,14 @@
 
         .like-button {
             display: inline-block;
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 5px;
+            padding: 5px 8px;
+            font-size: 12px;
+            border-radius: 3px;
             background: #4CAF50;
             color: white;
             cursor: pointer;
+            line-height: 14px;
+            vertical-align: baseline;
         }
 
         #post-comment ul li{
@@ -219,7 +221,7 @@
             <div style="margin-top: 15px">{$post->contentHtml}</div>
         </div>
         <div id="post-like" class="shadow">
-            <p style="margin: 0;color: #8a8a8a">
+            <p style="margin: 0;color: #8a8a8a;font-size: 12px">
                 posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，字数：{$post->postWordCount}，评论：<a href="/p/{$post->postId}.html#post-comment" class="anchor-link-a">{$post->commentCount}</a>，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>{notempty name="$post->topics"}，
                 标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
             </p>
