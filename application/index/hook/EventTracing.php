@@ -38,6 +38,32 @@ class EventTracing {
         if (isset($referer)) {
             $document['referer'] = $referer;
         }
+        if (strpos($url, '/search/') === 0) {
+            $search = $request->route('q');
+            $took = $request->__get("took");
+            $hits = $request->__get("hits");
+            $searchStats = [
+                'keywords' => $search,
+                'createTime' => $createTime,
+                'took' => $took,
+                'hits' => $hits,
+                'ip' => $ip,
+            ];
+            if (isset($referer)) {
+                $searchStats['referer'] = $referer;
+            }
+            if (isset($userAgentParseResult)) {
+                $searchStats['browser'] = $userAgentParseResult['parent'];
+                $searchStats['os'] = $userAgentParseResult['platform'];
+            }
+            $insertSearchStatsCmd = [
+                'insert' => 'search_stats',
+                'documents' => [
+                    $searchStats
+                ]
+            ];
+            Mongo::cmd($insertSearchStatsCmd);
+        }
         $insertPageViewRecordCmd = [
             'insert' => 'page_view_record',
             'documents' => [

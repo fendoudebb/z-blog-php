@@ -38,6 +38,7 @@ Route::post('/admin/message/reply', 'admin/MessageReply/replyMessage');
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
+Route::post('/admin/search_stats', 'admin/SearchStats/searchStats');
 //---statistics api end---
 
 Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
@@ -48,6 +49,7 @@ Route::get('/', 'index/Index/index');
 Route::get('/message-board', 'index/MessageBoard/messageBoard', ['ext' => 'html']);
 Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/topic/:topic', 'index/Topic/topic', ['ext' => 'html']);
+Route::get('/search/:q', 'index/Search/search', ['ext' => 'html']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
 Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
 
