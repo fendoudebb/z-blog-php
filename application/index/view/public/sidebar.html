@@ -25,7 +25,6 @@
         </div>
     </div>
     {/notempty}
-    {if condition="strpos(request()->pathinfo(), 'p/') !== 0"}
         {notempty name="pvRank"}
         <div class="shadow sidebar-widget">
             <h3>阅读排行榜</h3>
@@ -71,5 +70,4 @@
             </ul>
         </div>
         {/notempty}
-    {/if}
 </div>
