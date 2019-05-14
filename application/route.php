@@ -2,6 +2,7 @@
 
 use think\Route;
 
+Route::get("/es/import/mongo_data", "index/EsImportMongoData/import");
 
 Route::post('/admin/login', 'admin/Login/login');
 Route::post('/admin/logout', 'admin/Logout/logout');

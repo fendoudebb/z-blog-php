@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 
 use app\common\config\ResCode;
+use app\common\util\ElasticsearchUtil;
 use app\common\util\Mongo;
 use app\common\util\Parsedown;
 use MongoDB\BSON\ObjectId;
@@ -110,6 +111,21 @@ class PostPublish extends BaseRoleAdmin {
                 return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
             }
         }
+        $content = strip_tags($html);
+        $content = str_replace("\t", "", $content);//tab
+        $content = str_replace("\r\n", "", $content);//回车
+        $content = str_replace("\r", "", $content);//换行
+        $content = str_replace("\n", "", $content);//换行
+        $content = trim($content, " ");
+        $param = [
+            "postId" => $postId,
+            "postTime" => now(),
+            "offline" => true,
+            "topics" => $postTopics,
+            "title" => $postTitle,
+            "content" => $content,
+        ];
+        ElasticsearchUtil::PUT("http://localhost:9200/post/_doc/" . $postId, $param);
         return $this->res();
     }
 

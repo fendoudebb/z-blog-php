@@ -44,7 +44,7 @@ class ElasticsearchUtil {
                 curl_setopt($curl, CURLOPT_POST, true);
                 break;
             case "PUT":
-                curl_setopt($curl, CURLOPT_PUT, true);
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
                 break;
             case "DELETE":
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -54,9 +54,9 @@ class ElasticsearchUtil {
         $error = curl_error($curl);
         curl_close($curl);
         if ($error) {
-            return json_decode("{\"error\":\"$error\"}", true);
+            return json_decode("{\"error\":\"$error\"}");
         }
-        return json_decode($result, true);
+        return json_decode($result);
     }
 
 }

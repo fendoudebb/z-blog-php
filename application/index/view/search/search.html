@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {include file="public/base" /}
+    <style>
+        .content p {
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        em {
+            font-style: normal;
+            color: #D50000;
+        }
+    </style>
+</head>
+<body>
+{include file="public/header" /}
+<div class="main">
+    {empty name="hits"}
+    <div class="content" style="text-align: center">
+        <div class="shadow" style="padding: 30px">
+            未搜索到内容
+        </div>
+        <div style="margin-top: 20px">
+            <button class="shadow button" title="返回首页">
+                <a href="/" style="color: #F5F5F5; text-decoration: none;">返回首页</a>
+            </button>
+        </div>
+    </div>
+    {else /}
+    <div class="content">
+        <ul>
+            {foreach $hits as $hit}
+            <li class="shadow index-post-item">
+                <a href="/p/{$hit->_source->postId}.html" class="index-post-title-a ellipsis" title="{$hit->highlight->title[0]}">{$hit->highlight->title[0]}</a>
+                <p class="index-post-desc">{$hit->highlight->content[0]}</p>
+                <p>
+                    <span style="color: #8a8a8a">{:timeFormat($hit->_source->postTime)}{notempty name="$hit->_source->topics"}，标签：{foreach $hit->_source->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}</span>
+                </p>
+            </li>
+            {/foreach}
+        </ul>
+        <div style="text-align: center;margin-top: 20px">
+            <ul class="pagination">
+                <li>
+                    {if condition="$currentPage == 1"}
+                    <a class="disabled" href="javascript:void(0);">上一页</a>
+                    {else /}
+                    <a href="/">首页</a>
+                    <a href="?page={$currentPage-1}">上一页</a>
+                    {/if}
+                </li>
+                {for start="1" end="$totalPage + 1"}
+                <li>
+                    <!--{if condition="$i > $currentPage - 5 && $i < $currentPage + 5"}
+                    {else /}
+                    {/if}-->
+                    {if condition="$i > $currentPage - 4 && $i < $currentPage + 4"}
+                    {if condition="$i == $currentPage"}
+                    <a class="active disabled" href="javascript:void(0);">{$i}</a>
+                    {else /}
+                    <a href="?page={$i}">{$i}</a>
+                    {/if}
+                    {/if}
+                </li>
+                {/for}
+                <li>
+                    {if condition="$currentPage < $totalPage"}
+                    <a href="?page={$currentPage+1}">下一页</a>
+                    <a href="?page={$totalPage}">尾页</a>
+                    {else /}
+                    <a class="disabled" href="javascript:void(0);">下一页</a>
+                    {/if}
+                </li>
+            </ul>
+        </div>
+    </div>
+    {/empty}
+    {include file="public/sidebar" /}
+</div>
+{include file="public/footer" /}
+{include file="public/base_js" /}
+</body>
+</html>

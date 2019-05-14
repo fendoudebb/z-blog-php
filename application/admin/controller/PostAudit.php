@@ -5,10 +5,19 @@ namespace app\admin\controller;
 
 use app\common\config\RedisKey;
 use app\common\config\ResCode;
+use app\common\util\ElasticsearchUtil;
 use app\common\util\Mongo;
 use app\common\util\Redis;
 use MongoDB\BSON\ObjectId;
-
+/*
+Elasticsearch 更新部分字段
+POST /post/_update/17
+{
+  "doc": {
+    "offline": true
+  }
+}
+*/
 class PostAudit extends BaseRoleAdmin {
 
     public function auditPost() {
@@ -49,6 +58,14 @@ class PostAudit extends BaseRoleAdmin {
             $this->log(ResCode::COLLECTION_UPDATE_FAIL);
             return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
         }
+
+        $param = [
+            "doc" => [
+                "offline" => $auditStatus === 'OFFLINE'
+            ]
+        ];
+        ElasticsearchUtil::POST("http://localhost:9200/post/_update/" . $postId, $param);
+
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
 
         if ($auditStatus === 1) {//上线

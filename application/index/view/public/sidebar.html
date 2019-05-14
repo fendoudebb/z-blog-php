@@ -1,4 +1,17 @@
 <div class="sidebar">
+    <div class="shadow sidebar-widget">
+        <input class="search-input" placeholder="搜索...">
+    </div>
+    {notempty name="topic"}
+    <div class="shadow sidebar-widget">
+        <h3>标签</h3>
+        <div class="sidebar-topic">
+            {foreach $topic as $t}
+            <a href="/topic/{$t->name}.html" title="{$t->name}"><span>{$t->name}</span></a>
+            {/foreach}
+        </div>
+    </div>
+    {/notempty}
     {notempty name="webInfo"}
     <div class="shadow sidebar-widget">
         <h3>站长统计</h3>
@@ -15,16 +28,7 @@
         </ul>
     </div>
     {/notempty}
-    {notempty name="topic"}
-    <div class="shadow sidebar-widget">
-        <h3>标签</h3>
-        <div class="sidebar-topic">
-            {foreach $topic as $t}
-            <a href="/topic/{$t->name}.html" title="{$t->name}"><span>{$t->name}</span></a>
-            {/foreach}
-        </div>
-    </div>
-    {/notempty}
+
         {notempty name="pvRank"}
         <div class="shadow sidebar-widget">
             <h3>阅读排行榜</h3>

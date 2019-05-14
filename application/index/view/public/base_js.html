@@ -16,6 +16,15 @@
         e.preventDefault();
         $('body,html').animate({scrollTop: 0}, 1000);
     });
+
+    $('.search-input').bind('keydown',function(event){
+        if(event.keyCode === 13) {
+            let keyword = $('.search-input').val().trim();
+            if (keyword.length > 0) {
+                window.location.href = "/search/"+keyword+".html"
+            }
+        }
+    });
 </script>
 
 <script src="https://cdn.bootcss.com/highlight.js/9.15.6/highlight.min.js"></script>
