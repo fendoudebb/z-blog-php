@@ -23,7 +23,7 @@ POST /post/_update/17
 class PostAudit extends BaseRoleAdmin {
 
     public function auditPost() {
-        $postId = input('post.postId');
+        $postId = intval(input('post.postId'));
         $auditStatus = strval(input('post.auditStatus'));
         if (!isset($postId)) {
             $this->log(ResCode::MISSING_PARAMS_POST_ID);
@@ -33,16 +33,12 @@ class PostAudit extends BaseRoleAdmin {
             $this->log(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_AUDIT_STATUS);
         }
-        if (strlen($postId) !== 24) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);
-        }
         $cmd = [
             'update' => 'post',
             'updates' => [
                 [
                     'q' => [
-                        '_id' => new ObjectId($postId),
+                        'postId' => $postId,
                     ],
                     'u' => [
                         '$set' => [
