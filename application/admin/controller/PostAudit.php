@@ -63,7 +63,7 @@ class PostAudit extends BaseRoleAdmin {
 
         $param = [
             "doc" => [
-                "offline" => $auditStatus === 'OFFLINE'
+                "offline" => ($auditStatus === 'OFFLINE')
             ]
         ];
         $result = ElasticsearchUtil::POST("http://localhost:9200/post/_update/" . $postId, $param);
