@@ -8,8 +8,6 @@ use app\common\config\ResCode;
 use app\common\util\ElasticsearchUtil;
 use app\common\util\Mongo;
 use app\common\util\Redis;
-use MongoDB\BSON\ObjectId;
-use think\Log;
 
 /*
 Elasticsearch 更新部分字段
@@ -62,8 +60,7 @@ class PostAudit extends BaseRoleAdmin {
                 "offline" => ($auditStatus === 'OFFLINE')
             ]
         ];
-        $result = ElasticsearchUtil::POST("http://localhost:9200/post/_update/" . $postId, $param);
-        Log::log($result);
+        ElasticsearchUtil::POST("http://localhost:9200/post/_update/" . $postId, $param);
 
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
 
