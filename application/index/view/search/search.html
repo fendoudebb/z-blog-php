@@ -22,7 +22,7 @@
 {include file="public/header" /}
 <div class="main">
     <div style="margin-bottom: 20px">
-        关键词：{:request()->route('q')}
+        关键词：<em>{:request()->route('q')}</em>
     </div>
     {empty name="hits"}
     <div class="content" style="text-align: center">
