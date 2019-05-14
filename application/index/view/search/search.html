@@ -17,6 +17,9 @@
 <body>
 {include file="public/header" /}
 <div class="main">
+    <div style="margin-bottom: 20px">
+        关键词：abc
+    </div>
     {empty name="hits"}
     <div class="content" style="text-align: center">
         <div class="shadow" style="padding: 30px">
@@ -33,7 +36,7 @@
         <ul>
             {foreach $hits as $hit}
             <li class="shadow index-post-item">
-                <a href="/p/{$hit->_source->postId}.html" class="index-post-title-a ellipsis" title="{$hit->highlight->title[0]}">{$hit->highlight->title[0]}</a>
+                <a href="/p/{$hit->_source->postId}.html" class="index-post-title-a ellipsis" title="{:strip_tags($hit->highlight->title[0])}">{$hit->highlight->title[0]}</a>
                 <p class="index-post-desc">{$hit->highlight->content[0]}</p>
                 <p>
                     <span style="color: #8a8a8a">{:timeFormat($hit->_source->postTime)}{notempty name="$hit->_source->topics"}，标签：{foreach $hit->_source->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}</span>
