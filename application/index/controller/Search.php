@@ -5,13 +5,12 @@ namespace app\index\controller;
 
 use app\common\util\ElasticsearchUtil;
 use app\index\util\SidebarInfo;
-use think\Log;
 
 
 class Search extends Base {
 
     public function search($q) {
-
+        $q = htmlspecialchars($q, ENT_NOQUOTES);
         $page = intval(input('get.page'));
         if ($page < 1) {
             $page = 1;
@@ -42,6 +41,7 @@ class Search extends Base {
                         [
                             "multi_match" => [
                                 "query" => $q,
+                                "fuzziness" => 2,//模糊查询，修正两次
                                 "fields" => [
                                     "title",
                                     "content"
