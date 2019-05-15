@@ -41,7 +41,7 @@ class Search extends Base {
                         [
                             "multi_match" => [
                                 "query" => $q,
-                                "fuzziness" => 2,//模糊查询，修正两次
+                                "fuzziness" => 1,//模糊查询，修正一次
                                 "fields" => [
                                     "title",
                                     "content"
