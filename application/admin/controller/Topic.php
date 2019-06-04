@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use app\common\util\Mongo;
 
-class Topic extends BaseRoleAdmin {
+class Topic extends BaseRoleNormal {
 
     public function topic() {
         $page = intval(input('post.page'));

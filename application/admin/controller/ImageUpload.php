@@ -3,7 +3,7 @@
 namespace app\admin\controller;
 
 
-class ImageUpload extends BaseRoleAdmin {
+class ImageUpload extends BaseRoleNormal {
 
     public function uploadImage() {
         // 获取表单上传文件 例如上传了001.jpg

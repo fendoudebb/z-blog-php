@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use app\common\util\Mongo;
 
-class PageView extends BaseAuth {
+class PageView extends BaseRoleNormal {
 
     public function pageView() {
         $page = intval(input('post.page'));

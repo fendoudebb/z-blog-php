@@ -7,7 +7,7 @@ use app\common\config\ResCode;
 use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
 
-class PostTopicAdd extends Base {
+class PostTopicAdd extends BaseRoleAdmin {
 
     public function addPostTopic() {
         $postId = input('post.postId');

@@ -7,7 +7,7 @@ use app\common\config\RedisKey;
 use app\common\util\Mongo;
 use app\common\util\Redis;
 
-class WebInfo extends BaseRoleAdmin {
+class WebInfo extends BaseRoleNormal {
 
     public function webInfo() {
         $arr = [];

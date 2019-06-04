@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use app\common\util\Mongo;
 
-class MessageBoard extends BaseRoleAdmin {
+class MessageBoard extends BaseRoleNormal {
 
     public function messageBoard() {
         $page = intval(input('post.page'));

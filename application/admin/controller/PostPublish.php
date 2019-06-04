@@ -10,7 +10,7 @@ use app\common\util\Parsedown;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
-class PostPublish extends BaseRoleAdmin {
+class PostPublish extends BaseRoleNormal {
 
     public function publishPost() {
         $postId = input('post.id');

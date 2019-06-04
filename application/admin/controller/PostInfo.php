@@ -8,7 +8,7 @@ use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
 use think\Db;
 
-class PostInfo extends BaseRoleAdmin {
+class PostInfo extends BaseRoleNormal {
 
     public function postInfo() {
         $postId = input('post.postId');

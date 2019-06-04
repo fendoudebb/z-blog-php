@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use app\common\util\Mongo;
 
-class SearchStats extends BaseRoleAdmin {
+class SearchStats extends BaseRoleNormal {
 
     public function searchStats() {
         $page = intval(input('post.page'));

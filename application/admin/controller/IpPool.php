@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use app\common\util\Mongo;
 
-class IpPool extends BaseAuth {
+class IpPool extends BaseRoleNormal {
 
     public function ipPool() {
         $page = intval(input('post.page'));
