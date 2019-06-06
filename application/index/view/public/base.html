@@ -629,18 +629,33 @@
 
     .search-input {
         box-sizing: border-box;/*解决超出父容器宽度问题*/
-        width: 100%;
-        max-width: 100%;
-        line-height: 34px;
+        width: 75%;
+        max-width: 75%;
+        height: 34px;
+        line-height: 17px;
         text-align: initial;
         padding: 0 3% 0 3%;
         background-color: #fff;
         border: 1px solid #c8c8c8;
-        border-radius: 3px;
+        border-radius: 4px 0 0 4px;
         /*color: #ccc;*/
         font-weight: 400;
         font-size: 14px;
         outline-color: #4CAF50;
+    }
+
+    .search-button {
+        cursor:pointer;
+        float:right;
+        outline-color:#4CAF50;
+        text-align: center;
+        width: 25%;
+        height:34px;
+        line-height: 17px;
+        background: #4CAF50;
+        color: #fff;
+        border: 1px solid #4CAF50;
+        border-radius: 0 4px 4px 0;
     }
 
     #qrcode canvas{
