@@ -3,9 +3,9 @@
 namespace app\index\hook;
 
 
-use app\common\config\RedisKey;
+use app\common\util\IpUtil;
 use app\common\util\Mongo;
-use app\common\util\Redis;
+use MongoDB\BSON\UTCDateTime;
 use think\Log;
 use think\Request;
 
@@ -23,13 +23,19 @@ class EventTracing {
         if (strpos($url, '/admin/') === 0) {
             return;
         }
-        $createTime = new \MongoDB\BSON\UTCDateTime();
+
+        $address = (new IpUtil())->getAddressByIp($ip);
+
+        $createTime = new UTCDateTime();
         $document = [
             'url' => $url,
             'ip' => $ip,
             'userAgent' => $userAgent,
             'createTime' => $createTime
         ];
+        if ($address != null) {
+            $document['address'] = $address;
+        }
         if (ini_get("browscap")) {
             $userAgentParseResult = get_browser($userAgent, true);
             $document['browser'] = $userAgentParseResult['parent'];
@@ -49,6 +55,9 @@ class EventTracing {
                 'hits' => $hits,
                 'ip' => $ip,
             ];
+            if ($address != null) {
+                $searchStats['address'] = $address;
+            }
             if (isset($referer)) {
                 $searchStats['referer'] = $referer;
             }
@@ -71,7 +80,7 @@ class EventTracing {
             ]
         ];
         Mongo::cmd($insertPageViewRecordCmd);
-        $pipeline = Redis::init()->multi(\Redis::PIPELINE);
+        /*$pipeline = Redis::init()->multi(\Redis::PIPELINE);
         $pipeline->pfAdd(RedisKey::HYPER_IP, [$ip]);
         $pipeline->incrBy(RedisKey::STR_PV, 1);
         $result = $pipeline->exec();
@@ -86,11 +95,7 @@ class EventTracing {
                     ]
                 ]
             ]);
-        }
-        $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
-        $date = date('Y-m-d H:i:s', time());
-        $param = $request->param();
-        Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> " . json_encode($param));
+        }*/
         if (strpos($url, '/p/') === 0) {
             $postId = $request->route('postId');
             if (!isset($postId)) {
@@ -116,5 +121,9 @@ class EventTracing {
                 ]
             ]);
         }
+        $memory_use = number_format((memory_get_usage() - THINK_START_MEM) / 1024 / 1024, 2);
+        $date = date('Y-m-d H:i:s', time());
+        $param = $request->param();
+        Log::log("[$date] : ip[$ip], url[$url], memory[$memory_use mb], request param -> " . json_encode($param));
     }
 }

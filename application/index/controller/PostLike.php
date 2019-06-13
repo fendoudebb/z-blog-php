@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 
+use app\common\util\IpUtil;
 use app\common\util\Mongo;
 use MongoDB\BSON\UTCDateTime;
 
@@ -28,6 +29,14 @@ class PostLike extends Base {
         if (!empty($existResult)) {
             return json(['code' => -1]);
         }
+        $postLikeDocument = [
+            'ip' => $this->ip,
+            'likeTime' => new UTCDateTime()
+        ];
+        $address = (new IpUtil())->getAddressByIp($this->ip);
+        if ($address != null) {
+            $postLikeDocument['address'] = $address;
+        }
         $postLikeCmd = [
             'update' => 'post',
             'updates' => [
@@ -40,10 +49,7 @@ class PostLike extends Base {
                             'likeCount' => 1
                         ],
                         '$addToSet' => [
-                            'postLike' => [
-                                'ip' => $this->ip,
-                                'likeTime' => new UTCDateTime()
-                            ]
+                            'postLike' => $postLikeDocument
                         ]
                     ]
                 ]

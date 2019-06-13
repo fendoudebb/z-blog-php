@@ -5,6 +5,7 @@ namespace app\index\controller;
 
 use app\common\util\ElasticsearchUtil;
 use app\index\util\SidebarInfo;
+use stdClass;
 
 
 class Search extends Base {
@@ -65,8 +66,8 @@ class Search extends Base {
                 "fragment_size" => 100,
                 "require_field_match" => false,
                 "fields" => [
-                    "title" => new \stdClass(),
-                    "content" => new \stdClass()
+                    "title" => new stdClass(),
+                    "content" => new stdClass()
                 ]
             ]
         ];

@@ -3,6 +3,7 @@
 namespace app\index\controller;
 
 
+use app\common\util\IpUtil;
 use app\common\util\Mongo;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
@@ -53,6 +54,11 @@ class PostComment extends Base {
             'ip' => $this->ip,
             'userAgent' => $this->userAgent,
         ];
+
+        $address = (new IpUtil())->getAddressByIp($this->ip);
+        if ($address != null) {
+            $document['address'] = $address;
+        }
 
         if (ini_get("browscap")) {
             $userAgentParseResult = get_browser($this->userAgent, true);

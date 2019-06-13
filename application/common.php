@@ -1,12 +1,15 @@
 <?php
 
 // 应用公共文件
+use MongoDB\BSON\UTCDateTime;
+use think\Request;
+
 function now() {
     return date("Y-m-d H:i:s");
 }
 
 function isMobile() {
-    return \think\Request::instance()->isMobile();
+    return Request::instance()->isMobile();
 }
 
 function doGet($url) {
@@ -66,7 +69,7 @@ function compressHtml($content) {
 
 function timeFormat($postTime) {
     //当前时间的时间戳
-    if ($postTime instanceof \MongoDB\BSON\UTCDateTime) {
+    if ($postTime instanceof UTCDateTime) {
         $dateTime = $postTime->toDateTime();
         $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
         $postTime = $dateTime->format("Y-m-d H:i:s");
