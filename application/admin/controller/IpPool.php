@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 
 use app\common\util\Mongo;
+use stdClass;
 
 class IpPool extends BaseRoleNormal {
 
@@ -27,6 +28,7 @@ class IpPool extends BaseRoleNormal {
                             '$toString' => '$_id'
                         ],
                         'ip' => 1,
+                        'address' => 1,
                         'createTime' => [
                             '$dateToString' => [
                                 'format' => "%Y-%m-%d %H:%M:%S",
@@ -48,7 +50,7 @@ class IpPool extends BaseRoleNormal {
                     '$limit' => $size
                 ]
             ],
-            'cursor' => new \stdClass()
+            'cursor' => new stdClass()
         ];
         $ipPool = Mongo::cmd($cmd);
         $response = [

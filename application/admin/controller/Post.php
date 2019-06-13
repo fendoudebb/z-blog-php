@@ -4,6 +4,7 @@ namespace app\admin\controller;
 
 
 use app\common\util\Mongo;
+use stdClass;
 
 class Post extends BaseRoleNormal {
 
@@ -79,7 +80,7 @@ class Post extends BaseRoleNormal {
                     '$limit' => $size
                 ]
             ],
-            'cursor' => new \stdClass()
+            'cursor' => new stdClass()
         ];
         $post = Mongo::cmd($cmd);
         $response = [

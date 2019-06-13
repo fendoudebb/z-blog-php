@@ -44,6 +44,7 @@ class MessageBoard extends BaseRoleNormal {
                         'os' => 1,
                         'userAgent' => 1,
                         'ip' => 1,
+                        'address' => 1,
                         'reply' => 1,
                     ],
                 ],

@@ -41,6 +41,7 @@ class PageView extends BaseRoleNormal {
                         'os' => 1,
                         'referer' => 1,
                         'userAgent' => 1,
+                        'address' => 1
                     ],
                 ],
                 [
