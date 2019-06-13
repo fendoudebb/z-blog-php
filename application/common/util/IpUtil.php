@@ -4,7 +4,6 @@
 namespace app\common\util;
 
 
-
 use Exception;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
@@ -65,7 +64,7 @@ class IpUtil {
             Mongo::cmd($insertIpPoolCmd);
         } else {
             $ipAddress = $ipInfo[0];
-            if (!property_exists($ipAddress, 'address')){
+            if (!property_exists($ipAddress, 'address')) {
                 $address = $this->queryTaobaoIp($ip);
                 if ($address != null) {
                     $updateIpPoolCmd = [
@@ -94,12 +93,13 @@ class IpUtil {
         }
 
         if ($address != null) {
-            $country = $address->country;//国家/地区
+            $country = $address->country;//国家
+            $area = $address->area;//地区
             $region = $address->region;//省份
             $city = $address->city;//城市
             $county = $address->county;//县
             $isp = $address->isp;//运营商
-            $address = $country . $region . ($region === $city ? '' : $city) . ($county === 'XX' ? '' : $county) . $isp;
+            $address = $country . $area . (($region === 'XX') ? '' : $region) . (($city === $region || $city === 'XX') ? '' : $city) . (($county === 'XX') ? '' : $county) . ($isp === 'XX' ? '' : $isp);
         }
         return $address;
     }
