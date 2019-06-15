@@ -108,9 +108,9 @@ class IpUtil {
         $address = null;
         try {
             $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
-            $result = json_decode($result, true);
-            if ($result['code'] === 0) {
-                $address = $result['data'];
+            $result = json_decode($result);
+            if ($result->code === 0) {
+                $address = $result->data;
             }
         } catch (Exception $e) {
             Log::log("query taobao exception: " . $e);

@@ -33,7 +33,7 @@ class Http extends Handle {
         //TODO::开发者对异常的操作
         //可以在此交由系统处理
 //        return parent::render($e);
-        return self::fail(ResCode::INTERNAL_SEVER_ERROR);
+        return self::fail(ResCode::INTERNAL_SEVER_ERROR, $e->getMessage());
     }
 
     public function fail($code, $msg = '') {
