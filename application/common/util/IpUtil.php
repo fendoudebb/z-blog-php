@@ -108,8 +108,9 @@ class IpUtil {
         $address = null;
         try {
             $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
+            Log::log("ip-type: " . gettype($result).", value: ".$result);
             $result = json_decode($result);
-            if ($result->code === 0) {
+            if ($result != null && $result->code === 0) {
                 $address = $result->data;
             }
         } catch (Exception $e) {
