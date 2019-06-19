@@ -20,7 +20,8 @@ class PostPublish extends BaseRoleNormal {
         $postProp = strval(input('post.postProp'));
         $isPrivate = boolval(input('post.isPrivate'));
         $parser = new Parsedown();
-        $html = $parser->setMarkupEscaped(true)->text($postContent);
+//        $html = $parser->setSafeMode(true)->text($postContent);
+        $html = $parser->text($postContent);
         /*$parser = new Parser();
         $html = $parser->makeHtml($postContent);*/
         if (isset($postId)) {//修改
