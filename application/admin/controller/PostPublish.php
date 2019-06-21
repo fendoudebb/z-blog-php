@@ -33,7 +33,8 @@ class PostPublish extends BaseRoleNormal {
                 'updates' => [
                     [
                         'q' => [
-                            '_id' => new ObjectId($postId)
+                            '_id' => new ObjectId($postId),
+                            'userId' => new ObjectId($this->userId)
                         ],
                         'u' => [
                             '$set' => [
