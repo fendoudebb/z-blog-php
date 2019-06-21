@@ -10,6 +10,8 @@ class RedisKey {
     const ADMIN_LOGIN_USER_INFO_ID = 'id';
     const ADMIN_LOGIN_USER_INFO_USERNAME = 'username';
     const ADMIN_LOGIN_USER_INFO_ROLES = 'roles';
+    const ADMIN_LOGIN_USER_IP = 'ip';
+    const ADMIN_LOGIN_USER_AGENT = 'ua';
 
 
 }

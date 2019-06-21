@@ -47,6 +47,8 @@ class Login extends Base {
             RedisKey::ADMIN_LOGIN_USER_INFO_ID => $userId,
             RedisKey::ADMIN_LOGIN_USER_INFO_USERNAME => $username,
             RedisKey::ADMIN_LOGIN_USER_INFO_ROLES => implode(",", $roles),
+            RedisKey::ADMIN_LOGIN_USER_IP => $this->ip,
+            RedisKey::ADMIN_LOGIN_USER_AGENT => $this->userAgent,
         ];
         $token = base64_encode($userId . ' ' . time());
         $pipeline = Redis::init()->multi(\Redis::PIPELINE);
