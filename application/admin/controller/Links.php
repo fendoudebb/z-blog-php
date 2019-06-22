@@ -6,4 +6,8 @@ namespace app\admin\controller;
 
 class Links extends BaseRoleAdmin {
 
+    public function links() {
+
+    }
+
 }

@@ -36,6 +36,12 @@ Route::post('/admin/message/delete', 'admin/MessageDelete/deleteMessage');
 Route::post('/admin/message/reply', 'admin/MessageReply/replyMessage');
 //---Comment api end---
 
+//---Links api start---
+Route::post('/admin/links', 'admin/Links/links');
+Route::post('/admin/links/add', 'admin/LinksAdd/addLinks');
+Route::post('/admin/links/audit', 'admin/LinksAudit/auditLinks');
+//---Links api end---
+
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
