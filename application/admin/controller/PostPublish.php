@@ -6,7 +6,7 @@ namespace app\admin\controller;
 use app\common\config\ResCode;
 use app\common\util\ElasticsearchUtil;
 use app\common\util\Mongo;
-use app\common\util\Parsedown;
+use app\common\util\MyParsedown;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
 
@@ -19,11 +19,14 @@ class PostPublish extends BaseRoleNormal {
         $postTopics = input('post.topics/a');
         $postProp = strval(input('post.postProp'));
         $isPrivate = boolval(input('post.isPrivate'));
-        $parser = new Parsedown();
+//        $parser = new Parsedown();
 //        $html = $parser->setSafeMode(true)->text($postContent);
-        $html = $parser->text($postContent);
+//        $html = $parser->text($postContent);
         /*$parser = new Parser();
         $html = $parser->makeHtml($postContent);*/
+        $parser = new MyParsedown();
+        $html = $parser->text($postContent);
+
         if (isset($postId)) {//修改
             $stripTagsHtml = strip_tags($html);
             $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
