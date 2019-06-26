@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {include file="public/base" /}
+    <style>
+        .search-input {
+            width: 200px;
+            padding: 0 0.5%;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+<div style="text-align: center">
+    时间戳：<input id="curTimestamp" class="search-input" placeholder="请输入时间戳">
+    <button id="transform" class="shadow button">转换</button>
+
+    <div></div>
+</div>
+
+<div class="footer">
+    {include file="public/footer" /}
+</div>
+{include file="public/base_js" /}
+<script type="text/javascript">
+        $('#curTimestamp').val(new Date().getTime());
+
+        $('#transform').on('click', function () {
+            clearJson();
+        });
+</script>
+</body>
+</html>

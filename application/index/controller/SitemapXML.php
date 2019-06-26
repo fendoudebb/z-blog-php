@@ -53,7 +53,21 @@ class SitemapXML extends Base {
                     'priority' => 1
                 ],
                 [
-                    'loc' => $rootUrl.'/tool/json/format.html',
+                    'loc' => $rootUrl.'/tool/format/json.html',
+                    'baidu-tag' => $baiduTag,
+                    'lastmod' => $today,
+                    'changefreq' => 'daily',
+                    'priority' => 0.8
+                ],
+                [
+                    'loc' => $rootUrl.'/tool/format/timestamp.html',
+                    'baidu-tag' => $baiduTag,
+                    'lastmod' => $today,
+                    'changefreq' => 'daily',
+                    'priority' => 0.8
+                ],
+                [
+                    'loc' => $rootUrl.'/tool/query/ip.html',
                     'baidu-tag' => $baiduTag,
                     'lastmod' => $today,
                     'changefreq' => 'daily',

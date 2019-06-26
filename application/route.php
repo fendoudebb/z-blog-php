@@ -58,7 +58,9 @@ Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+
 Route::get('/topic/:topic', 'index/Topic/topic', ['ext' => 'html']);
 Route::get('/search/:q', 'index/Search/search', ['ext' => 'html']);
 Route::get('/example/js_control', 'index/Example/jsControl', ['ext' => 'html']);
-Route::get('/tool/json/format', 'index/Tool/formatJson', ['ext' => 'html']);
+Route::get('/tool/format/json', 'index/Tool/formatJson', ['ext' => 'html']);
+Route::get('/tool/format/timestamp', 'index/Tool/formatTimestamp', ['ext' => 'html']);
+Route::get('/tool/query/ip', 'index/Tool/queryIp', ['ext' => 'html']);
 
 Route::post('/post/like', 'index/PostLike/likePost');
 Route::post('/post/comment', 'index/PostComment/postComment');

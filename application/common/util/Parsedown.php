@@ -13,7 +13,7 @@ namespace app\common\util;
 # For the full license information, view the LICENSE file that was distributed
 # with this source code.
 #
-#
+# https://github.com/erusev/parsedown/issues/451 add Spoiler 添加折叠菜单
 class Parsedown {
     # ~
     const version = '1.8.0-beta-7';
