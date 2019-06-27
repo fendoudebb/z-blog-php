@@ -10,27 +10,66 @@
     </style>
 
 
-
 </head>
 <body>
+<div class="main">
+    {include file="public/header" /}
+    <div style="margin: auto">
+        时间戳 -> 日期：
+        <input id="curTimestamp" class="search-input" placeholder="请输入时间戳（毫秒）">
+        <button id="transformTimestamp" class="shadow button">转换</button>
+        <input id="formatTimestampResult" type="text" class="search-input" placeholder="日期">
+    </div>
 
-<div style="text-align: center">
-    时间戳：<input id="curTimestamp" class="search-input" placeholder="请输入时间戳">
-    <button id="transform" class="shadow button">转换</button>
+    <div style="text-align: center;margin-top: 20px">
+        日期 -> 时间戳：
+        <input id="curDate" class="search-input" placeholder="请输入日期">
+        <button id="transformDate" class="shadow button">转换</button>
 
-    <div></div>
+        <input id="formatDateResult" type="text" class="search-input" placeholder="时间戳（毫秒）">
+    </div>
+
+    <div class="footer">
+        {include file="public/footer" /}
+    </div>
 </div>
 
-<div class="footer">
-    {include file="public/footer" /}
-</div>
 {include file="public/base_js" /}
 <script type="text/javascript">
-        $('#curTimestamp').val(new Date().getTime());
+    function getTwo(s) {
+        if (parseInt(s) < 10) {
+            return "0" + s;
+        } else {
+            return "" + s;
+        }
+    }
 
-        $('#transform').on('click', function () {
-            clearJson();
-        });
+    function getCurDate(timestamp) {
+        let d = new Date(parseInt(timestamp));
+        let year = d.getFullYear();
+        let month = getTwo(d.getMonth() + 1);
+        let date = getTwo(d.getDate());
+        let hour = getTwo(d.getHours());
+        let minute = getTwo(d.getMinutes());
+        let second = getTwo(d.getSeconds());
+        return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+    }
+
+    let currentTimestamp = new Date().getTime();
+
+    $('#curTimestamp').val(currentTimestamp);
+    $('#curDate').val(getCurDate(currentTimestamp));
+
+    $('#transformTimestamp').on('click', function () {
+        let timestamp = $('#curTimestamp').val();
+        let date = getCurDate(timestamp);
+        $('#formatTimestampResult').val(date);
+    });
+    $('#transformDate').on('click', function () {
+        let date = $('#curDate').val();
+        $('#formatDateResult').val(new Date(date).getTime());
+    });
+
 </script>
 </body>
 </html>
