@@ -7,13 +7,20 @@
             width: 200px;
             padding: 0 0.5%;
         }
+        button a {
+            color: #F5F5F5;
+            text-decoration: none;
+        }
     </style>
-
-
 </head>
 <body>
 <div class="main">
     {include file="public/header" /}
+    <div style="margin-bottom: 20px">
+        <button class="shadow button"><a href="">格式化JSON</a></button>
+        <button class="shadow button"><a href="/tool/format/timestamp.html">时间戳转换</a></button>
+        <button class="shadow button"><a href="/tool/query/ip.html">IP查询</a></button>
+    </div>
     <div style="margin: auto">
         时间戳 -> 日期：
         <input id="curTimestamp" class="search-input" placeholder="请输入时间戳（毫秒）">
@@ -27,10 +34,6 @@
         <button id="transformDate" class="shadow button">转换</button>
 
         <input id="formatDateResult" type="text" class="search-input" placeholder="时间戳（毫秒）">
-    </div>
-
-    <div class="footer">
-        {include file="public/footer" /}
     </div>
 </div>
 

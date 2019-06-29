@@ -3,10 +3,50 @@
 <head>
     {include file="public/base" /}
     <style>
-
+        .search-input {
+            width: 200px;
+        }
+        button a {
+            color: #F5F5F5;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+<div class="main">
+    {include file="public/header" /}
+    <div style="margin-bottom: 20px">
+        <button class="shadow button"><a href="">格式化JSON</a></button>
+        <button class="shadow button"><a href="/tool/format/timestamp.html">时间戳转换</a></button>
+        <button class="shadow button"><a href="/tool/query/ip.html">IP查询</a></button>
+    </div>
+    <div style="margin: auto;text-align: center">
+        <p>当前IP：{:request()->ip()}</p>
+        <div style="width: 300px;display: inline-block">
+            IP：<input id="ipInput" class="search-input" placeholder="请输入ip地址" value="{:request()->ip()}">
+            <button id="queryIp" class="shadow button">查询</button>
+        </div>
 
+        <p id="result"></p>
+    </div>
+</div>
+{include file="public/base_js" /}
+<script>
+    $('#queryIp').on('click', function () {
+        let ip = $('#ipInput').val();
+        if (ip == null || ip.length <= 0) {
+            $('#result').text('IP地址为空~').css('color', 'red');
+            return;
+        }
+
+        $.post("/query/ip", {"ip": ip}, function (data) {
+            if (data.code === 200) {
+                $('#result').text(data.address).css('color','#4CAF50');
+            } else if (data.code === -1) {
+                $('#result').text(data.msg).css('color', 'red');
+            }
+        });
+    });
+</script>
 </body>
 </html>

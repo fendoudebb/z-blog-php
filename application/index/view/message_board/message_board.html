@@ -131,7 +131,6 @@
         var data = {'nickname': nickname, 'content': content};
 
         $.post("/leave-a-message", data,function (data) {
-            console.log("ok");
             if (data.code === 200) {
                 // window.location.reload();
                 window.location.href=window.location.href;

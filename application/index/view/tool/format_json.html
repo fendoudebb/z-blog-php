@@ -107,11 +107,22 @@
         html:fullscreen {
             background: red;
         }*/
+        button a {
+            color: #F5F5F5;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <div class="main">
     {include file="public/header" /}
+
+    <div style="margin-bottom: 20px">
+        <button class="shadow button"><a href="">格式化JSON</a></button>
+        <button class="shadow button"><a href="/tool/format/timestamp.html">时间戳转换</a></button>
+        <button class="shadow button"><a href="/tool/query/ip.html">IP查询</a></button>
+    </div>
+
     <div style="display: inline-block;width: 45vw;margin-left: 3vw;margin-right: 2vw;text-align: left">
         <textarea id="json-textarea" placeholder="请输入JSON字符串" title="格式化JSON"></textarea>
         <div style="margin-top: 10px;">

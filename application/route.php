@@ -65,6 +65,7 @@ Route::get('/tool/query/ip', 'index/Tool/queryIp', ['ext' => 'html']);
 Route::post('/post/like', 'index/PostLike/likePost');
 Route::post('/post/comment', 'index/PostComment/postComment');
 Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
+Route::post('/query/ip', 'index/QueryIp/queryIp');
 
 return [
 
