@@ -114,9 +114,8 @@
     </style>
 </head>
 <body>
+{include file="public/header" /}
 <div class="main">
-    {include file="public/header" /}
-
     <div style="margin-bottom: 20px">
         <button class="shadow button"><a href="">格式化JSON</a></button>
         <button class="shadow button"><a href="/tool/format/timestamp.html">时间戳转换</a></button>
@@ -147,9 +146,7 @@
         </div>
     </div>
 </div>
-<div class="footer">
-    {include file="public/footer" /}
-</div>
+{include file="public/footer" /}
 {include file="public/base_js" /}
 <script>
     $(function () {

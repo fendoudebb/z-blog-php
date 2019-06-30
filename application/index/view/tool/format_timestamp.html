@@ -4,36 +4,56 @@
     {include file="public/base" /}
     <style>
         .search-input {
-            width: 200px;
+            width: 100%;
+            max-width: 100%;
             padding: 0 0.5%;
         }
         button a {
             color: #F5F5F5;
             text-decoration: none;
         }
+
+        td {
+            margin: 0;
+        }
     </style>
 </head>
 <body>
+{include file="public/header" /}
 <div class="main">
-    {include file="public/header" /}
     <div style="margin-bottom: 20px">
-        <button class="shadow button"><a href="">格式化JSON</a></button>
-        <button class="shadow button"><a href="/tool/format/timestamp.html">时间戳转换</a></button>
+        <button class="shadow button"><a href="/tool/format/json.html">格式化JSON</a></button>
+        <button class="shadow button"><a href="">时间戳转换</a></button>
         <button class="shadow button"><a href="/tool/query/ip.html">IP查询</a></button>
     </div>
-    <div style="margin: auto">
-        时间戳 -> 日期：
-        <input id="curTimestamp" class="search-input" placeholder="请输入时间戳（毫秒）">
+<!--    <div style="margin: auto">
+        时间戳 &nbsp;<input id="curTimestamp" class="search-input" placeholder="请输入时间戳（毫秒）">
         <button id="transformTimestamp" class="shadow button">转换</button>
-        <input id="formatTimestampResult" type="text" class="search-input" placeholder="日期">
-    </div>
+        日期 &nbsp;<input id="formatTimestampResult" type="text" class="search-input" placeholder="日期">
+    </div>-->
 
-    <div style="text-align: center;margin-top: 20px">
-        日期 -> 时间戳：
-        <input id="curDate" class="search-input" placeholder="请输入日期">
+<!--    <div style="text-align: center;margin-top: 20px">
+        日期 &nbsp;<input id="curDate" class="search-input" placeholder="请输入日期">
         <button id="transformDate" class="shadow button">转换</button>
-
-        <input id="formatDateResult" type="text" class="search-input" placeholder="时间戳（毫秒）">
+        时间戳 &nbsp;<input id="formatDateResult" type="text" class="search-input" placeholder="时间戳（毫秒）">
+    </div>-->
+    <div>
+        <table style="margin: 0 auto" cellspacing="10">
+            <tr>
+                <td>时间戳</td>
+                <td><input id="curTimestamp" class="search-input" placeholder="请输入时间戳（毫秒）"></td>
+                <td><button id="transformTimestamp" class="shadow button">转换</button></td>
+                <td>日期</td>
+                <td><input id="formatTimestampResult" type="text" class="search-input" placeholder="日期"></td>
+            </tr>
+            <tr>
+                <td>日期</td>
+                <td><input id="curDate" class="search-input" placeholder="请输入日期"></td>
+                <td><button id="transformDate" class="shadow button">转换</button></td>
+                <td>时间戳</td>
+                <td><input id="formatDateResult" type="text" class="search-input" placeholder="时间戳（毫秒）"></td>
+            </tr>
+        </table>
     </div>
 </div>
 
