@@ -27,4 +27,14 @@ class QueryIp extends Base {
         return json(['code' => 200, 'address' => $address]);
     }
 
+    public function parseResult() {
+        $result = strval(input("post.result"));
+        $ipUtil = new IpUtil();
+        $address = $ipUtil->decodeResult($result);
+        if ($address == null) {
+            return json(['code' => -1, 'msg' => '查询失败~']);
+        }
+        return json(['code' => 200, 'address' => $ipUtil->parseAddress($address)]);
+    }
+
 }

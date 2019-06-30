@@ -91,7 +91,32 @@ class IpUtil {
                 $address = $ipAddress->address;
             }
         }
+        return $this->parseAddress($address);
+    }
 
+    private function queryTaobaoIp($ip) {
+        $address = null;
+        try {
+            $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
+            Log::log("ip-type: " . gettype($result).", value: ".$result);
+            $address = $this->decodeResult($result);
+        } catch (Exception $e) {
+            Log::log("query taobao exception: " . $e);
+        }
+        return $address;
+    }
+
+    public function decodeResult($result) {
+        $address = null;
+        $result = json_decode($result);
+        if ($result != null && $result->code === 0) {
+            $address = $result->data;
+        }
+        return $address;
+
+    }
+
+    public function parseAddress($address) {
         if ($address != null) {
             $country = $address->country;//国家
             $area = $address->area;//地区
@@ -100,21 +125,6 @@ class IpUtil {
             $county = $address->county;//县
             $isp = $address->isp;//运营商
             $address = $country . $area . (($region === 'XX') ? '' : $region) . (($city === $region || $city === 'XX') ? '' : $city) . (($county === 'XX') ? '' : $county) . ($isp === 'XX' ? '' : $isp);
-        }
-        return $address;
-    }
-
-    private function queryTaobaoIp($ip) {
-        $address = null;
-        try {
-            $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
-            Log::log("ip-type: " . gettype($result).", value: ".$result);
-            $result = json_decode($result);
-            if ($result != null && $result->code === 0) {
-                $address = $result->data;
-            }
-        } catch (Exception $e) {
-            Log::log("query taobao exception: " . $e);
         }
         return $address;
     }
