@@ -8,7 +8,7 @@ use app\common\util\IpUtil;
 class QueryIp extends Base {
 
     public function queryIp() {
-        $ip = strval(input("post.ip"));
+        $ip = trim(strval(input("post.ip")));
 
         $queryTime = date('Y-m-d H:i:s');
         if (!filter_var($ip, FILTER_VALIDATE_IP)) {

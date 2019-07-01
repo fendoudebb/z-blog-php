@@ -38,20 +38,12 @@
             $('#result').text('IP地址为空~').css('color', 'red');
             return;
         }
-
+        ip = ip.trim();
         $.post("/query/ip", {"ip": ip}, function (data) {
             if (data.code === 200) {
                 $('#result').text(data.address).css('color','#4CAF50');
             } else if (data.code === -1) {
-                $.getJSON("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip, function (result) {
-                    $.post("/query/result",{'result':result},function (parseResult) {
-                        if (parseResult.code === 200) {
-                            $('#result').text(data.address).css('color','#4CAF50');
-                        } else {
-                            $('#result').text(data.msg).css('color', 'red');
-                        }
-                    })
-                });
+                $('#result').text(data.msg).css('color', 'red');
             }
         });
     });
