@@ -132,7 +132,7 @@ class IpUtil {
         $address = null;
         try {
             $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
-            Log::log("ip-type: " . gettype($result) . ", value: " . $result);
+            Log::log($ip.": ip-type: " . gettype($result) . ", value: " . $result);
             $address = $this->decodeResult($result);
         } catch (Exception $e) {
             Log::log("query taobao exception: " . $e);
