@@ -44,7 +44,7 @@
                 $('#result').text(data.address).css('color','#4CAF50');
             } else if (data.code === -1) {
                 $.get("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip, function (result) {
-                    $.post("/parse/result",{'result':result},function (parseResult) {
+                    $.post("/query/result",{'result':result},function (parseResult) {
                         if (parseResult.code === 200) {
                             $('#result').text(data.address).css('color','#4CAF50');
                         } else {
