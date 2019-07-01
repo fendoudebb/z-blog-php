@@ -34,6 +34,46 @@ class IpUtil {
 
     public function getAddressByIp($ip) {
         $address = null;
+        $ipInfo = $this->findIpInfo($ip);
+        if (empty($ipInfo)) {
+            $address = $this->queryTaobaoIp($ip);
+            $this->insertIpInfo($ip, $address);
+        } else {
+            $ipAddress = $ipInfo[0];
+            if (!property_exists($ipAddress, 'address')) {
+                $address = $this->queryTaobaoIp($ip);
+                if ($address != null) {
+                    $this->updateIpAddress($ipAddress->_id, $address);
+                }
+            } else {
+                $address = $ipAddress->address;
+            }
+        }
+        return $this->parseAddress($address);
+    }
+
+    public function getAddressByResult($result) {
+        Log::log("get address by result#$result");
+        $address = $this->decodeResult($result);
+        if ($address == null) {
+            return null;
+        }
+        $ip = $address->ip;
+        $ipInfo = $this->findIpInfo($ip);
+        if (empty($ipInfo)) {
+            $this->insertIpInfo($ip, $address);
+        } else {
+            $ipAddress = $ipInfo[0];
+            if (!property_exists($ipAddress, 'address')) {
+                $this->updateIpAddress($ipAddress->_id, $address);
+            } else {
+                $address = $ipAddress->address;
+            }
+        }
+        return $this->parseAddress($address);
+    }
+
+    private function findIpInfo($ip) {
         $cmd = [
             'find' => 'ip_pool',
             'filter' => [
@@ -45,60 +85,54 @@ class IpUtil {
             'limit' => 1
         ];
         $ipInfo = Mongo::cmd($cmd);
-        if (empty($ipInfo)) {
-            $createTime = new UTCDateTime();
-            $address = $this->queryTaobaoIp($ip);
-            $document = [
-                'ip' => $ip,
-                'createTime' => $createTime
-            ];
-            if ($address != null) {
-                $document['address'] = $address;
-            }
-            $insertIpPoolCmd = [
-                'insert' => 'ip_pool',
-                'documents' => [
-                    $document
-                ]
-            ];
-            Mongo::cmd($insertIpPoolCmd);
-        } else {
-            $ipAddress = $ipInfo[0];
-            if (!property_exists($ipAddress, 'address')) {
-                $address = $this->queryTaobaoIp($ip);
-                if ($address != null) {
-                    $updateIpPoolCmd = [
-                        'update' => 'ip_pool',
-                        'updates' => [
-                            [
-                                'q' => [
-                                    '_id' => new ObjectId($ipAddress->_id)
-                                ],
-                                'u' => [
-                                    '$set' => [
-                                        'address' => $address
-                                    ],
-                                    '$currentDate' => [
-                                        'lastModified' => true
-                                    ],
-                                ]
-                            ]
-                        ]
-                    ];
-                    Mongo::cmd($updateIpPoolCmd);
-                }
-            } else {
-                $address = $ipAddress->address;
-            }
+        return $ipInfo;
+    }
+
+    private function insertIpInfo($ip, $address) {
+        $createTime = new UTCDateTime();
+        $document = [
+            'ip' => $ip,
+            'createTime' => $createTime
+        ];
+        if ($address != null) {
+            $document['address'] = $address;
         }
-        return $this->parseAddress($address);
+        $insertIpPoolCmd = [
+            'insert' => 'ip_pool',
+            'documents' => [
+                $document
+            ]
+        ];
+        Mongo::cmd($insertIpPoolCmd);
+    }
+
+    private function updateIpAddress($id, $address) {
+        $updateIpPoolCmd = [
+            'update' => 'ip_pool',
+            'updates' => [
+                [
+                    'q' => [
+                        '_id' => new ObjectId($id)
+                    ],
+                    'u' => [
+                        '$set' => [
+                            'address' => $address
+                        ],
+                        '$currentDate' => [
+                            'lastModified' => true
+                        ],
+                    ]
+                ]
+            ]
+        ];
+        Mongo::cmd($updateIpPoolCmd);
     }
 
     private function queryTaobaoIp($ip) {
         $address = null;
         try {
             $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
-            Log::log("ip-type: " . gettype($result).", value: ".$result);
+            Log::log("ip-type: " . gettype($result) . ", value: " . $result);
             $address = $this->decodeResult($result);
         } catch (Exception $e) {
             Log::log("query taobao exception: " . $e);
@@ -106,7 +140,7 @@ class IpUtil {
         return $address;
     }
 
-    public function decodeResult($result) {
+    private function decodeResult($result) {
         $address = null;
         $result = json_decode($result);
         if ($result != null && $result->code === 0) {
@@ -116,7 +150,7 @@ class IpUtil {
 
     }
 
-    public function parseAddress($address) {
+    private function parseAddress($address) {
         if ($address != null) {
             $country = $address->country;//国家
             $area = $address->area;//地区

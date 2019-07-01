@@ -21,20 +21,24 @@ class QueryIp extends Base {
 
         $ipUtil = new IpUtil();
         $address = $ipUtil->getAddressByIp($ip);
+        $this->request->__set("address", $address);//防止EventTracing再次查询ip
         if ($address == null) {
             return json(['code' => -1, 'msg' => "[$queryTime]：查询失败，请再试一次~"]);
         }
         return json(['code' => 200, 'address' => $address]);
     }
 
-    public function parseResult() {
+    public function queryResult() {
         $result = strval(input("post.result"));
+
+        $queryTime = date('Y-m-d H:i:s');
         $ipUtil = new IpUtil();
-        $address = $ipUtil->decodeResult($result);
+        $address = $ipUtil->getAddressByResult($result);
+        $this->request->__set("address", $address);//防止EventTracing再次查询ip
         if ($address == null) {
-            return json(['code' => -1, 'msg' => '查询失败~']);
+            return json(['code' => -1, 'msg' => "[$queryTime]: 查询失败~"]);
         }
-        return json(['code' => 200, 'address' => $ipUtil->parseAddress($address)]);
+        return json(['code' => 200, 'address' => $address]);
     }
 
 }

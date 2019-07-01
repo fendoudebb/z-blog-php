@@ -24,7 +24,11 @@ class EventTracing {
             return;
         }
 
-        $address = (new IpUtil())->getAddressByIp($ip);
+        if (strpos($url, '/query/') === 0) {
+            $address = $request->__get("address");
+        } else {
+            $address = (new IpUtil())->getAddressByIp($ip);
+        }
 
         $createTime = new UTCDateTime();
         $document = [

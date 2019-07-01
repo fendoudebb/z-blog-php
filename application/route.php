@@ -66,7 +66,7 @@ Route::post('/post/like', 'index/PostLike/likePost');
 Route::post('/post/comment', 'index/PostComment/postComment');
 Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
 Route::post('/query/ip', 'index/QueryIp/queryIp');
-Route::post('/parse/result', 'index/QueryIp/parseResult');
+Route::post('/query/result', 'index/QueryIp/queryResult');
 
 return [
 
