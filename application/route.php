@@ -45,6 +45,7 @@ Route::post('/admin/links/audit', 'admin/LinksAudit/auditLinks');
 //---statistics api start---
 Route::post('/admin/page_view', 'admin/PageView/pageView');
 Route::post('/admin/ip_pool', 'admin/IpPool/ipPool');
+Route::post('/admin/ip_unrecognized', 'admin/IpPool/unrecognizedIp');
 Route::post('/admin/search_stats', 'admin/SearchStats/searchStats');
 //---statistics api end---
 
