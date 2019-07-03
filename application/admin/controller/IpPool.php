@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 
+use app\common\util\IpUtil;
 use app\common\util\Mongo;
 use stdClass;
 
@@ -129,6 +130,25 @@ class IpPool extends BaseRoleNormal {
         $response['totalCount'] = $countResult[0]->n;
         $response['unrecognizedIp'] = $ipPool;
         return $this->res($response);
+    }
+
+    public function queryUnrecognizedIp() {
+        $ip = input("post.ip/a");
+        $ipUtil = new IpUtil();
+        $result = null;
+        $length = sizeof($ip);
+        if ($length == 1) {
+            $ip = trim($ip[0]);
+            $result = $ipUtil->getAddressByIp($ip);
+        } else {
+            foreach ($ip as $item) {
+                $item = trim($item);
+                $ipUtil->getAddressByIp($item);
+                sleep(1);
+            }
+            $result = "ok";
+        }
+        return $this->res($result);
     }
 
 }
