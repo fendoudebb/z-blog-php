@@ -26,6 +26,10 @@ class ResCode {
         self::ILLEGAL_ARGUMENT_TOPIC_NAME => "illegal argument: topic name",
         self::ILLEGAL_ARGUMENT_AUDIT_STATUS => "illegal argument: audit status",
         self::ILLEGAL_ARGUMENT_COMMENT_ID => "illegal argument: comment id",
+        self::ILLEGAL_ARGUMENT_LINK_ID => "illegal argument: link id",
+        self::ILLEGAL_ARGUMENT_LINK => "illegal argument: link",
+        self::ILLEGAL_ARGUMENT_WEBSITE_NAME => "illegal argument: website name",
+        self::ILLEGAL_ARGUMENT_LINK_OWNER => "illegal argument: link owner",
 
 
 
@@ -71,6 +75,10 @@ class ResCode {
     const ILLEGAL_ARGUMENT_TOPIC_NAME = 2003;
     const ILLEGAL_ARGUMENT_AUDIT_STATUS = 2004;
     const ILLEGAL_ARGUMENT_COMMENT_ID = 2005;
+    const ILLEGAL_ARGUMENT_LINK_ID = 2006;
+    const ILLEGAL_ARGUMENT_LINK = 2007;
+    const ILLEGAL_ARGUMENT_WEBSITE_NAME = 2008;
+    const ILLEGAL_ARGUMENT_LINK_OWNER = 2009;
     //---illegal argument const end---
 
 

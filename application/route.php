@@ -38,8 +38,10 @@ Route::post('/admin/message/reply', 'admin/MessageReply/replyMessage');
 
 //---Links api start---
 Route::post('/admin/links', 'admin/Links/links');
-Route::post('/admin/links/add', 'admin/LinksAdd/addLinks');
-Route::post('/admin/links/audit', 'admin/LinksAudit/auditLinks');
+Route::post('/admin/links/add', 'admin/LinksAdd/addLink');
+Route::post('/admin/links/audit', 'admin/LinksAudit/auditLink');
+Route::post('/admin/links/edit', 'admin/LinksEdit/editLink');
+Route::post('/admin/links/modify/sort', 'admin/LinksSortModify/modifyTopicSort');
 //---Links api end---
 
 //---statistics api start---
