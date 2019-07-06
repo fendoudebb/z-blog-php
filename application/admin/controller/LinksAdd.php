@@ -10,10 +10,10 @@ use app\common\util\Mongo;
 class LinksAdd extends BaseRoleAdmin {
 
     public function addLink() {
-        $link = trim(strval("post.link"));
-        $websiteName = trim(strval("post.websiteName"));
-        $owner = trim(strval("post.owner"));
-        $ownerEmail = trim(strval("post.ownerEmail"));
+        $link = trim(strval(input("post.link")));
+        $websiteName = trim(strval(input("post.websiteName")));
+        $owner = trim(strval(input("post.owner")));
+        $ownerEmail = trim(strval(input("post.ownerEmail")));
 
         if (strlen($link) <= 0) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_LINK);
