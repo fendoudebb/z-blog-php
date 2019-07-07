@@ -119,6 +119,23 @@ class SidebarInfo {
         ];
         $arr['commentRank'] = Mongo::cmd($commentCountRankCmd);
 
+        $linksCmd = [
+            'find' => 'links',
+            'filter' => [
+                'status' => 'ONLINE',
+            ],
+            'projection' => [
+                '_id' => 0,
+                'websiteName' => 1,
+                'link' => 1,
+            ],
+            'sort' => [
+                'sort' => 1
+            ]
+        ];
+
+        $arr['links'] = Mongo::cmd($linksCmd);
+
         Redis::init()->setex(RedisKey::WEB_INFO, 3600, serialize($arr));
         return $arr;
     }

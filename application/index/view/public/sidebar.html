@@ -15,6 +15,16 @@
         </div>
     </div>
     {/notempty}
+    {notempty name="links"}
+    <div class="shadow sidebar-widget">
+        <h3>友链</h3>
+        <div class="sidebar-topic">
+            {foreach $links as $link}
+            <a href="{$link->link}" title="{$link->websiteName}"><span>{$link->websiteName}</span></a>
+            {/foreach}
+        </div>
+    </div>
+    {/notempty}
     {notempty name="webInfo"}
     <div class="shadow sidebar-widget">
         <h3>站长统计</h3>
