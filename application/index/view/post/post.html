@@ -119,17 +119,21 @@
         }
 
         h1 {
-            font-size: 24px;
-            margin: 15px 0;
+            font-size: 30px;
         }
 
         h2 {
-            font-size: 20px;
+            font-size: 22px;
+            padding-bottom: 12px;
+            margin-top: 35px;
+            margin-bottom: 10px;
             border-bottom: 1px solid #ececec;
         }
 
         h3 {
             font-size: 18px;
+            margin-top: 35px;
+            margin-bottom: 10px;
         }
 
         .shadow {
@@ -229,8 +233,8 @@
     <div class="content">
         <div class="shadow">
             <h1>{$post->title}</h1>
-            <hr>
-            <div style="margin-top: 15px">{$post->contentHtml}</div>
+<!--            <hr>-->
+            <div>{$post->contentHtml}</div>
         </div>
         <div id="post-like" class="shadow">
             <p style="margin: 0;color: #8a8a8a;font-size: 14px">
