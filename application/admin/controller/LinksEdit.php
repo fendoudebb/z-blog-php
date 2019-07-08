@@ -11,11 +11,11 @@ use MongoDB\BSON\ObjectId;
 class LinksEdit extends BaseRoleAdmin {
 
     public function editLink() {
-        $linkId = strval(input('post.linkId'));
-        $link = trim(strval("post.link"));
-        $websiteName = trim(strval("post.websiteName"));
-        $owner = trim(strval("post.owner"));
-        $ownerEmail = trim(strval("post.ownerEmail"));
+        $linkId = trim(strval(input('post.linkId')));
+        $link = trim(strval(input("post.link")));
+        $websiteName = trim(strval(input("post.websiteName")));
+        $owner = trim(strval(input("post.owner")));
+        $ownerEmail = trim(strval(input("post.ownerEmail")));
 
         if (strlen($linkId) !== 24) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_LINK_ID);
