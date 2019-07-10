@@ -30,6 +30,42 @@ function doGet($url) {
     return $result;
 }
 
+function doPostJSON($url, $param) {
+    $param = json_encode($param, JSON_UNESCAPED_UNICODE);
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 对认证证书来源的检查
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // 从证书中检查SSL加密算法是否存在
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_PORT, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $param);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json;charset=utf-8'));
+    $result = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
+    if ($error) throw new Exception('请求发生错误：' . $error);
+    return $result;
+}
+
+function doPostFormUrlencoded($url, $param) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 对认证证书来源的检查
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // 从证书中检查SSL加密算法是否存在
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($param));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+    $result = curl_exec($ch);
+    $error = curl_error($ch);
+    curl_close($ch);
+    if ($error) throw new Exception('请求发生错误：' . $error);
+    return $result;
+}
+
 function compressHtml($content) {
     $compressContent = '';
     $chunks = preg_split('/(<(?:title|pre).*?\/(?:title|pre)>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
