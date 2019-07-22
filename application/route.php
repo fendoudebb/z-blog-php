@@ -52,6 +52,12 @@ Route::post('/admin/ip_unrecognized/query', 'admin/IpPool/queryUnrecognizedIp');
 Route::post('/admin/search_stats', 'admin/SearchStats/searchStats');
 //---statistics api end---
 
+//---rank api start---
+Route::post('/admin/rank/pv', 'admin/Rank/pv');
+Route::post('/admin/rank/likes', 'admin/Rank/likes');
+Route::post('/admin/rank/comments', 'admin/Rank/comments');
+//---rank api end---
+
 Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
 Route::get('/sitemap_google.xml', 'index/SitemapXMLGoogle/sitemapXMLGoogle');
 Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
