@@ -144,7 +144,7 @@ class IpPool extends BaseRoleNormal {
             foreach ($ip as $item) {
                 $item = trim($item);
                 $ipUtil->getAddressByIp($item);
-                sleep(1);
+//                sleep(1);
             }
             $result = "ok";
         }
