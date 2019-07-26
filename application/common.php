@@ -68,9 +68,9 @@ function doPostFormUrlencoded($url, $param) {
 
 function compressHtml($content) {
     $compressContent = '';
-    $chunks = preg_split('/(<(?:title|pre).*?\/(?:title|pre)>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+    $chunks = preg_split('/(<(?:title|pre|code).*?\/(?:title|pre|code)>)/ms', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
     foreach ($chunks as $c) {
-        if (strpos($c, '<title') === 0 || strpos($c, '<pre') === 0) {
+        if (strpos($c, '<title') === 0 || strpos($c, '<pre') === 0 || strpos($c, '<code') === 0) {
             $compressContent .= $c;
             continue;
         }
