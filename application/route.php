@@ -58,6 +58,13 @@ Route::post('/admin/rank/likes', 'admin/Rank/likes');
 Route::post('/admin/rank/comments', 'admin/Rank/comments');
 //---rank api end---
 
+//---administrator api start---
+Route::post('/admin/administrator/info', 'admin/Administrator/info');
+Route::post('/admin/administrator/add', 'admin/Administrator/add');
+Route::post('/admin/administrator/edit', 'admin/Administrator/edit');
+Route::post('/admin/administrator/audit', 'admin/Administrator/audit');
+//---administrator api end---
+
 Route::get('/sitemap.xml', 'index/SitemapXML/sitemapXML');
 Route::get('/sitemap_google.xml', 'index/SitemapXMLGoogle/sitemapXMLGoogle');
 Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);

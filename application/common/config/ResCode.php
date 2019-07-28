@@ -79,6 +79,9 @@ class ResCode {
     const ILLEGAL_ARGUMENT_LINK = 2007;
     const ILLEGAL_ARGUMENT_WEBSITE_NAME = 2008;
     const ILLEGAL_ARGUMENT_LINK_OWNER = 2009;
+    const ILLEGAL_ARGUMENT_USERNAME = 2010;
+    const ILLEGAL_ARGUMENT_PASSWORD = 2011;
+    const ILLEGAL_ARGUMENT_ROLES = 2012;
     //---illegal argument const end---
 
 
