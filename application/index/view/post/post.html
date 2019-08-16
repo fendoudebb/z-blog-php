@@ -236,6 +236,35 @@
             cursor: pointer;
             outline: none;
         }
+
+        .post-random-title {
+            font-size: 12px;
+            vertical-align:text-top;
+        }
+
+        .post-random-change {
+            font-size: 12px;
+            color: #8a8a8a;
+            float: right;
+            cursor: pointer;
+        }
+
+        .post-random-li {
+            font-size: 12px;
+            vertical-align:top;
+            margin-right: 0!important;
+        }
+
+        .post-random-a {
+            font-size: 12px;
+            display: block;
+            text-decoration: none;
+            color: #999;
+        }
+
+        .post-random-a:hover {
+            color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -305,6 +334,21 @@
                 <p id="error-hint" style="color: red;font-size: 14px" hidden></p>
             </div>
         </div>
+
+        <div>
+            <div class="shadow top-area" style="margin-bottom: 0">
+                <span class="post-random-title">随便看看</span>
+                <span class="post-random-change">换一批</span>
+            </div>
+            <div class="shadow">
+                <div id="post-random-hint" style="font-size: 12px;text-align: center">
+                    加载中...
+                </div>
+                <div id="post-random">
+                    <ul id="post-random-ul" style="font-size:0"></ul>
+                </div>
+            </div>
+        </div>
     </div>
     {include file="public/sidebar" /}
 </div>
@@ -327,14 +371,14 @@
         return len;
     }
 
-    let $submitBtn = $('#submitBtn');
+    var $submitBtn = $('#submitBtn');
 
-    let clickFunc = function () {
-        let $errorHint = $('#error-hint');
-        let nickname = $('#nickname').val();
-        let content = $('#message').val();
-        let nicknameLen = strLen(nickname);
-        let contentLen = strLen(content);
+    var clickFunc = function () {
+        var $errorHint = $('#error-hint');
+        var nickname = $('#nickname').val();
+        var content = $('#message').val();
+        var nicknameLen = strLen(nickname);
+        var contentLen = strLen(content);
         if (nicknameLen <= 0 || contentLen <= 0) {
             $errorHint.html("昵称或评论不能为空~");
             $errorHint.show();
@@ -373,15 +417,15 @@
         var data = {'postId': postId};
         var $likeBtn = $(".like-button");
         $likeBtn.bind('click', function() {
-            $.post("/post/like", data,function (data) {
-                if (data.code === 200) {
-                    let $like = $("#like");
+            $.post("/post/like", data,function (result) {
+                if (result.code === 200) {
+                    var $like = $("#like");
                     var likeCount = $like.text();
                     $like.text(Number(likeCount) + 1);
                     $likeBtn.unbind('click');
                     $likeBtn.text("已点赞");
                     $likeBtn.css("cursor", 'not-allowed');
-                } else if (data.code === -1) {
+                } else if (result.code === -1) {
                     $likeBtn.unbind('click');
                     $likeBtn.text("已点赞");
                     $likeBtn.css("cursor", 'not-allowed');
@@ -394,16 +438,16 @@
         hljs.initHighlightingOnLoad();
 
         $("pre").each(function (index, element) {
-            let preTag = $(this);
+            var preTag = $(this);
             preTag.append("<div class='hljs-button' title='Copy to Clipboard'>Copy</div>");
-            let id = "code" + index;
+            var id = "code" + index;
             preTag.children("code").attr("id", id);
             preTag.children(".hljs-button").attr("data-clipboard-target", "#" + id);
         });
-        let clipboard = new ClipboardJS('.hljs-button');
+        var clipboard = new ClipboardJS('.hljs-button');
         clipboard.on('success', function (e) {
             e.clearSelection();
-            let copyBtn = $(e.trigger);
+            var copyBtn = $(e.trigger);
             copyBtn.html("Copy Success");
             setTimeout(function () {
                 copyBtn.html("Copy");
@@ -411,14 +455,13 @@
 
         });
         clipboard.on('error', function (e) {
-            let copyBtn = $(e.trigger);
+            var copyBtn = $(e.trigger);
             copyBtn.html("Copy Fail");
             setTimeout(function () {
                 copyBtn.html("Copy");
             }, 1000);
         });
-</script>
-<script>
+
     $('img').addClass('zoom-in');
     //点击图片放大
     $('.zoom-in').bind('click', function () {
@@ -435,7 +478,34 @@
     $(document).on("click", ".bg-img", function () {
         $(this).remove();
         $("html").css('overflow-y', 'scroll');
-    })
+    });
+
+    var changeRandomPostBtn = $('.post-random-change');
+    var changeRandomPost = function(){
+        var $postRandomHint = $("#post-random-hint");
+        $postRandomHint.show();
+        $postRandomHint.html("加载中...");
+        var $postRandomUl = $("#post-random-ul");
+        $postRandomUl.hide();
+        $postRandomUl.html("");
+        $.post("/post/random", data, function (result) {
+            if (result.code === 200) {
+                $postRandomHint.hide();
+                $postRandomUl.show();
+                var randomPost = result.data.post;
+                for (var i = 0; i < randomPost.length; i++) {
+                    var post = randomPost[i];
+                    $postRandomUl.append("<li class='post-random-li'><a class='post-random-a' href='/p/" + post.postId + ".html' title='"+post.title+"'><span>"+post.title+"</span><span style='float: right'>阅读数："+post.pv+"</span></a></li>");
+                }
+            } else {
+                $postRandomHint.html("加载失败...");
+                $postRandomUl.hide();
+            }
+        });
+    };
+    changeRandomPost();
+
+    changeRandomPostBtn.bind("click", changeRandomPost);
 </script>
 </body>
 </html>

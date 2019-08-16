@@ -22,13 +22,13 @@ Route::post('/admin/post/comment/switch', 'admin/PostCommentSwitch/switchPostCom
 Route::post('/admin/img/upload', 'admin/ImageUpload/uploadImage');
 //---Post api end---
 
-//---Post api start---
+//---Topic api start---
 Route::post('/admin/topic', 'admin/Topic/topic');
 Route::post('/admin/topic/add', 'admin/TopicAdd/addTopic');
 Route::post('/admin/topic/delete', 'admin/TopicDelete/deleteTopic');
 Route::post('/admin/topic/sort/modify', 'admin/TopicSortModify/modifyTopicSort');
 Route::post('/admin/topic/name/modify', 'admin/TopicNameModify/modifyTopicName');
-//---Post api end---
+//---Topic api end---
 
 //---Comment api start---
 Route::post('/admin/message/board', 'admin/MessageBoard/messageBoard');
@@ -81,6 +81,7 @@ Route::get('/tool/query/ip', 'index/Tool/queryIp', ['ext' => 'html']);
 
 Route::post('/post/like', 'index/PostLike/likePost');
 Route::post('/post/comment', 'index/PostComment/postComment');
+Route::post('/post/random', 'index/PostRandom/randomPost');
 Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
 Route::post('/query/ip', 'index/QueryIp/queryIp');
 Route::post('/query/result', 'index/QueryIp/queryResult');
