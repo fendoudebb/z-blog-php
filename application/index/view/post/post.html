@@ -343,11 +343,19 @@
                 <span class="post-random-change">换一批</span>
             </div>
             <div class="shadow">
-                <div id="post-random-hint" style="font-size: 12px;text-align: center">
+                <div id="post-random-hint" style="font-size: 12px;text-align: center;display: none">
                     加载中...
                 </div>
                 <div id="post-random">
-                    <ul id="post-random-ul" style="font-size:0"></ul>
+                    <ul id="post-random-ul" style="font-size:0">
+                        {foreach $randomPosts as $randomPost}
+                            <li class='post-random-li'>
+                                <a class='post-random-a' href="/p/{$randomPost->postId}.html" title="{$randomPost->title}">
+                                    <span>{$randomPost->title}</span><span style='float: right'>阅读数：{$randomPost->pv}</span>
+                                </a>
+                            </li>
+                        {/foreach}
+                    </ul>
                 </div>
             </div>
         </div>
@@ -505,7 +513,7 @@
             }
         });
     };
-    changeRandomPost();
+    // changeRandomPost();
 
     changeRandomPostBtn.bind("click", changeRandomPost);
 </script>

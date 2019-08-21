@@ -5,6 +5,7 @@ namespace app\index\controller;
 
 use app\common\config\ResCode;
 use app\common\util\Mongo;
+use app\index\util\RandomPostUtil;
 use app\index\util\SidebarInfo;
 
 class Post extends Base {
@@ -77,6 +78,10 @@ class Post extends Base {
 
         $rankInfo = new SidebarInfo();
         $arr = array_merge($arr, $rankInfo->sidebarInfo());
+
+        $randomPostUtil = new RandomPostUtil();
+        $randomPost = $randomPostUtil->getPostRandom($postId);
+        $arr['randomPosts'] = $randomPost;
 
         $compressHtml = compressHtml($this->fetch('post', $arr));
         return $compressHtml;
