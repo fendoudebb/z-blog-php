@@ -1,7 +1,33 @@
-# ![icon](./public/favicon.ico)Blog Project
-> A blog project which were recorded issues & knowledge encountered during development  
-使用php开发的博客项目用以记录开发中遇到的问题及知识点
+# ![icon](./public/favicon.ico)Blog
 
-> [MongoDB collection structure](zblog.sql)
+记录开发中遇到的问题及知识点。
 
-> [Admin API/Admin模块接口文档](API_Admin.md)
+## 技术栈
+- PHP/ThinkPHP开发；
+- Nginx提供Web及静态资源服务；
+- Redis缓存；
+- MongoDB存储数据；
+- Elasticsearch全文检索；
+- Shell+cron监控服务；
+- [Parsedown](https://github.com/erusev/parsedown "Parsedown")解析Markdown；
+- [browscap](http://www.browscap.org)解析User-Agent；
+- [淘宝IP地址库](http://ip.taobao.com "淘宝IP地址库")；
+- [Vue.js后台管理页面](https://github.com/fendoudebb/z-blog-console "Vue.js后台管理页面")；
+
+## 功能
+- 文章评论点赞
+- 全文检索
+- 标签分类
+- 友情链接
+- 站长统计
+- 阅读排行榜
+- 点赞排行榜
+- 评论排行榜
+- 分享二维码
+- 留言板
+- 格式化JSON
+- 时间戳转换
+- IP查询
+
+## 网站展示
+![首页截图](./preview/home_page.png)
