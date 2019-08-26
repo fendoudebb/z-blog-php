@@ -30,4 +30,4 @@
 - IP查询
 
 ## 网站展示
-[![首页截图](./preview/home_page.png)](https://www.zhangbj.com)
+[![首页截图](./preview/home_page.png)](https://www.zhangbj.com "跳转到Z-Blog网站首页")
