@@ -15,7 +15,7 @@ class IpPoolSchedule {
             'find' => 'ip_pool',
             'filter' => [
                 'address' => [
-                    '$exists' => true
+                    '$exists' => false
                 ],
             ],
             'projection' => [
@@ -28,7 +28,6 @@ class IpPoolSchedule {
 
         Log::log($cmdArr);
         if (empty($cmdArr)) {
-            Log::log("没有");
             return;
         }
         $ip = $cmdArr[0]->ip;
