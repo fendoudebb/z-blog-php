@@ -75,7 +75,7 @@
             padding: 2px 3px;
             background: rgba(27,31,35,.05);
             border-radius: 2px;
-            font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+            font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,cursive;
         }
 
         code::before, code::after {
@@ -89,7 +89,7 @@
             word-wrap: normal;
             padding: 8px 12px !important;
             line-height: 20px;
-            font-family: Courier New, Courier;
+            font-family: Courier New, Courier, cursive;
             font-size: 12px;
         }
 
@@ -317,6 +317,19 @@
                         <span class="browse-os-span">{$comment->browser} | {$comment->os}</span>
                         <span class="time-span">{:timeFormat($comment->commentTime)}</span>
                     </div>
+
+                    {notempty name="$comment->replies"}
+                        {foreach $comment->replies as $reply}
+                        <div class="reply-area">
+                            <div class="nickname-span" style="color: #4CAF50">作者回复</div>
+                            <pre class="content-pre"  style="padding: 8px 0;min-height: 0">{$reply->replyContent}</pre>
+                            <div style="margin-bottom: 8px">
+                                <span class="browse-os-span">{$reply->browser} | {$reply->os}</span>
+                                <span  class="time-span">{:timeFormat($reply->replyTime)}</span>
+                            </div>
+                        </div>
+                        {/foreach}
+                    {/notempty}
                 </li>
                 {/foreach}
             </ul>
@@ -447,7 +460,7 @@
 
         hljs.initHighlightingOnLoad();
 
-        $("pre").each(function (index, element) {
+        $("pre").not("#post-comment pre").each(function (index, element) {
             var preTag = $(this);
             preTag.append("<div class='hljs-button' title='Copy to Clipboard'>Copy</div>");
             var id = "code" + index;

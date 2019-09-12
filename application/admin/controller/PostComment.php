@@ -95,6 +95,8 @@ class PostComment extends BaseRoleAdmin {
             }
             $comment->commentId = $comment->commentId->__toString();
             $comment->commentTime = $commentTime;
+
+            //TODO 管理界面时间格式化
         }
         return $this->res($data);
     }
