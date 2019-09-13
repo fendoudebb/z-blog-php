@@ -40,7 +40,7 @@ class PostComment extends BaseRoleAdmin {
                 '_id' => 0,
                 'commentCount' => 1,
                 'postComment' => [
-                    '$slice' => [$page - 1, $size]
+                    '$slice' => [($page - 1) * $size, $size]
                 ]
             ],
             'limit' => 1,
