@@ -96,7 +96,17 @@ class PostComment extends BaseRoleAdmin {
             $comment->commentId = $comment->commentId->__toString();
             $comment->commentTime = $commentTime;
 
-            //TODO 管理界面时间格式化
+            if (property_exists($comment, "replies")) {
+                foreach ($comment->replies as $reply) {
+                    $replyTime = $reply->replyTime;
+                    if ($replyTime instanceof UTCDateTime) {
+                        $dateTime = $replyTime->toDateTime();
+                        $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+                        $replyTime = $dateTime->format("Y-m-d H:i:s");
+                    }
+                    $reply->replyTime = $replyTime;
+                }
+            }
         }
         return $this->res($data);
     }
