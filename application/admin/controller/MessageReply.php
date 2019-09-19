@@ -13,20 +13,16 @@ class MessageReply extends BaseRoleAdmin {
 
     public function replyMessage() {
         $commentId = strval(input('post.commentId'));
-        $content = strval(input("post.content"));
-        $content = htmlspecialchars($content, ENT_NOQUOTES);
+        $replyContent = htmlspecialchars(strval(input("post.content")), ENT_NOQUOTES);
         if (strlen($commentId) !== 24) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_COMMENT_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_COMMENT_ID);
         }
-
-        $commentTime = new UTCDateTime();
+        $replyTime = new UTCDateTime();
         $userAgent = Request::instance()->header('user-agent');
         $document = [
-            'content' => $content,
-            'nickname' => 'Z',
-            'commentTime' => $commentTime,
-            'status' => 'ONLINE',
+            'replyContent' => $replyContent,
+            'replyTime' => $replyTime,
             'ip' => $this->ip,
             'userAgent' => $userAgent,
         ];
@@ -46,7 +42,7 @@ class MessageReply extends BaseRoleAdmin {
                     ],
                     'u' => [
                         '$push' => [
-                            'reply' => $document
+                            'replies' => $document
                         ],
                         '$currentDate' => [
                             'lastModified' => true
@@ -54,7 +50,6 @@ class MessageReply extends BaseRoleAdmin {
                     ]
                 ]
             ]
-
         ];
         Mongo::cmd($messageReplyCmd);
         return $this->res();

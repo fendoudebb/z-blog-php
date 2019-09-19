@@ -15,7 +15,7 @@ class PostCommentReply extends BaseRoleAdmin {
     public function replyPostComment() {
         $postId = strval(input('post.postId'));
         $commentId = strval(input('post.commentId'));
-        $replyContent = strval(input('post.replyContent'));
+        $replyContent = htmlspecialchars(strval(input("post.replyContent")), ENT_NOQUOTES);
         if (strlen($postId) !== 24) {
             $this->log(ResCode::ILLEGAL_ARGUMENT_POST_ID);
             return $this->fail(ResCode::ILLEGAL_ARGUMENT_POST_ID);

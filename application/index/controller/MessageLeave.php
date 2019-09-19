@@ -41,7 +41,6 @@ class MessageLeave extends Base {
         $commentTime = new UTCDateTime();
 
         $document = [
-            'commentId' => new ObjectId(),
             'content' => $content,
             'nickname' => $nickname,
             'floor' => $floor,

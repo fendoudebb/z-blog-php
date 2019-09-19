@@ -7,6 +7,9 @@
             border-radius: 6px;
             margin-bottom: 30px;
         }
+        .reply-area {
+            padding: 8px 12px 6px 12px;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +37,19 @@
                     <span class="browse-os-span">{$comment->browser} | {$comment->os}</span>
                     <span class="time-span">{:timeFormat($comment->commentTime)}</span>
                 </div>
+
+                {notempty name="$comment->replies"}
+                {foreach $comment->replies as $reply}
+                <div class="reply-area">
+                    <div class="nickname-span" style="color: #4CAF50">作者回复</div>
+                    <pre class="content-pre"  style="padding: 8px 0;min-height: 0">{$reply->replyContent}</pre>
+                    <div>
+                        <span class="browse-os-span">{$reply->browser} | {$reply->os}</span>
+                        <span  class="time-span">{:timeFormat($reply->replyTime)}</span>
+                    </div>
+                </div>
+                {/foreach}
+                {/notempty}
             </li>
             {/foreach}
         </ul>

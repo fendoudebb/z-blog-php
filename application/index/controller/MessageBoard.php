@@ -32,7 +32,7 @@ class MessageBoard extends Base {
                 'browser' => 1,
                 'os' => 1,
                 'ip' => 1,
-                'reply' => 1
+                'replies' => 1
             ],
             'sort' => [
                 'commentTime' => -1
