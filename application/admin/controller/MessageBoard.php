@@ -4,6 +4,9 @@ namespace app\admin\controller;
 
 
 use app\common\util\Mongo;
+use DateTimeZone;
+use MongoDB\BSON\UTCDateTime;
+use stdClass;
 
 class MessageBoard extends BaseRoleNormal {
 
@@ -45,7 +48,7 @@ class MessageBoard extends BaseRoleNormal {
                         'userAgent' => 1,
                         'ip' => 1,
                         'address' => 1,
-                        'reply' => 1,
+                        'replies' => 1,
                     ],
                 ],
                 [
@@ -58,9 +61,23 @@ class MessageBoard extends BaseRoleNormal {
                     '$limit' => $size
                 ]
             ],
-            'cursor' => new \stdClass()
+            'cursor' => new stdClass()
         ];
         $comments = Mongo::cmd($cmd);
+
+        foreach ($comments as $comment) {
+            if (property_exists($comment, "replies")) {
+                foreach ($comment->replies as $reply) {
+                    $replyTime = $reply->replyTime;
+                    if ($replyTime instanceof UTCDateTime) {
+                        $dateTime = $replyTime->toDateTime();
+                        $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+                        $replyTime = $dateTime->format("Y-m-d H:i:s");
+                    }
+                    $reply->replyTime = $replyTime;
+                }
+            }
+        }
         $response = [
         ];
         $cmd = [
