@@ -62,7 +62,7 @@ class PageView extends BaseRoleNormal {
         $cmd = [
             'find' => 'page_view_record',
             'sort' => [
-                'sort' => -1
+                '_id' => -1
             ],
             'projection' => [
                 '_id' => 1,
