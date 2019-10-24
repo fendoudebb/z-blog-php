@@ -4,6 +4,8 @@ namespace app\admin\controller;
 
 
 use app\common\util\Mongo;
+use DateTimeZone;
+use MongoDB\BSON\UTCDateTime;
 
 class PageView extends BaseRoleNormal {
 
@@ -17,7 +19,7 @@ class PageView extends BaseRoleNormal {
             $size = 20;
         }
         $offset = ($page - 1) * $size;
-        $cmd = [
+        /*$cmd = [
             'aggregate' => 'page_view_record', // collection表名
             'pipeline' => [
                 [
@@ -55,8 +57,43 @@ class PageView extends BaseRoleNormal {
                 ]
             ],
             'cursor' => new \stdClass()
+        ];*/
+
+        $cmd = [
+            'find' => 'page_view_record',
+            'sort' => [
+                'sort' => -1
+            ],
+            'projection' => [
+                '_id' => 1,
+                'url' => 1,
+                'createTime' => 1,
+                'ip' => 1,
+                'browser' => 1,
+                'os' => 1,
+                'referer' => 1,
+                'userAgent' => 1,
+                'address' => 1
+            ],
+            [
+                '$skip' => $offset
+            ],
+            [
+                '$limit' => $size
+            ]
         ];
+
         $pageView = Mongo::cmd($cmd);
+
+        foreach ($pageView as $pv) {
+            $pv->_id = $pv->_id->__toString();
+            if ($pv->createTime instanceof UTCDateTime) {
+                $dateTime = $pv->createTime->toDateTime();
+                $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+                $pv->createTime = $dateTime->format("Y-m-d H:i:s");
+            }
+        }
+
         $response = [
         ];
         $cmd = [
