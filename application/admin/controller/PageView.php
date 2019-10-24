@@ -7,7 +7,7 @@ use app\common\util\Mongo;
 use DateTimeZone;
 use MongoDB\BSON\UTCDateTime;
 
-class PageView extends BaseRoleNormal {
+class PageView extends Base {
 
     public function pageView() {
         $page = intval(input('post.page'));
@@ -61,9 +61,6 @@ class PageView extends BaseRoleNormal {
 
         $cmd = [
             'find' => 'page_view_record',
-            'sort' => [
-                '_id' => -1
-            ],
             'projection' => [
                 '_id' => 1,
                 'url' => 1,
@@ -75,12 +72,13 @@ class PageView extends BaseRoleNormal {
                 'userAgent' => 1,
                 'address' => 1
             ],
-            [
-                '$skip' => $offset
+            'sort' => [
+                '_id' => -1
             ],
-            [
-                '$limit' => $size
-            ]
+            'skip' => $offset
+            ,
+            'limit' => $size
+
         ];
 
         $pageView = Mongo::cmd($cmd);
