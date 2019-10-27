@@ -13,6 +13,7 @@
 - [browscap](http://www.browscap.org)解析User-Agent；
 - [淘宝IP地址库](http://ip.taobao.com "淘宝IP地址库")；
 - [Vue.js后台管理页面](https://github.com/fendoudebb/z-blog-console "Vue.js后台管理页面")；
+- [Staticfile CDN：免费CDN服务](https://github.com/staticfile/static "Staticfile CDN")；
 
 ## 功能
 - 文章评论、回复、点赞
