@@ -5,7 +5,8 @@ namespace app\admin\controller;
 
 use app\common\util\IpUtil;
 use app\common\util\Mongo;
-use stdClass;
+use DateTimeZone;
+use MongoDB\BSON\UTCDateTime;
 
 class IpPool extends BaseRoleNormal {
 
@@ -20,40 +21,31 @@ class IpPool extends BaseRoleNormal {
         }
         $offset = ($page - 1) * $size;
         $cmd = [
-            'aggregate' => 'ip_pool', // collection表名
-            'pipeline' => [
-                [
-                    '$project' => [
-                        '_id' => 0,
-                        'id' => [
-                            '$toString' => '$_id'
-                        ],
-                        'ip' => 1,
-                        'address' => 1,
-                        'createTime' => [
-                            '$dateToString' => [
-                                'format' => "%Y-%m-%d %H:%M:%S",
-                                'date' => [
-                                    '$toDate' => '$createTime'
-                                ],
-                                'timezone' => "+08:00"
-                            ]
-                        ],
-                    ],
-                ],
-                [
-                    '$sort' => ['id' => -1]
-                ],
-                [
-                    '$skip' => $offset
-                ],
-                [
-                    '$limit' => $size
-                ]
+            'find' => 'ip_pool',
+            'projection' => [
+                '_id' => 1,
+                'ip' => 1,
+                'address' => 1,
+                'createTime' => 1
             ],
-            'cursor' => new stdClass()
+            'sort' => [
+                '_id' => -1,
+            ],
+            'skip' => $offset,
+            'limit' => $size,
         ];
+
         $ipPool = Mongo::cmd($cmd);
+
+        foreach ($ipPool as $ip) {
+            $ip->_id = $ip->_id->__toString();
+            if ($ip->createTime instanceof UTCDateTime) {
+                $dateTime = $ip->createTime->toDateTime();
+                $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+                $ip->createTime = $dateTime->format("Y-m-d H:i:s");
+            }
+        }
+
         $response = [
         ];
         $cmd = [
@@ -76,46 +68,35 @@ class IpPool extends BaseRoleNormal {
         }
         $offset = ($page - 1) * $size;
         $cmd = [
-            'aggregate' => 'ip_pool', // collection表名
-            'pipeline' => [
-                [
-                    '$match' => [
-                        'address' => [
-                            '$exists' => false
-                        ]
-                    ]
-                ],
-                [
-                    '$project' => [
-                        '_id' => 0,
-                        'id' => [
-                            '$toString' => '$_id'
-                        ],
-                        'ip' => 1,
-                        'createTime' => [
-                            '$dateToString' => [
-                                'format' => "%Y-%m-%d %H:%M:%S",
-                                'date' => [
-                                    '$toDate' => '$createTime'
-                                ],
-                                'timezone' => "+08:00"
-                            ]
-                        ],
-                    ],
-                ],
-                [
-                    '$sort' => ['id' => -1]
-                ],
-                [
-                    '$skip' => $offset
-                ],
-                [
-                    '$limit' => $size
+            'find' => 'ip_pool',
+            'filter' => [
+                'address' => [
+                    '$exists' => false
                 ]
             ],
-            'cursor' => new stdClass()
+            'projection' => [
+                '_id' => 1,
+                'ip' => 1,
+                'createTime' => 1
+            ],
+            'sort' => [
+                '_id' => -1,
+            ],
+            'skip' => $offset,
+            'limit' => $size,
         ];
+
         $ipPool = Mongo::cmd($cmd);
+
+        foreach ($ipPool as $ip) {
+            $ip->_id = $ip->_id->__toString();
+            if ($ip->createTime instanceof UTCDateTime) {
+                $dateTime = $ip->createTime->toDateTime();
+                $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+                $ip->createTime = $dateTime->format("Y-m-d H:i:s");
+            }
+        }
+
         $response = [
         ];
         $cmd = [
