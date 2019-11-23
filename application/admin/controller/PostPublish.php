@@ -13,7 +13,7 @@ use MongoDB\BSON\UTCDateTime;
 class PostPublish extends BaseRoleNormal {
 
     public function publishPost() {
-        $postId = input('post.id');
+        $postId = intval(input('post.id'));
         $postTitle = input('post.title');
         $postContent = input('post.content');
         $postTopics = input('post.topics/a');
@@ -36,7 +36,7 @@ class PostPublish extends BaseRoleNormal {
                 'updates' => [
                     [
                         'q' => [
-                            '_id' => new ObjectId($postId),
+                            'postId' => $postId,
                             'userId' => new ObjectId($this->userId)
                         ],
                         'u' => [
