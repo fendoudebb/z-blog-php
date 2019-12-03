@@ -9,6 +9,7 @@ use app\common\util\Mongo;
 use app\common\util\MyParsedown;
 use MongoDB\BSON\ObjectId;
 use MongoDB\BSON\UTCDateTime;
+use think\Log;
 
 class PostPublish extends BaseRoleNormal {
 
@@ -58,7 +59,7 @@ class PostPublish extends BaseRoleNormal {
                 ]
             ];
             $updateResult = Mongo::cmd($updatePostCmd);
-            $this->log("update post result#" . $updateResult);
+            Log::log("update post result#" . $updateResult);
             if (!$updateResult[0]->ok) {
                 return $this->fail(ResCode::COLLECTION_UPDATE_FAIL);
             }
@@ -112,7 +113,7 @@ class PostPublish extends BaseRoleNormal {
                 ]
             ];
             $insertPostResult = Mongo::cmd($insertPostCmd);
-            $this->log("insert post result#" . $insertPostResult);
+            Log::log("insert post result#" . $insertPostResult);
             if (empty($insertPostResult) || !$insertPostResult[0]->ok) {
                 $this->log(ResCode::COLLECTION_INSERT_FAIL);
                 return $this->fail(ResCode::COLLECTION_INSERT_FAIL);
