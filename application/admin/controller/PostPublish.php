@@ -13,7 +13,7 @@ use MongoDB\BSON\UTCDateTime;
 class PostPublish extends BaseRoleNormal {
 
     public function publishPost() {
-        $postId = input('post.id');
+        $postId = intval(input('post.id'));
         $postTitle = input('post.title');
         $postContent = input('post.content');
         $postTopics = input('post.topics/a');
@@ -27,7 +27,7 @@ class PostPublish extends BaseRoleNormal {
         $parser = new MyParsedown();
         $html = $parser->text($postContent);
 
-        if (isset($postId)) {//修改
+        if (isset($postId) && $postId > 0) {//修改
             $stripTagsHtml = strip_tags($html);
             $postWordCount = mb_strlen($stripTagsHtml, 'utf-8');
             $description = mb_substr($stripTagsHtml, 0, 80, 'utf-8');
