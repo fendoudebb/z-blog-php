@@ -73,6 +73,7 @@ Route::get('/404', 'index/RouterNotFound/routerNotFound', ['ext' => 'html']);
 
 Route::get('/', 'index/Index/index');
 Route::get('/message-board', 'index/MessageBoard/messageBoard', ['ext' => 'html']);
+Route::get('/english', 'index/English/english', ['ext' => 'html']);
 Route::get('/p/:postId', 'index/Post/post', ['ext' => 'html'], ['postId' => '\d+']);
 Route::get('/topic/:topic', 'index/Topic/topic', ['ext' => 'html']);
 Route::get('/search/:q', 'index/Search/search', ['ext' => 'html']);

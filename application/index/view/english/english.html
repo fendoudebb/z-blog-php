@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    {include file="public/base" /}
+    <style>
+        li.shadow {
+            border-radius: 6px;
+            margin-bottom: 30px;
+        }
+        .reply-area {
+            padding: 8px 12px 6px 12px;
+        }
+    </style>
+</head>
+<body>
+{include file="public/header" /}
+<div class="main">
+    <div class="content" style="text-align: center">
+
+
+        <div style="text-align: center;margin-top: 20px">
+            <ul class="pagination">
+                <li>
+                    {if condition="$currentPage == 1"}
+                    <a class="disabled" href="javascript:void(0);">上一页</a>
+                    {else /}
+                    <a href="?page=1">首页</a>
+                    <a href="?page={$currentPage-1}">上一页</a>
+                    {/if}
+                </li>
+                {for start="1" end="$totalPage + 1"}
+                <li>
+                    <!--{if condition="$i > $currentPage - 5 && $i < $currentPage + 5"}
+                    {else /}
+                    {/if}-->
+                    {if condition="$i > $currentPage - 4 && $i < $currentPage + 4"}
+                    {if condition="$i == $currentPage"}
+                    <a class="active disabled" href="javascript:void(0);">{$i}</a>
+                    {else /}
+                    <a href="?page={$i}">{$i}</a>
+                    {/if}
+                    {/if}
+                </li>
+                {/for}
+                <li>
+                    {if condition="$currentPage < $totalPage"}
+                    <a href="?page={$currentPage+1}">下一页</a>
+                    <a href="?page={$totalPage}">尾页</a>
+                    {else /}
+                    <a class="disabled" href="javascript:void(0);">下一页</a>
+                    {/if}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+{include file="public/base_js" /}
+</body>
+</html>
