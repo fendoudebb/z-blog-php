@@ -31,6 +31,12 @@ Route::post('/admin/topic/sort/modify', 'admin/TopicSortModify/modifyTopicSort')
 Route::post('/admin/topic/name/modify', 'admin/TopicNameModify/modifyTopicName');
 //---Topic api end---
 
+//---English api start---
+Route::post('/admin/english', 'admin/English/englishList');
+Route::post('/admin/english/add', 'admin/English/addEnglish');
+Route::post('/admin/english/update', 'admin/English/updateEnglish');
+//---English api end---
+
 //---Comment api start---
 Route::post('/admin/message/board', 'admin/MessageBoard/messageBoard');
 Route::post('/admin/message/delete', 'admin/MessageDelete/deleteMessage');

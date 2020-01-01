@@ -18,6 +18,10 @@ class ResCode {
         self::MISSING_PARAMS_TOPIC => "missing params: topic",
         self::MISSING_PARAMS_POST_ID => "missing params: post id",
         self::MISSING_PARAMS_TOPICS => "missing params: topics",
+        self::MISSING_PARAMS_WORD => "missing params: word",
+        self::MISSING_PARAMS_TRANSLATION => "missing params: translation",
+        self::MISSING_PARAMS_PROPERTY => "missing params: property",
+        self::MISSING_PARAMS_EXPLANATION => "missing params: explanation",
 
 
         self::ILLEGAL_ARGUMENT_POST_ID => "illegal argument: post id",
@@ -30,6 +34,8 @@ class ResCode {
         self::ILLEGAL_ARGUMENT_LINK => "illegal argument: link",
         self::ILLEGAL_ARGUMENT_WEBSITE_NAME => "illegal argument: website name",
         self::ILLEGAL_ARGUMENT_LINK_OWNER => "illegal argument: link owner",
+        self::ILLEGAL_ARGUMENT_WORD => "illegal argument: word",
+        self::ILLEGAL_ARGUMENT_TRANSLATION_ELEMENT => "illegal argument: translation element",
 
 
 
@@ -46,6 +52,7 @@ class ResCode {
         self::OVER_POST_TOPIC_COUNT => "over post topic count",
         self::POST_COMMENT_IS_EMPTY => "post comment is empty",
         self::REPLY_CONTENT_IS_EMPTY => "reply content is empty",
+        self::WORD_ALREADY_EXIST => "word already exist",
 
 
 
@@ -66,6 +73,10 @@ class ResCode {
     const MISSING_PARAMS_POST_ID = 1001;
     const MISSING_PARAMS_TOPIC = 1002;
     const MISSING_PARAMS_TOPICS = 1003;
+    const MISSING_PARAMS_WORD = 1004;
+    const MISSING_PARAMS_TRANSLATION = 1005;
+    const MISSING_PARAMS_PROPERTY = 1006;
+    const MISSING_PARAMS_EXPLANATION = 1007;
     //---missing params const end---
 
 
@@ -83,6 +94,8 @@ class ResCode {
     const ILLEGAL_ARGUMENT_USERNAME = 2010;
     const ILLEGAL_ARGUMENT_PASSWORD = 2011;
     const ILLEGAL_ARGUMENT_ROLES = 2012;
+    const ILLEGAL_ARGUMENT_WORD = 2013;
+    const ILLEGAL_ARGUMENT_TRANSLATION_ELEMENT = 2014;
     //---illegal argument const end---
 
 
@@ -99,6 +112,7 @@ class ResCode {
     const OVER_POST_TOPIC_COUNT = 4005;
     const POST_COMMENT_IS_EMPTY = 4006;
     const REPLY_CONTENT_IS_EMPTY = 4007;
+    const WORD_ALREADY_EXIST = 4008;
     //---error code const end---
 
 
