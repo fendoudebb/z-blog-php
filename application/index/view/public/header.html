@@ -13,13 +13,23 @@
         </li>
         {/if}
 
-        {if condition="request()->pathinfo() eq 'tool/json/format.html'"}
+        {if condition="request()->pathinfo() eq 'tool/format/json.html'"}
         <li class="header-a-checked">
             <a href="/tool/format/json.html" style="color: white" title="小工具">小工具</a>
         </li>
         {else /}
         <li>
             <a href="/tool/format/json.html" title="小工具">小工具</a>
+        </li>
+        {/if}
+
+        {if condition="request()->pathinfo() eq 'english.html'"}
+        <li class="header-a-checked">
+            <a href="/english.html" style="color: white" title="英语角">英语角</a>
+        </li>
+        {else /}
+        <li>
+            <a href="/english.html" title="英语角">英语角</a>
         </li>
         {/if}
             <!--<a href="https://github.com/fendoudebb" target="_blank" title="Github">Github</a>-->

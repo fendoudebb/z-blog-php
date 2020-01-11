@@ -39,17 +39,49 @@ class English extends BaseRoleNormal {
             'skip' => $offset,
             'limit' => $size,
         ];
+        $word = trim(strval(input('post.word')));
+        if ($word) {
+            /*$cmd['filter'] = [
+                'word' => [
+                    '$regex' => $word
+                ]
+            ];*/
+            //https://docs.mongodb.com/manual/core/text-search-operators/
+            $cmd['filter'] = [
+                '$text' => [
+                    '$search' => $word
+                ]
+            ];
+            $cmd['projection']['score'] = [
+                '$meta' => 'textScore',
+            ];
+            $cmd['sort'] = [
+                'score' => [
+                    '$meta' => 'textScore',
+                ]
+            ];
+        }
 
         $english = Mongo::cmd($cmd);
+        Log::log($cmd);
         foreach ($english as $e) {
             $e->_id = $e->_id->__toString();
         }
         $response = [
         ];
+        //https://docs.mongodb.com/manual/reference/command/count/
         $cmd = [
             'count' => 'english'
         ];
+        if ($word) {
+            $cmd['query'] = [
+                '$text' => [
+                    '$search' => $word
+                ]
+            ];
+        }
         $countResult = Mongo::cmd($cmd);
+        Log::log($cmd);
         $response['totalCount'] = $countResult[0]->n;
         $response['english'] = $english;
         return $this->res($response);

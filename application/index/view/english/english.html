@@ -3,12 +3,61 @@
 <head>
     {include file="public/base" /}
     <style>
+        summary {
+            cursor: pointer;
+            outline: none;
+        }
+        summary:hover {
+            color: #4CAF50;
+        }
+        details {
+            padding: 0;
+            color: #8a8a8a;
+            margin-top: 12px;
+        }
+        details summary {
+            width: -moz-fit-content;
+            width: fit-content;
+        }
+        summary::-webkit-details-marker {
+            color: #8a8a8a;
+        }
+        details:hover summary::-webkit-details-marker:hover {
+            color:#4CAF50;
+            background:white;
+        }
+        summary::-moz-list-bullet {
+            color: #8a8a8a;
+        }
+        details:hover summary::-moz-list-bullet:hover {
+            color:#4CAF50;
+            background:white;
+        }
+        pre {
+            white-space:pre-wrap;
+        }
         li.shadow {
             border-radius: 6px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            padding: 12px 24px;
         }
-        .reply-area {
-            padding: 8px 12px 6px 12px;
+        .english-word {
+            margin: 0;
+            padding: 0;
+            font-size: xx-large;
+            color: black;
+            font-weight: bold;
+        }
+        .phonetic {
+            margin: 0;
+            padding: 12px 0 0 0;
+            color: #8a8a8a;
+            display: inline-block;
+        }
+        .example_sentence {
+            color: #8a8a8a;
+        }
+        .translation {
         }
     </style>
 </head>
@@ -16,7 +65,34 @@
 {include file="public/header" /}
 <div class="main">
     <div class="content" style="text-align: center">
-
+        <ul style="text-align: left">
+            {foreach $english as $e}
+            <li class="shadow">
+                <pre class="english-word">{$e->word}</pre>
+                {notempty name="$e->english_phonetic"}
+                <pre class="phonetic">英 [{$e->english_phonetic}] </pre>
+                {/notempty}
+                {notempty name="$e->american_phonetic"}
+                <pre class="phonetic">美 [{$e->american_phonetic}]</pre>
+                {/notempty}
+                {notempty name="$e->example_sentence"}
+                <pre class="example_sentence">例句：{$e->example_sentence}</pre>
+                {/notempty}
+                <details>
+                    <summary>查看翻译</summary>
+                    {foreach $e->translation as $t}
+                        <pre class="translation">{$t->property}.{$t->explanation}</pre>
+                    {/foreach}
+                    {notempty name="$e->sentence_translation"}
+                    <pre>例句翻译：{$e->sentence_translation}</pre>
+                    {/notempty}
+                    {notempty name="$e->source"}
+                    <pre>词语来源：{if condition="strpos($e->source, 'http') === 0"}<a href="{$e->source}" target="_blank" title="{$e->source}">{$e->source}</a>{else/}{$e->source}{/if}</pre>
+                    {/notempty}
+                </details>
+            </li>
+            {/foreach}
+        </ul>
 
         <div style="text-align: center;margin-top: 20px">
             <ul class="pagination">
