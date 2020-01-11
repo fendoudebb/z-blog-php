@@ -26,6 +26,7 @@ class English extends BaseRoleNormal {
             'projection' => [
                 '_id' => 1,
                 'word' => 1,
+                'synonyms' => 1,
                 'english_phonetic' => 1,
                 'american_phonetic' => 1,
                 'translation' => 1,//数组：property, explanation
@@ -89,6 +90,7 @@ class English extends BaseRoleNormal {
 
     public function addEnglish() {
         $word = trim(strval(input('post.word')));
+        $synonyms = trim(strval(input('post.synonyms')));
         $englishPhonetic = trim(strval(input('post.english_phonetic')));
         $americanPhonetic = trim(strval(input('post.american_phonetic')));
         $translation = input('post.translation/a');
@@ -142,6 +144,7 @@ class English extends BaseRoleNormal {
             'documents' => [
                 [
                     'word' => $word,
+                    'synonyms' => $synonyms,
                     'english_phonetic' => $englishPhonetic,
                     'american_phonetic' => $americanPhonetic,
                     'translation' => $translation,//数组：property, explanation
@@ -162,6 +165,7 @@ class English extends BaseRoleNormal {
     public function updateEnglish() {
         $wordId = trim(strval(input('post.wordId')));
         $word = trim(strval(input('post.word')));
+        $synonyms = trim(strval(input('post.synonyms')));
         $englishPhonetic = trim(strval(input('post.english_phonetic')));
         $americanPhonetic = trim(strval(input('post.american_phonetic')));
         $translation = input('post.translation/a');
@@ -221,6 +225,7 @@ class English extends BaseRoleNormal {
                     'u' => [
                         '$set' => [
                             'word' => $word,
+                            'synonyms' => $synonyms,
                             'english_phonetic' => $englishPhonetic,
                             'american_phonetic' => $americanPhonetic,
                             'translation' => $translation,//数组：property, explanation

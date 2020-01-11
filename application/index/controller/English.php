@@ -27,6 +27,7 @@ class English extends Base {
                 'word' => 1,
                 'english_phonetic' => 1,
                 'american_phonetic' => 1,
+                'synonyms' => 1,
                 'translation' => 1,//数组：property, explanation
                 'example_sentence' => 1,
                 'sentence_translation' => 1,

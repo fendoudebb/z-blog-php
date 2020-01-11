@@ -89,6 +89,9 @@
                     {notempty name="$e->source"}
                     <pre>词语来源：{if condition="strpos($e->source, 'http') === 0"}<a href="{$e->source}" target="_blank" title="{$e->source}">{$e->source}</a>{else/}{$e->source}{/if}</pre>
                     {/notempty}
+                    {notempty name="$e->synonyms"}
+                    <pre>同义词：{$e->synonyms}</pre>
+                    {/notempty}
                 </details>
             </li>
             {/foreach}
