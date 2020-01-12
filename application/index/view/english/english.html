@@ -81,7 +81,7 @@
                 <details>
                     <summary>查看翻译</summary>
                     {foreach $e->translation as $t}
-                        <pre class="translation">{$t->property}.{$t->explanation}</pre>
+                        <pre class="translation">{$t->property}. {$t->explanation}</pre>
                     {/foreach}
                     {notempty name="$e->sentence_translation"}
                     <pre>例句翻译：{$e->sentence_translation}</pre>
