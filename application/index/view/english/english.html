@@ -53,6 +53,8 @@
             padding: 12px 0 0 0;
             color: #8a8a8a;
             display: inline-block;
+            font-size: 12px;
+            font-family: Arial,monospace;
         }
         .example_sentence {
             color: #8a8a8a;
@@ -70,10 +72,10 @@
             <li class="shadow">
                 <pre class="english-word">{$e->word}</pre>
                 {notempty name="$e->english_phonetic"}
-                <pre class="phonetic">英 [{$e->english_phonetic}] </pre>
+                <pre class="phonetic">英  [{$e->english_phonetic}]   </pre>
                 {/notempty}
                 {notempty name="$e->american_phonetic"}
-                <pre class="phonetic">美 [{$e->american_phonetic}]</pre>
+                <pre class="phonetic">美  [{$e->american_phonetic}]</pre>
                 {/notempty}
                 {notempty name="$e->example_sentence"}
                 <pre class="example_sentence">例句：{$e->example_sentence}</pre>
