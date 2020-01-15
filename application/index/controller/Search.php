@@ -93,7 +93,8 @@ class Search extends Base {
         $rankInfo = new SidebarInfo();
         $arr = array_merge($arr, $rankInfo->sidebarInfo());
         $compressHtml = compressHtml($this->fetch('search', $arr));
-        return $compressHtml;
+        return str_replace("</em><em>", "</em> <em>", $compressHtml);
+//        return $compressHtml;
     }
 }
 
