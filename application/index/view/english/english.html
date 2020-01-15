@@ -78,7 +78,7 @@
                 <pre class="phonetic">美  [{$e->american_phonetic}]</pre>
                 {/notempty}
                 {notempty name="$e->example_sentence"}
-                <pre class="example_sentence">例句：{:str_replace('{$e->word}', '<b>{$e->word}</b>', $e->example_sentence)}</pre>
+                <pre class="example_sentence">例句：{:str_replace('{$e->word}', '<b>{$e->word}</b>', {$e->example_sentence})}</pre>
                 {/notempty}
                 <details>
                     <summary>查看翻译</summary>
