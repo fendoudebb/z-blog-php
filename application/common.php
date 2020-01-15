@@ -83,7 +83,7 @@ function compressHtml($content) {
         $c = preg_replace('#\/\*.*\*\/#isU', '', $c);//js块注释
         $c = preg_replace('#[^:"\']\/\/[^\n]*#', '', $c);//js行注释
         $c = str_replace("\t", "", $c);//tab
-        $c = preg_replace('#\s?(=|>=|\?|:|==|\+|\|\||\+=|>|<|\/|\-|,|\()\s?#', '$1', $c);//字符前后多余空格
+//        $c = preg_replace('#\s?(=|>=|\?|:|==|\+|\|\||\+=|>|<|\/|\-|,|\()\s?#', '$1', $c);//字符前后多余空格
         $c = preg_replace('#([^"\'])[\s]+#', '$1 ', $c);
         $c = preg_replace('#>\s<#', '><', $c);
         $c = str_replace("\t", "", $c);//tab
