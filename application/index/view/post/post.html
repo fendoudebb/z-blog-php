@@ -433,11 +433,11 @@
     };
     $submitBtn.bind('click', clickFunc);
 
+    var data = {'postId': postId};
     //@formatter:off
     {if condition="$isLiked"}
     $(".like-button").css("cursor", 'not-allowed');
     {else /}
-        var data = {'postId': postId};
         var $likeBtn = $(".like-button");
         $likeBtn.bind('click', function() {
             $.post("/post/like", data,function (result) {
