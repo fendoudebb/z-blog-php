@@ -8,7 +8,8 @@ use app\admin\controller\Base;
 class WechatPush extends Base {
 
     function push() {
-        return 'success';
+        $echostr = strval(input('get.echostr'));
+        return $echostr;
     }
 
     /*function checkSign() {
