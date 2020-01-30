@@ -28,6 +28,7 @@ class MobileIndex extends Base {
                 'postId' => 1,
                 'postTime' => 1,
                 'title' => 1,
+                'description' => 1,
                 'pv' => 1,
                 'likeCount' => 1,
                 'commentCount' => 1,
