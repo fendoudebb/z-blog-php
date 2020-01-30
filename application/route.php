@@ -95,6 +95,9 @@ Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
 Route::post('/query/ip', 'index/QueryIp/queryIp');
 Route::post('/query/result', 'index/QueryIp/queryResult');
 
+
+Route::post('/wechat/push', 'wechat/WechatPush/push');
+
 return [
 
 ];
