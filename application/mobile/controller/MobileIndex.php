@@ -15,7 +15,7 @@ class MobileIndex extends Base {
         if ($page < 1) {
             $page = 1;
         }
-        if ($size > 20) {
+        if ($size < 1 || $size > 20) {
             $size = 20;
         }
         $offset = ($page - 1) * $size;
@@ -52,8 +52,8 @@ class MobileIndex extends Base {
             ]
         ];
 
-        if ($topic !== '全部') {
-            $indexPostsCmdArr['filter'] = [
+        if (!empty($topic) && $topic !== '全部') {
+            $indexPostsCmd['filter'] = [
                 'topics' => $topic
             ];
             $countPostsCmd['query'] = [
