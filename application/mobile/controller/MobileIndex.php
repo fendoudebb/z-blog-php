@@ -10,10 +10,14 @@ class MobileIndex extends Base {
 
     function index() {
         $page = intval(input('get.page'));
+        $size = intval(input('get.size'));
+        $topic = strval(input('get.topic'));
         if ($page < 1) {
             $page = 1;
         }
-        $size = 20;
+        if ($size > 20) {
+            $size = 20;
+        }
         $offset = ($page - 1) * $size;
         $arr = [
             'currentPage' => $page,
@@ -40,14 +44,25 @@ class MobileIndex extends Base {
             'skip' => $offset,
             'limit' => $size
         ];
-        $indexPostsCmdArr = Mongo::cmd($indexPostsCmd);
-        $arr['posts'] = $indexPostsCmdArr;
+
         $countPostsCmd = [
             'count' => 'post',
             'query' => [
                 'postStatus' => 'ONLINE',
             ]
         ];
+
+        if ($topic !== '全部') {
+            $indexPostsCmdArr['filter'] = [
+                'topics' => $topic
+            ];
+            $countPostsCmd['query'] = [
+                'topics' => $topic
+            ];
+        }
+        $indexPostsCmdArr = Mongo::cmd($indexPostsCmd);
+        $arr['posts'] = $indexPostsCmdArr;
+
         $countPostCmdArr = Mongo::cmd($countPostsCmd);
         $arr['totalPage'] = ceil($countPostCmdArr[0]->n / $size);
         return $this->res($arr);
