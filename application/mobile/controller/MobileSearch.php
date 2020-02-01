@@ -85,10 +85,23 @@ class MobileSearch extends Base {
         $this->request->__set("took", $took);
         $this->request->__set("hits", $hits);
 
+        $temp = [];
+
+        foreach ($result->hits->hits as $hit) {
+            $post = [
+                'postId' => $hit->_source->postId,
+                'postTime' => $hit->_source->postTime,
+                'topics' => $hit->_source->topics,
+                'title' => str_replace("</em><em>", "</em> <em>", $hit->highlight->title),
+                'content' => str_replace("</em><em>", "</em> <em>", $hit->highlight->content),
+            ];
+            $temp[] = $post;
+        }
+
         $arr = [
             'currentPage' => $page,
             'totalPage' => ceil($hits / $size),
-            'hits' => $result->hits->hits
+            'hits' => $temp
         ];
 //        return str_replace("</em><em>", "</em> <em>", $compressHtml);
         return $this->res($arr);
