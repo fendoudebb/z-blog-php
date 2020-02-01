@@ -12,7 +12,6 @@ use think\Request;
 class Http extends Handle {
 
     public function render(Exception $e) {
-
         // 手动抛出异常
         if ($e instanceof SystemException) {
             Log::info("system exception -> " . $e->getMessage());
@@ -22,7 +21,7 @@ class Http extends Handle {
         if ($e instanceof RouteNotFoundException) {
             Log::info("RouteNotFoundException -> " . $e->getMessage());
             $url = Request::instance()->url();
-            if (strpos($url, '/admin/') === 0) {
+            if (strpos($url, '/admin/') === 0 || strpos($url, '/m/') === 0) {
                 return self::fail(ResCode::URL_NOT_EXIST);
             }
 //            return self::fail(ResCode::URL_NOT_EXIST);
