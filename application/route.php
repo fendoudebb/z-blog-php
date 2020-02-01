@@ -100,6 +100,7 @@ Route::get('/wechat/push', 'wechat/WechatPush/push');
 
 Route::get('/m/index', 'mobile/MobileIndex/index');
 Route::get('/m/p/:postId', 'mobile/MobilePost/post', ['postId' => '\d+']);
+Route::get('/m/search/:q', 'mobile/MobileSearch/search');
 
 return [
 
