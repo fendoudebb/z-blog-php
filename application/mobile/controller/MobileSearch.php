@@ -7,6 +7,7 @@ use app\admin\controller\Base;
 use app\common\config\ResCode;
 use app\common\util\ElasticsearchUtil;
 use stdClass;
+use think\Log;
 
 class MobileSearch extends Base {
 
@@ -84,7 +85,7 @@ class MobileSearch extends Base {
         $hits = $result->hits->total->value;
         $this->request->__set("took", $took);
         $this->request->__set("hits", $hits);
-
+        Log::log("mobile search result#" . json_encode($result));
         $temp = [];
 
         foreach ($result->hits->hits as $hit) {
