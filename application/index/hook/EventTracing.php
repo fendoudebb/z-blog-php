@@ -77,8 +77,11 @@ class EventTracing {
             ];
             Mongo::cmd($insertSearchStatsCmd);
         }
+
+        $record = strpos($url, '/m/') === 0 ? 'mobile_api_record' : 'page_view_record';
+
         $insertPageViewRecordCmd = [
-            'insert' => 'page_view_record',
+            'insert' => $record,
             'documents' => [
                 $document
             ]

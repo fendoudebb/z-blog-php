@@ -6,7 +6,6 @@ namespace app\mobile\controller;
 use app\admin\controller\Base;
 use app\common\config\ResCode;
 use app\common\util\Mongo;
-use think\Log;
 
 class MobilePost extends Base {
 
@@ -38,9 +37,7 @@ class MobilePost extends Base {
             ],
             'limit' => 1
         ];
-        Log::log($postCmd);
         $postCmdArr = Mongo::cmd($postCmd);
-        Log::log($postCmdArr);
         if (empty($postCmdArr)) {
             $this->log(ResCode::POST_DOES_NOT_EXIST);
             return $this->fail(ResCode::POST_DOES_NOT_EXIST);
