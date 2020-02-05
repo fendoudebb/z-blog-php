@@ -75,7 +75,8 @@
             padding: 2px 3px;
             background: rgba(27,31,35,.05);
             border-radius: 2px;
-            font-family: SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace;
+            font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+            font-size: 14px;
         }
 
         code::before, code::after {
@@ -89,7 +90,6 @@
             word-wrap: normal;
             padding: 8px 12px !important;
             line-height: 20px;
-            font-family: Courier New, Courier,monospace;
             font-size: 12px;
         }
 
@@ -114,13 +114,26 @@
             display: block
         }
 
+        .content p {
+            line-height: 26px;
+        }
+
+        /*blockquote {
+            margin: 14px 0;
+            padding: 10px 20px 10px 15px;
+            font-size: 14px;
+            border-left: 3px solid #dbdbdb;
+            background-color: rgba(112, 138, 153, 0.098);
+            color: rgb(136, 136, 136);
+        }*/
+
         blockquote {
             margin: 14px 0;
-            padding: 14px;
+            padding: 10px 20px 10px 15px;
             font-size: 14px;
-            border-left: 5px solid #4CAF50;
-            background-color: #F6F6F6;
-            color: #999;
+            border-left: 3px solid #4CAF50;
+            background-color: #e7f6ed;
+            color: rgb(136, 136, 136);
         }
 
         blockquote p {
@@ -130,15 +143,17 @@
         }
 
         h1 {
-            font-size: 30px;
+            font-size: 22px;
+            font-weight: 400;
         }
 
         h2 {
-            font-size: 22px;
-            padding-bottom: 12px;
+            font-size: 20px;
+            padding-bottom: 8px;
             margin-top: 35px;
             margin-bottom: 10px;
-            border-bottom: 1px solid #ececec;
+            border-bottom: 1px solid rgb(221, 221, 221);
+            line-height: 1.225;
         }
 
         h3 {
@@ -165,16 +180,57 @@
             cursor: pointer;
         }
 
+        .text-secondary {
+            font-size: .8rem!important;
+            color: #6c757d!important;
+        }
+
+        .badge-a {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: #00965e;
+            padding: 0 .375rem;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            border-radius: .1875rem;
+            background-color: rgba(0,150,94,.1);
+            text-decoration: none;
+            margin: .25rem!important;
+        }
+
+        .badge-a:hover {
+            color: #004a2e;
+            background-color: rgba(0,150,94,.2);
+        }
+
         .like-button {
             cursor:pointer;
             height:28px;
             line-height: 14px;
-            padding: 5px 8px;
-            font-size: 12px;
-            background: #4CAF50;
-            color: white;
+            padding: 6px 12px;
+            font-size: 14px;
+            color: #4CAF50;
+            background-color: white;
             border: 1px solid #4CAF50;
             border-radius: 3px;
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .liked-button {
+            cursor:not-allowed;
+            height:28px;
+            line-height: 14px;
+            padding: 6px 12px;
+            font-size: 14px;
+            color: white;
+            background-color: #4CAF50;
+            border: 1px solid #4CAF50;
+            border-radius: 3px;
+        }
+
+        .like-button:hover {
+            color: white;
+            background-color: #4CAF50;
         }
 
         #post-comment ul li{
@@ -275,28 +331,31 @@
     <div class="content">
         <div class="shadow">
             <h1>{$post->title}</h1>
+            {notempty name="$post->topics"}
+                {foreach $post->topics as $t}<a href="/topic/{$t}.html" class="badge-a" title="{$t}">{$t}</a>{/foreach}
+            {/notempty}
+            {if condition="$post->commentCount > 0"}
+                <a href="/p/{$post->postId}.html#post-comment" class="badge-a">评论 {$post->commentCount}</a>
+            {/if}
+            <span class="text-secondary" style="margin-left: .5rem!important;">大约 {$post->postWordCount} 字</span>
 <!--            <hr>-->
             <div>{$post->contentHtml}</div>
+
+            <div style="margin-top: 1.25rem">
+                <span class="text-secondary" >阅读 {$post->pv} · 发布于 {:timeFormatYmd($post->postTime)}</span>
+            </div>
+
+            <div style="text-align: center;margin-top: 48px">
+                {if condition="$isLiked"}
+                    <button class="liked-button">已赞 {$post->likeCount}</button>
+                {else /}
+                    <button class="like-button">赞 {$post->likeCount}</button>
+                {/if}
+            </div>
 
             <p style="text-align: center;color: #8a8a8a;margin: 50px 0">————&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEND&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp————</p>
             <p style="text-align: center;margin-bottom: 30px;color: red;"><strong>扫描下方二维码关注公众号和小程序↓↓↓</strong></p>
             <img src="https://s.zhangbj.com/pic/png/qrcode.png" title="扫描二维码关注我">
-        </div>
-        <div id="post-like" class="shadow">
-            <p style="margin: 0;color: #8a8a8a;font-size: 14px">
-                posted @ {:timeFormat($post->postTime)}，阅读：{$post->pv}，字数：{$post->postWordCount}，评论：<a href="/p/{$post->postId}.html#post-comment" class="anchor-link-a">{$post->commentCount}</a>，点赞：<a href="/p/{$post->postId}.html#post-like" class="anchor-link-a">{$post->likeCount}</a>{notempty name="$post->topics"}，
-                标签：{foreach $post->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}
-            </p>
-            <p></p>
-            <div style="text-align: center">
-                <button class="like-button">
-                    {if condition="$isLiked"}
-                    已点赞
-                    {else /}
-                    点赞
-                    {/if}
-                </button>
-            </div>
         </div>
 
         <div id="post-comment">
@@ -446,15 +505,14 @@
         $likeBtn.bind('click', function() {
             $.post("/post/like", data,function (result) {
                 if (result.code === 200) {
-                    var $like = $("#like");
-                    var likeCount = $like.text();
-                    $like.text(Number(likeCount) + 1);
                     $likeBtn.unbind('click');
-                    $likeBtn.text("已点赞");
+                    $likeBtn.text("已赞 " + ({$post->likeCount} + 1));
                     $likeBtn.css("cursor", 'not-allowed');
+                    $likeBtn.css("color", 'white');
+                    $likeBtn.css("background-color", '#4CAF50');
                 } else if (result.code === -1) {
                     $likeBtn.unbind('click');
-                    $likeBtn.text("已点赞");
+                    $likeBtn.text("已赞 " + {$post->likeCount});
                     $likeBtn.css("cursor", 'not-allowed');
                 }
             });
