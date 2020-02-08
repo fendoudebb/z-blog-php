@@ -677,9 +677,9 @@ class Parsedown {
             );
             if (isset($alignments[$index])) {
                 $alignment = $alignments[$index];
-                $HeaderElement['attributes'] = array(
+                /*$HeaderElement['attributes'] = array(
                     'style' => "text-align: $alignment;",
-                );
+                );*/
             }
             $HeaderElements [] = $HeaderElement;
         }
@@ -727,11 +727,11 @@ class Parsedown {
                         'destination' => 'elements',
                     )
                 );
-                if (isset($Block['alignments'][$index])) {
+                /*if (isset($Block['alignments'][$index])) {
                     $Element['attributes'] = array(
                         'style' => 'text-align: ' . $Block['alignments'][$index] . ';',
                     );
-                }
+                }*/
                 $Elements [] = $Element;
             }
             $Element = array(
