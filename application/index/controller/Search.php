@@ -27,7 +27,7 @@ class Search extends Base {
                 ]
             ],
             "from" => $offset,
-            "size" => 20,
+            "size" => $size,
             "min_score" => 0.1,
             "query" => [
                 "bool" => [
