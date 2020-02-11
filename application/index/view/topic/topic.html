@@ -31,7 +31,7 @@
                 <a href="/p/{$p->postId}.html" class="index-post-title-a ellipsis" title="{$p->title}">{$p->title}</a>
                 <p class="index-post-desc">{$p->description}</p>
                 <p>
-                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}{if condition="isMobile() neq 1"}，评论：<a href="/p/{$p->postId}.html#post-comment" class="anchor-link-a">{$p->commentCount}</a>，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{/if}{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}</span>
+                    <span style="color: #8a8a8a">{:timeFormat($p->postTime)}，阅读：{$p->pv}{if condition="isMobile() neq 1"}，评论：<a href="/p/{$p->postId}.html#post-comment" class="anchor-link-a">{$p->commentCount}</a>，点赞：<a href="/p/{$p->postId}.html#post-like" class="anchor-link-a">{$p->likeCount}</a>{/if}{notempty name="$p->topics"}，标签：{foreach $p->topics as $t}<a href="/topic/{$t}.html" {if condition="$t == $title"}style="color:red"{/if} class="anchor-link-a" title="标签：{$t}">{$t}</a>&nbsp;{/foreach}{/notempty}</span>
                 </p>
             </li>
             {/foreach}
