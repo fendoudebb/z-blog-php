@@ -120,10 +120,10 @@ class English extends BaseRoleNormal {
             }
         }
 
-        if (!ctype_alnum($word)) {
-            $this->log(ResCode::ILLEGAL_ARGUMENT_WORD);
-            return $this->fail(ResCode::ILLEGAL_ARGUMENT_WORD);
-        }
+//        if (!ctype_alnum($word)) {
+//            $this->log(ResCode::ILLEGAL_ARGUMENT_WORD);
+//            return $this->fail(ResCode::ILLEGAL_ARGUMENT_WORD);
+//        }
         $cmd = [
             'find' => 'english',
             'filter' => [
