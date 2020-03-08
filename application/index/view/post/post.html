@@ -369,11 +369,20 @@
         </div>
 
         <div id="post-comment">
-            {empty name="$post->postComment"}
-            <div class="shadow" style="padding: 16px 24px;">
-                <span style="font-size: 14px">暂无留言~</span>
+            <div class="shadow" style="padding: 16px 24px;text-align: left">
+                <div style="margin-bottom: 20px">
+                    昵称：
+                    <label>
+                        <input id="nickname" type="text" name="nickname" placeholder="请输入昵称...">
+                    </label>
+                </div>
+                <div style="position: relative">
+                    <textarea id="message" title="评论区" placeholder="请输入评论..."></textarea>
+                    <button id="submitBtn" class="button" title="评论">评论</button>
+                </div>
+                <p id="error-hint" style="color: red;font-size: 14px" hidden></p>
             </div>
-            {else /}
+            {notempty name="$post->postComment"}
             <ul>
                 {foreach $post->postComment as $comment}
                 <li class="shadow">
@@ -406,21 +415,7 @@
                 </li>
                 {/foreach}
             </ul>
-            {/empty}
-
-            <div class="shadow" style="padding: 16px 24px;text-align: left">
-                <div style="margin-bottom: 20px">
-                    昵称：
-                    <label>
-                        <input id="nickname" type="text" name="nickname" placeholder="请输入昵称...">
-                    </label>
-                </div>
-                <div style="position: relative">
-                    <textarea id="message" title="评论区" placeholder="请输入评论..."></textarea>
-                    <button id="submitBtn" class="button" title="评论">评论</button>
-                </div>
-                <p id="error-hint" style="color: red;font-size: 14px" hidden></p>
-            </div>
+            {/notempty}
         </div>
 
         <div>
