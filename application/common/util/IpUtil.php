@@ -131,7 +131,7 @@ class IpUtil {
     private function queryTaobaoIp($ip) {
         $address = null;
         try {
-            $result = doGet("http://ip.taobao.com/service/getIpInfo.php?ip=" . $ip);
+            $result = doGet("http://ip.taobao.com/getIpInfo.php?ip=" . $ip);
             Log::log($ip.": ip-type: " . gettype($result) . ", value: " . $result);
             $address = $this->decodeResult($result);
         } catch (Exception $e) {
