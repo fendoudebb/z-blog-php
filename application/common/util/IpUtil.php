@@ -140,11 +140,34 @@ class IpUtil {
         return $address;
     }
 
-    private function decodeResult($result) {
+    private function decodeResult2($result) {
         $address = null;
         $result = json_decode($result);
         if ($result != null && $result->code === 0) {
             $address = $result->data;
+        }
+        return $address;
+
+    }
+
+    private function decodeResult($result) {
+        $address = null;
+        $result = json_decode($result);
+        if ($result != null && $result->code === "0") {
+            $address = $result->data;
+            $address->ip = $address->QUERY_IP;//ip
+            $address->country = $address->COUNTRY_CN;//国家
+            $address->country_id = $address->COUNTRY_CODE;//国家id
+            $address->area = $address->AREA_CN;//地区
+            $address->area_id = $address->AREA_CODE;//地区id
+            $address->region = $address->PROVINCE_CN;//省份
+            $address->region_id = $address->PROVINCE_CODE;//省份id
+            $address->city = $address->CITY_CN;//城市
+            $address->city_id = $address->CITY_CODE;//城市id
+            $address->county = $address->COUNTY_CN;//县
+            $address->county_id = $address->COUNTY_CODE;//县
+            $address->isp = $address->ISP_CN;//ISP
+            $address->isp_id = $address->ISP_CODE;//ISP id
         }
         return $address;
 
