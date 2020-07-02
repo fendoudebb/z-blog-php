@@ -48,7 +48,7 @@ class EventTracing {
         if (isset($referer)) {
             $document['referer'] = $referer;
         }
-        if (strpos($url, '/search/') === 0) {
+        if (strpos($url, '/search/') === 0 || strpos($url, '/m/search/') === 0) {
             $search = $request->route('q');
             $took = $request->__get("took");
             $hits = $request->__get("hits");
@@ -77,8 +77,11 @@ class EventTracing {
             ];
             Mongo::cmd($insertSearchStatsCmd);
         }
+
+        $record = strpos($url, '/m/') === 0 ? 'mobile_api_record' : 'page_view_record';
+
         $insertPageViewRecordCmd = [
-            'insert' => 'page_view_record',
+            'insert' => $record,
             'documents' => [
                 $document
             ]
@@ -100,7 +103,7 @@ class EventTracing {
                 ]
             ]);
         }*/
-        if (strpos($url, '/p/') === 0) {
+        if (strpos($url, '/p/') === 0 || strpos($url, '/m/p/') === 0) {
             $postId = $request->route('postId');
             if (!isset($postId)) {
                 Log::log('event tracing post id is empty');

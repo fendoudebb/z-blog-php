@@ -103,6 +103,16 @@ function compressHtml($content) {
     return $compressContent;
 }
 
+function timeFormatYmd($postTime) {
+    //当前时间的时间戳
+    if ($postTime instanceof UTCDateTime) {
+        $dateTime = $postTime->toDateTime();
+        $dateTime->setTimezone(new DateTimeZone("Asia/Shanghai"));//date_default_timezone_get()
+        $postTime = $dateTime->format("Y-m-d");
+    }
+    return $postTime;
+}
+
 function timeFormat($postTime) {
     //当前时间的时间戳
     if ($postTime instanceof UTCDateTime) {

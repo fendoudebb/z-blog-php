@@ -95,6 +95,13 @@ Route::post('/leave-a-message', 'index/MessageLeave/leaveMessage');
 Route::post('/query/ip', 'index/QueryIp/queryIp');
 Route::post('/query/result', 'index/QueryIp/queryResult');
 
+
+Route::get('/wechat/push', 'wechat/WechatPush/push');
+
+Route::get('/m/index', 'mobile/MobileIndex/index');
+Route::get('/m/p/:postId', 'mobile/MobilePost/post', ['postId' => '\d+']);
+Route::get('/m/search/:q', 'mobile/MobileSearch/search');
+
 return [
 
 ];
