@@ -490,8 +490,8 @@
 
         $.post("/post/comment", data,function (data) {
             if (data.code === 200) {
-                window.location.reload();
-                // window.location.href=window.location.href;
+                // window.location.reload();
+                window.location.href=location.href;
             } else {
                 $submitBtn.bind('click', clickFunc);
                 $errorHint.html("评论失败~");
